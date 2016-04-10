@@ -1,5 +1,8 @@
 package com.aktit.spark.testing
 
+import org.apache.spark.{SparkConf, SparkContext}
+import org.scalatest.{BeforeAndAfterAll, FunSuite, Matchers}
+
 /**
   * Base test case for spark tests
   *

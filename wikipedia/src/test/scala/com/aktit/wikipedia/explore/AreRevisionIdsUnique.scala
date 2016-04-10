@@ -1,6 +1,7 @@
 package com.aktit.wikipedia.explore
 
 import com.aktit.wikipedia.dto.Page
+import org.apache.spark.{SparkConf, SparkContext}
 
 /**
   * @author kostas.kougios

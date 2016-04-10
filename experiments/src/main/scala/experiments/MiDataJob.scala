@@ -3,6 +3,8 @@ package experiments
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
+import org.apache.spark.{SparkConf, SparkContext}
+
 /**
   * I use this to check where I spend money by downloading midata from my bank account
   *

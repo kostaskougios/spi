@@ -1,5 +1,7 @@
 package com.aktit.phoenix
 
+import org.apache.spark.{Logging, SparkConf, SparkContext}
+
 /**
   * CREATE TABLE OUTPUT_TEST_TABLE (id BIGINT NOT NULL PRIMARY KEY, col1 VARCHAR, col2 INTEGER) SALT_BUCKETS = 8;
   *
@@ -17,6 +19,7 @@ object SamplePopulateJob extends Logging
 		val sc = new SparkContext(conf)
 
 		try {
+			import org.apache.phoenix.spark._
 
 			val seq = for (i <- 1l to numOfRows by numOfRows / Divider) yield i
 

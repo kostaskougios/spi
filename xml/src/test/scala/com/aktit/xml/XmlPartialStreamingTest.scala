@@ -1,5 +1,9 @@
 package com.aktit.xml
 
+import org.apache.commons.io.IOUtils
+import org.scalatest.FunSuite
+import org.scalatest.Matchers._
+
 /**
   * @author kostas.kougios
   */

@@ -3,6 +3,7 @@ package com.aktit.wikipedia
 import com.aktit.spark.testing.BaseSparkSuite
 import com.aktit.wikipedia.IngestWikipediaJob._
 import com.aktit.wikipedia.dto.{ContributorIP, ContributorUnknown, ContributorUser}
+import org.joda.time.DateTime
 
 /**
   * @author kostas.kougios

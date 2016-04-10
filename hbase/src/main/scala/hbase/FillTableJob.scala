@@ -1,5 +1,11 @@
 package hbase
 
+import org.apache.hadoop.conf.Configuration
+import org.apache.hadoop.hbase.client.Put
+import org.apache.hadoop.hbase.mapreduce.TableOutputFormat
+import org.apache.hadoop.io.LongWritable
+import org.apache.spark.{SparkConf, SparkContext}
+
 /**
   * Fills an hbase nosql table with key/values. For phoenix sql tables please see the phoenix project
   *

@@ -1,5 +1,9 @@
 package hbase
 
+import org.apache.hadoop.hbase.TableName
+
+import scala.collection.JavaConverters._
+
 /**
   * run
   *

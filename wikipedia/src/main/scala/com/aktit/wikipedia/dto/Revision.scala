@@ -1,5 +1,7 @@
 package com.aktit.wikipedia.dto
 
+import org.joda.time.DateTime
+
 /**
   * @author kostas.kougios
   *         Date: 23/09/15

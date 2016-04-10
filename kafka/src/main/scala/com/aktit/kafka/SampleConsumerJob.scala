@@ -1,5 +1,10 @@
 package com.aktit.kafka
 
+import kafka.serializer.StringDecoder
+import org.apache.spark.SparkConf
+import org.apache.spark.streaming._
+import org.apache.spark.streaming.kafka._
+
 /**
   * a spark streaming job that consumes a kafka stream every 2 seconds
   *

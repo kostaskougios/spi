@@ -4,6 +4,11 @@ import java.sql.Timestamp
 
 import com.aktit.spark.testing.BaseSparkSuite
 import com.aktit.testconfig.Config
+import org.apache.spark.sql.SQLContext
+import org.joda.time.DateTime
+import scalikejdbc._
+
+import scala.util.Try
 
 /**
   * @author kostas.kougios

@@ -28,8 +28,6 @@ lazy val common = project.settings(commonSettings: _*).settings(
 		Seq(
 			Libraries.ScalaTest,
 			Libraries.Mockito,
-			Libraries.Kryo,
-			Libraries.AkkaKryo,
 			Spark.Core,
 			Libraries.SlfLog4j,
 			Libraries.Apache.Lang3,

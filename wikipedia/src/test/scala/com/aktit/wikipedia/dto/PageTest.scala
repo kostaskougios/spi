@@ -1,6 +1,8 @@
 package com.aktit.wikipedia.dto
 
 import com.aktit.wikipedia.Data
+import org.scalatest.FunSuite
+import org.scalatest.Matchers._
 
 /**
   * @author kostas.kougios

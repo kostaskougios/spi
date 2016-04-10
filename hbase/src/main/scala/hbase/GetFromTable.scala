@@ -1,5 +1,9 @@
 package hbase
 
+import com.google.common.primitives.Ints
+import org.apache.hadoop.hbase.TableName
+import org.apache.hadoop.hbase.client.Get
+
 /**
   * run
   *

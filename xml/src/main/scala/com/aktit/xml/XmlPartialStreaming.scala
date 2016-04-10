@@ -6,6 +6,10 @@ import javax.xml.stream.events._
 
 import com.aktit.utils.FailFast
 import com.sun.xml.internal.stream.events.DummyEvent
+import org.apache.commons.lang3.StringEscapeUtils
+
+import scala.collection.JavaConverters._
+import scala.xml.{Node, XML}
 
 /**
   * xml stram-parsing libraries proved to be rubbish.

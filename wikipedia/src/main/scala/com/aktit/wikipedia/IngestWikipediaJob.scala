@@ -2,6 +2,13 @@ package com.aktit.wikipedia
 
 import com.aktit.wikipedia.dto._
 import com.aktit.xml.XmlPartialStreaming
+import org.apache.commons.lang3.StringUtils
+import org.apache.spark.input.PortableDataStream
+import org.apache.spark.rdd.RDD
+import org.apache.spark.{Logging, SparkConf, SparkContext}
+import org.joda.time.DateTime
+
+import scala.xml.NodeSeq
 
 /**
   * convert the xml files into Page
