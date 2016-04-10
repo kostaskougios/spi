@@ -1,8 +1,6 @@
-This is a sample scala/spark project. It contains very simple integration examples and also a couple of a bit more
-complex processing jobs.
+This is a sample scala/spark project. It contains very simple integration examples and also a couple of a bit more complex processing jobs.
 
-For a good spark example, please see the wikipedia project, it contains code to process wikipedia exports (xml files)
-and export them into 2 different tables. A total of 3 jobs (and their test cases):
+For a good spark example, please see the wikipedia project, it contains code to process wikipedia exports (xml files) and export them into 2 different tables. A total of 3 jobs (and their test cases):
 
 - IngestWikipediaJob : convert the xml's into our serializable dto "Page". It stores it into hdfs for post-processing
 
@@ -20,8 +18,7 @@ bin/wikipedia-ingest-job
 
 to run IngestWikipediaJob.
 
-I submit these jobs to my home hadoop cluster (hadoop, hbase, zookeeper, kafka) of 3x virtual servers running on
-a 16 core opteron - 64GB RAM server. I manually do the installations by downloading the tar.gz files.
+I submit these jobs to my home hadoop cluster (hadoop, hbase, zookeeper, kafka) of 3x virtual servers running on a 16 core opteron - 64GB RAM server. I manually do the installations by downloading the tar.gz files.
 
 
 Other examples include:
