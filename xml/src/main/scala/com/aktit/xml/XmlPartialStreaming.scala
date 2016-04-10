@@ -12,8 +12,6 @@ import scala.collection.JavaConverters._
 import scala.xml.{Node, XML}
 
 /**
-  * xml stram-parsing libraries proved to be rubbish.
-  *
   * @author kostas.kougios
   */
 class XmlPartialStreaming
