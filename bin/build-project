@@ -1,0 +1,31 @@
+if [ "$#" -ne 1 ]; then
+    echo "please provide project name, i.e. sql"
+    exit -1
+fi
+
+PROJECT=$1
+
+echo "Building $PROJECT"
+
+sbt "clean" "project $PROJECT" "pack"
+
+WD=`pwd`
+rm -r -f /tmp/$PROJECT-job
+mkdir /tmp/$PROJECT-job
+
+cd /tmp/$PROJECT-job
+
+echo "unpacking"
+
+# these are part of spark.jar
+rm $WD/$PROJECT/target/pack/lib/scala-compiler-*
+rm $WD/$PROJECT/target/pack/lib/scala-library-*
+
+find $WD/$PROJECT/target/pack/lib/ -name '*.jar' -exec jar xf {} \;
+
+echo "repacking"
+
+rm -f META-INF/* 2> /dev/null
+jar cf $WD/target/$PROJECT.jar *
+
+echo "done, jar is $WD/target/$PROJECT.jar"

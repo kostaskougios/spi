@@ -1,0 +1,1 @@
+hadoop jar programs/phoenix/phoenix-4.5.1-HBase-1.1-client.jar org.apache.phoenix.mapreduce.CsvBulkLoadTool --table mytable --input /data.csv --zookeeper nn.lan

@@ -1,0 +1,33 @@
+This is a sample scala/spark project. It contains very simple integration examples and also a couple of a bit more
+complex processing jobs.
+
+For a good spark example, please see the wikipedia project, it contains code to process wikipedia exports (xml files)
+and export them into 2 different tables. A total of 3 jobs (and their test cases):
+
+- IngestWikipediaJob : convert the xml's into our serializable dto "Page". It stores it into hdfs for post-processing
+
+- PagesToDatabaseJob : imports the hdfs Page file and upserts it into several hbase/phoenix tables
+
+- WordsPerRevision : imports the hdfs Page file and creates a counts hbase/phoenix table
+
+You can run those locally within your ide or build them and execute them at your hadoop cluster. To build them do:
+
+bin/build-project wikipedia
+
+This will create a fat-jar with the wikipedia code. Then:
+
+bin/wikipedia-ingest-job
+
+to run IngestWikipediaJob.
+
+
+Other examples include:
+
+- sample hbase job in hbase project, FillTableJob.
+
+- sample kafka/spark streaming code in kafka project
+
+- sample hbase/phoenix code in phoenix / SamplePopulateJob
+
+- spark sql (TODO)
+

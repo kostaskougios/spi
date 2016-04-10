@@ -1,0 +1,13 @@
+
+JAR=target/wikipedia.jar
+
+spark-submit --class com.aktit.wikipedia.PagesToDatabaseJob \
+	--driver-memory 1g \
+	--executor-memory 2g \
+	--conf spark.yarn.executor.memoryOverhead=768 \
+	--executor-cores 4 \
+	--num-executors 3 \
+	--master yarn-cluster \
+	--conf spark.src=/wikipedia/serialized \
+	--conf spark.hbase.zookeeper=nn.lan \
+	$JAR
