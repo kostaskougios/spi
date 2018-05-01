@@ -11,7 +11,7 @@ import org.scalatest.{BeforeAndAfterAll, FunSuite, Matchers}
 abstract class BaseSparkSuite extends FunSuite with Matchers with BeforeAndAfterAll
 {
 
-	val sc = new SparkContext(conf)
+	protected val sc = new SparkContext(conf)
 
 	protected def conf = new SparkConf().setAppName(getClass.getName).setMaster("local")
 
