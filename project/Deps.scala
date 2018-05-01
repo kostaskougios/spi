@@ -44,7 +44,7 @@ object Deps
 		val Config = "com.typesafe" % "config" % "1.3.0"
 		val JodaConvert = "org.joda" % "joda-convert" % "1.7"
 		val SlfLog4j = "org.slf4j" % "slf4j-log4j12" % "1.7.12"
-		val ScalaTest = "org.scalatest" %% "scalatest" % "2.2.6" % "test"
+		val ScalaTest = "org.scalatest" %% "scalatest" % "3.0.5" % "test"
 		val Mockito = "org.mockito" % "mockito-all" % "1.10.19" % "test"
 
 		val PhoenixClient = Seq(
@@ -59,14 +59,9 @@ object Deps
 		object Apache
 		{
 			val CommonsDBCP2 = "org.apache.commons" % "commons-dbcp2" % "2.1"
-			val Lang3 = "org.apache.commons" % "commons-lang3" % "3.4"
-			val CommonsIO = "commons-io" % "commons-io" % "2.4"
-			val Pool2 = "org.apache.commons" % "commons-pool2" % "2.3"
-		}
-
-		object Play
-		{
-			val Json = "com.typesafe.play" %% "play-json" % "2.4.3"
+			val Lang3 = "org.apache.commons" % "commons-lang3" % "3.7"
+			val CommonsIO = "commons-io" % "commons-io" % "2.6"
+			val Pool2 = "org.apache.commons" % "commons-pool2" % "2.5.0"
 		}
 
 	}
