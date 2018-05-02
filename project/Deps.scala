@@ -3,7 +3,7 @@ import sbt._
 object Deps
 {
 	val ScalaVersion = "2.11.8"
-	val PhoenixVersion = "4.5.2-HBase-1.1"
+	val PhoenixVersion = "4.13.1-HBase-1.2"
 
 	object Scala
 	{
