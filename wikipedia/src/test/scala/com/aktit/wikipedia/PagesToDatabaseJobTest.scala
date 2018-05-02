@@ -24,6 +24,8 @@ class PagesToDatabaseJobTest extends BaseSparkSuite
 	implicit val session = AutoSession
 	val sqlContext = new SQLContext(sc)
 
+	import sqlContext.implicits._
+
 	test("preparePageTable") {
 		preparePageTable(sc.parallelize(Seq(Page1a, Page2))).collect().toSet should be(Set(
 			(1, "en", "page1", "redirect1"),

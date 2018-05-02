@@ -23,7 +23,7 @@ object SampleConsumerJob
 		val ssc = new StreamingContext(conf, Seconds(2))
 		try {
 
-			val messages = KafkaUtils.createDirectStream[String, String, StringDecoder, StringDecoder](ssc, kafkaParams, topics)
+			val messages = KafkaUtils.createDirectStream[String, String](ssc, kafkaParams, topics)
 			messages.foreachRDD {
 				rdd =>
 					rdd.foreach {
