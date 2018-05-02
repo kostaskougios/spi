@@ -2,9 +2,9 @@ package com.aktit.wikipedia
 
 import com.aktit.wikipedia.dto.{ContributorUser, Page}
 import org.apache.phoenix.spark._
+import org.apache.spark.internal.Logging
 import org.apache.spark.rdd.RDD
-import org.apache.spark.{Logging, SparkConf, SparkContext}
-
+import org.apache.spark.{SparkConf, SparkContext}
 /**
   * Inserts Page's into hbase/phoenix database
   *

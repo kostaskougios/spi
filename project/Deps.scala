@@ -13,7 +13,7 @@ object Deps
 
 	object Spark
 	{
-		val Version = "1.6.1"
+		val Version = "2.3.0"
 		val Core = "org.apache.spark" %% "spark-core" % Version % "provided"
 		val Streaming = "org.apache.spark" %% "spark-streaming" % Version
 		val GraphX = "org.apache.spark" %% "spark-graphx" % Version % "provided"
@@ -36,7 +36,7 @@ object Deps
 
 	object Kafka
 	{
-		val KafkaStreaming = "org.apache.spark" %% "spark-streaming-kafka" % Spark.Version
+		val KafkaStreaming = "org.apache.spark" %% "spark-streaming-kafka-0-10" % Spark.Version
 	}
 
 	object Libraries

@@ -4,9 +4,9 @@ import java.util.StringTokenizer
 
 import com.aktit.wikipedia.dto.Page
 import org.apache.phoenix.spark._
+import org.apache.spark.internal.Logging
 import org.apache.spark.rdd.RDD
-import org.apache.spark.{Logging, SparkConf, SparkContext}
-
+import org.apache.spark.{SparkConf, SparkContext}
 /**
   * Inserts word counts into hbase/phoenix database
   *

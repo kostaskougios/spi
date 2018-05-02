@@ -1,6 +1,7 @@
 package com.aktit.phoenix
 
-import org.apache.spark.{Logging, SparkConf, SparkContext}
+import org.apache.spark.internal.Logging
+import org.apache.spark.{SparkConf, SparkContext}
 
 /**
   * CREATE TABLE OUTPUT_TEST_TABLE (id BIGINT NOT NULL PRIMARY KEY, col1 VARCHAR, col2 INTEGER) SALT_BUCKETS = 8;

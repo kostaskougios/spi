@@ -1,6 +1,7 @@
 package com.aktit.testjob
 
-import org.apache.spark.{Logging, SparkConf, SparkContext}
+import org.apache.spark.internal.Logging
+import org.apache.spark.{SparkConf, SparkContext}
 
 /**
   * @author kostas.kougios

@@ -4,8 +4,9 @@ import com.aktit.wikipedia.dto._
 import com.aktit.xml.XmlPartialStreaming
 import org.apache.commons.lang3.StringUtils
 import org.apache.spark.input.PortableDataStream
+import org.apache.spark.internal.Logging
 import org.apache.spark.rdd.RDD
-import org.apache.spark.{Logging, SparkConf, SparkContext}
+import org.apache.spark.{SparkConf, SparkContext}
 import org.joda.time.DateTime
 
 import scala.xml.NodeSeq
