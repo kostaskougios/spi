@@ -1,17 +1,19 @@
 package com.aktit.xml
 
 import java.io.{InputStream, StringWriter}
-import javax.xml.stream.XMLInputFactory
-import javax.xml.stream.events._
 
 import com.aktit.utils.FailFast
 import com.sun.xml.internal.stream.events.DummyEvent
+import javax.xml.stream.XMLInputFactory
+import javax.xml.stream.events._
 import org.apache.commons.lang3.StringEscapeUtils
 
 import scala.collection.JavaConverters._
 import scala.xml.{Node, XML}
 
 /**
+  * Loads each scala.xml.Node at a time, avoiding loading the whole xml into memory.
+  *
   * @author kostas.kougios
   */
 class XmlPartialStreaming

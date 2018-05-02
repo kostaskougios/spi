@@ -11,7 +11,9 @@ import org.joda.time.DateTime
 import scala.xml.NodeSeq
 
 /**
-  * convert the xml files into Page
+  * Convert the xml files into Page.
+  *
+  * Run it on production via bin/wikipedia-ingest-job
   *
   * @author kostas.kougios
   */

@@ -18,9 +18,9 @@ resolvers in ThisBuild += "cloudera" at "https://repository.cloudera.com/artifac
 
 val commonSettings = Seq(
 	version := "1.0",
-	ivyScala := ivyScala.value map {
-		_.copy(overrideScalaVersion = true)
-	}
+	//	ivyScala := ivyScala.value map {
+	//		_.copy(overrideScalaVersion = true)
+	//	}
 )
 
 lazy val common = project.settings(commonSettings: _*).settings(
@@ -49,7 +49,7 @@ lazy val xml = project.settings(commonSettings: _*).settings(
 ).dependsOn(common % "test->test;compile->compile")
 
 lazy val sql = project.settings(commonSettings: _*).settings(
-	packAutoSettings,
+	//	xerial.sbt.Pack.packAutoSettings,
 	libraryDependencies ++= {
 		Seq(
 			Libraries.ScalaTest,
@@ -63,9 +63,10 @@ lazy val sql = project.settings(commonSettings: _*).settings(
 	// makes sure "provided" deps are part of the runtime classpath
 	classpathConfiguration in Runtime := Configurations.CompileInternal
 ).dependsOn(common % "test->test;compile->compile", xml)
+	.enablePlugins(PackPlugin)
 
 lazy val phoenix = project.settings(commonSettings: _*).settings(
-	packAutoSettings,
+	//	xerial.sbt.Pack.packAutoSettings,
 	libraryDependencies ++= {
 		Seq(
 			Libraries.ScalaTest,
@@ -82,9 +83,10 @@ lazy val phoenix = project.settings(commonSettings: _*).settings(
 	// makes sure "provided" deps are part of the runtime classpath
 	classpathConfiguration in Runtime := Configurations.CompileInternal
 ).dependsOn(common % "test->test;compile->compile", xml)
+	.enablePlugins(PackPlugin)
 
 lazy val hbase = project.settings(commonSettings: _*).settings(
-	packAutoSettings,
+	//	xerial.sbt.Pack.packAutoSettings,
 	libraryDependencies ++= {
 		Seq(
 			Libraries.ScalaTest,
@@ -101,9 +103,10 @@ lazy val hbase = project.settings(commonSettings: _*).settings(
 	// makes sure "provided" deps are part of the runtime classpath
 	classpathConfiguration in Runtime := Configurations.CompileInternal
 ).dependsOn(common % "test->test;compile->compile")
+	.enablePlugins(PackPlugin)
 
 lazy val wikipedia = project.settings(commonSettings: _*).settings(
-	packAutoSettings,
+	//	xerial.sbt.Pack.packAutoSettings,
 	libraryDependencies ++= {
 		Seq(
 			Libraries.ScalaTest,
@@ -122,9 +125,10 @@ lazy val wikipedia = project.settings(commonSettings: _*).settings(
 	// makes sure "provided" deps are part of the runtime classpath
 	classpathConfiguration in Runtime := Configurations.CompileInternal
 ).dependsOn(common % "test->test;compile->compile", xml)
+	.enablePlugins(PackPlugin)
 
 lazy val kafka = project.settings(commonSettings: _*).settings(
-	packAutoSettings,
+	//	xerial.sbt.Pack.packAutoSettings,
 	libraryDependencies ++= {
 		Seq(
 			Libraries.ScalaTest,
@@ -140,9 +144,10 @@ lazy val kafka = project.settings(commonSettings: _*).settings(
 	// makes sure "provided" deps are part of the runtime classpath
 	classpathConfiguration in Runtime := Configurations.CompileInternal
 ).dependsOn(common % "test->test;compile->compile", xml)
+	.enablePlugins(PackPlugin)
 
 lazy val experiments = project.settings(commonSettings: _*).settings(
-	packAutoSettings,
+	//	xerial.sbt.Pack.packAutoSettings,
 	libraryDependencies ++= {
 		Seq(
 			Libraries.ScalaTest,
@@ -157,3 +162,4 @@ lazy val experiments = project.settings(commonSettings: _*).settings(
 	// makes sure "provided" deps are part of the runtime classpath
 	classpathConfiguration in Runtime := Configurations.CompileInternal
 ).dependsOn(common % "test->test;compile->compile", xml)
+	.enablePlugins(PackPlugin)
