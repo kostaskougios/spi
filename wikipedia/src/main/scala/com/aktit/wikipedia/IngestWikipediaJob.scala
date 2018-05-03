@@ -15,6 +15,7 @@ import scala.xml.NodeSeq
   * Convert the xml files into Page.
   *
   * Run it on production via bin/wikipedia-ingest-job.
+  *
   * Locally run it with say
   * -Dspark.src=hdfs://server.lan/wikipedia/src
   * -Dspark.out=/tmp/wikipedia/serialized2
@@ -34,7 +35,7 @@ object IngestWikipediaJob extends Logging
 		val sc = new SparkContext(conf)
 
 		try {
-			val rdd = sc.binaryFiles(src)
+			val rdd = sc.binaryFiles(src, minPartitions = 4)
 			val data = extractDataFromXml(rdd)
 			val merged = mergeByIdPerLang(data)
 			merged.saveAsObjectFile(out)
