@@ -8,13 +8,16 @@ object Deps
 	object Scala
 	{
 		val Reflect = "org.scala-lang" % "scala-reflect" % ScalaVersion
-		val Xml = "org.scala-lang.modules" %% "scala-xml" % "1.0.5"
+		val Xml = "org.scala-lang.modules" %% "scala-xml" % "1.1.0"
 	}
 
 	object Spark
 	{
 		val Version = "2.3.0"
-		val Core = "org.apache.spark" %% "spark-core" % Version % "provided"
+		val Core = Seq(
+			"org.apache.spark" %% "spark-core" % Version % "provided",
+			"com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.9.5"
+		) ++ Hadoop.All
 		val Streaming = "org.apache.spark" %% "spark-streaming" % Version
 		val GraphX = "org.apache.spark" %% "spark-graphx" % Version % "provided"
 		val Sql = "org.apache.spark" %% "spark-sql" % Version
@@ -24,6 +27,29 @@ object Deps
 		)
 
 		val HBaseSpark = "com.cloudera" % "spark-hbase" % "0.0.2-clabs"
+	}
+
+	object Hadoop
+	{
+		private val Version = "2.9.0"
+		val All = Seq(
+			"org.apache.hadoop" % "hadoop-annotations" % Version,
+			"org.apache.hadoop" % "hadoop-auth" % Version,
+			"org.apache.hadoop" % "hadoop-client" % Version,
+			"org.apache.hadoop" % "hadoop-common" % Version,
+			"org.apache.hadoop" % "hadoop-hdfs-client" % Version,
+			"org.apache.hadoop" % "hadoop-mapreduce-client-app" % Version,
+			"org.apache.hadoop" % "hadoop-mapreduce-client-common" % Version,
+			"org.apache.hadoop" % "hadoop-mapreduce-client-core" % Version,
+			"org.apache.hadoop" % "hadoop-mapreduce-client-jobclient" % Version,
+			"org.apache.hadoop" % "hadoop-mapreduce-client-shuffle" % Version,
+			"org.apache.hadoop" % "hadoop-yarn-api" % Version,
+			"org.apache.hadoop" % "hadoop-yarn-client" % Version,
+			"org.apache.hadoop" % "hadoop-yarn-common" % Version,
+			"org.apache.hadoop" % "hadoop-yarn-server-common" % Version,
+			"org.apache.hadoop" % "hadoop-yarn-server-nodemanager" % Version,
+			"org.apache.hadoop" % "hadoop-hdfs" % Version
+		)
 	}
 
 	object HBase

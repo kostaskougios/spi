@@ -19,6 +19,7 @@ import scala.xml.{Node, XML}
 class XmlPartialStreaming
 {
 	private val xmlInputFactory = XMLInputFactory.newInstance
+	xmlInputFactory.setProperty(XMLInputFactory.SUPPORT_DTD, false)
 
 	def parse(in: InputStream, filterElement: String): Iterator[Node] = {
 		FailFast.notNull(in, "in")

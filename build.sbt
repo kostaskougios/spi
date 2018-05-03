@@ -17,7 +17,7 @@ resolvers in ThisBuild += "neo4j" at "http://m2.neo4j.org/content/repositories/r
 resolvers in ThisBuild += "cloudera" at "https://repository.cloudera.com/artifactory/repo/"
 
 val commonSettings = Seq(
-	version := "1.0",
+	version := "1.0"
 	//	ivyScala := ivyScala.value map {
 	//		_.copy(overrideScalaVersion = true)
 	//	}
@@ -28,11 +28,10 @@ lazy val common = project.settings(commonSettings: _*).settings(
 		Seq(
 			Libraries.ScalaTest,
 			Libraries.Mockito,
-			Spark.Core,
 			Libraries.SlfLog4j,
 			Libraries.Apache.Lang3,
 			Libraries.Apache.CommonsIO
-		)
+		) ++ Spark.Core
 	},
 	classpathConfiguration in Runtime := Configurations.CompileInternal
 )
@@ -54,11 +53,10 @@ lazy val sql = project.settings(commonSettings: _*).settings(
 		Seq(
 			Libraries.ScalaTest,
 			Libraries.Mockito,
-			Spark.Core,
 			Spark.Sql,
 			Libraries.Apache.Lang3,
 			Libraries.Apache.CommonsIO
-		)
+		) ++ Spark.Core
 	},
 	// makes sure "provided" deps are part of the runtime classpath
 	classpathConfiguration in Runtime := Configurations.CompileInternal
@@ -71,14 +69,13 @@ lazy val phoenix = project.settings(commonSettings: _*).settings(
 		Seq(
 			Libraries.ScalaTest,
 			Libraries.Mockito,
-			Spark.Core,
 			Spark.Sql,
 			HBase.Client,
 			HBase.Common,
 			HBase.Server,
 			Libraries.Apache.Lang3,
 			Libraries.Apache.CommonsIO
-		) ++ Spark.Phoenix
+		) ++ Spark.Phoenix ++ Spark.Core
 	},
 	// makes sure "provided" deps are part of the runtime classpath
 	classpathConfiguration in Runtime := Configurations.CompileInternal
@@ -91,14 +88,13 @@ lazy val hbase = project.settings(commonSettings: _*).settings(
 		Seq(
 			Libraries.ScalaTest,
 			Libraries.Mockito,
-			Spark.Core,
 			Spark.Sql,
 			HBase.Client,
 			HBase.Common,
 			HBase.Server,
 			Libraries.Apache.Lang3,
 			Libraries.Apache.CommonsIO
-		) ++ Spark.Phoenix
+		) ++ Spark.Phoenix ++ Spark.Core
 	},
 	// makes sure "provided" deps are part of the runtime classpath
 	classpathConfiguration in Runtime := Configurations.CompileInternal
@@ -112,7 +108,6 @@ lazy val wikipedia = project.settings(commonSettings: _*).settings(
 			Libraries.ScalaTest,
 			Libraries.Mockito,
 			Libraries.JodaConvert,
-			Spark.Core,
 			Spark.Sql,
 			HBase.Client,
 			HBase.Common,
@@ -120,7 +115,7 @@ lazy val wikipedia = project.settings(commonSettings: _*).settings(
 			Libraries.SqlLike,
 			Libraries.Apache.Lang3,
 			Libraries.Apache.CommonsIO
-		) ++ Spark.Phoenix
+		) ++ Spark.Phoenix ++ Spark.Core
 	},
 	// makes sure "provided" deps are part of the runtime classpath
 	classpathConfiguration in Runtime := Configurations.CompileInternal
@@ -134,12 +129,11 @@ lazy val kafka = project.settings(commonSettings: _*).settings(
 			Libraries.ScalaTest,
 			Libraries.Mockito,
 			Libraries.JodaConvert,
-			Spark.Core,
 			Spark.Streaming,
 			Kafka.KafkaStreaming,
 			Libraries.Apache.Lang3,
 			Libraries.Apache.CommonsIO
-		)
+		) ++ Spark.Core
 	},
 	// makes sure "provided" deps are part of the runtime classpath
 	classpathConfiguration in Runtime := Configurations.CompileInternal
@@ -153,11 +147,10 @@ lazy val experiments = project.settings(commonSettings: _*).settings(
 			Libraries.ScalaTest,
 			Libraries.Mockito,
 			Libraries.JodaConvert,
-			Spark.Core,
 			Spark.Sql,
 			Libraries.Apache.Lang3,
 			Libraries.Apache.CommonsIO
-		)
+		) ++ Spark.Core
 	},
 	// makes sure "provided" deps are part of the runtime classpath
 	classpathConfiguration in Runtime := Configurations.CompileInternal
