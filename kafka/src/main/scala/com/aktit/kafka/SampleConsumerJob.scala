@@ -23,12 +23,17 @@ object SampleConsumerJob
 		val ssc = new StreamingContext(conf, Seconds(2))
 		try {
 
-			val messages = KafkaUtils.createDirectStream[String, String](ssc, kafkaParams, topics)
+			// NOTE: not sure if the below is correct
+			val messages = KafkaUtils.createDirectStream[String, String](
+				ssc,
+				LocationStrategies.PreferBrokers,
+				ConsumerStrategies.Subscribe[String, String](topics, kafkaParams)
+			)
 			messages.foreachRDD {
 				rdd =>
 					rdd.foreach {
-						case (s1, s2) =>
-							println(s"--------------------> ${Thread.currentThread} $s1 - $s2")
+						cr =>
+							println(s"--------------------> ${Thread.currentThread} ${cr.key} - ${cr.value}")
 					}
 			}
 			ssc.start()
