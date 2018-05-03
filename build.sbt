@@ -41,9 +41,8 @@ lazy val xml = project.settings(commonSettings: _*).settings(
 			Libraries.ScalaTest,
 			Libraries.Mockito,
 			Libraries.Apache.CommonsIO,
-			Libraries.Apache.Lang3,
-			Scala.Xml
-		)
+			Libraries.Apache.Lang3
+		) ++ Scala.Xml
 	}
 ).dependsOn(common % "test->test;compile->compile")
 
