@@ -7,9 +7,6 @@ import org.apache.spark.input.PortableDataStream
 import org.apache.spark.internal.Logging
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
-import org.joda.time.DateTime
-
-import scala.xml.NodeSeq
 
 /**
   * Convert the xml files into Page.
@@ -49,56 +46,9 @@ object IngestWikipediaJob extends Logging
 			logInfo(s"processing $file")
 			val name = StringUtils.substringAfterLast(file, "/")
 			val lang = name.substring(0, 2)
-			val xml = new XmlPartialStreaming
 			val in = xmlIn.open()
-			xml.parse(in, "page").map {
-				pageXml =>
-					try {
-						val revisionXml = pageXml \ "revision"
-						Page(
-							id = (pageXml \ "id").text.trim.toLong,
-							title = (pageXml \ "title").text.trim,
-							lang = lang,
-							redirect = (pageXml \ "redirect" \ "@title").headOption.map(_.text),
-							revisions = Seq(
-								Revision(
-									(revisionXml \ "id").text.trim.toLong,
-									extractParentId(revisionXml),
-									DateTime.parse((revisionXml \ "timestamp").text.trim),
-									extractContributor(revisionXml),
-									(revisionXml \ "comment").text.trim,
-									(revisionXml \ "model").text.trim,
-									(revisionXml \ "format").text.trim,
-									(revisionXml \ "text").text.trim,
-									(revisionXml \ "sha1").text.trim
-								)
-							)
-						)
-					} catch {
-						case e: Throwable =>
-							throw new RuntimeException(s"couldn't parse xml : $pageXml", e)
-					}
-			}
-	}
-
-	def extractParentId(revisionXml: NodeSeq): Long = (revisionXml \ "parentid").text.trim match {
-		case "" => -1l
-		case x => x.toLong
-	}
-
-	def extractContributor(revisionXml: NodeSeq): Contributor = {
-		val contributorXml = revisionXml \ "contributor"
-
-		if (contributorXml.flatMap(_.child).isEmpty) {
-			ContributorUnknown
-		} else {
-			(contributorXml \ "ip").isEmpty match {
-				case true =>
-					ContributorUser((contributorXml \ "id").text.trim.toLong, (contributorXml \ "username").text)
-				case false =>
-					ContributorIP((contributorXml \ "ip").text.trim)
-			}
-		}
+			val xml = new XmlPartialStreaming
+			xml.parse(in, "page").map(Page.fromXml(_, lang))
 	}
 
 	def mergeByIdPerLang(pages: RDD[Page]): RDD[Page] = pages.keyBy(p => s"${p.id}-${p.lang}").reduceByKey({

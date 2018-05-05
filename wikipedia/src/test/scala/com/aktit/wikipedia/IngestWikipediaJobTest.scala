@@ -2,7 +2,7 @@ package com.aktit.wikipedia
 
 import com.aktit.spark.testing.BaseSparkSuite
 import com.aktit.wikipedia.IngestWikipediaJob._
-import com.aktit.wikipedia.dto.{ContributorIP, ContributorUnknown, ContributorUser}
+import com.aktit.wikipedia.dto.{ContributorIP, ContributorUser}
 import org.joda.time.DateTime
 
 /**
@@ -73,11 +73,5 @@ class IngestWikipediaJobTest extends BaseSparkSuite
 
 	test("reduces pages by id and merges revisions, positive") {
 		mergeByIdPerLang(sc.parallelize(Seq(Page1a, Page1b))).collect().toSet should be(Set(Page1a.merge(Page1b)))
-	}
-
-	test("deleted contributor") {
-		extractContributor(<revision>
-			<contributor deleted="deleted"/>
-		</revision>) should be(ContributorUnknown)
 	}
 }
