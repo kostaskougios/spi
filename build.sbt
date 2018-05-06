@@ -17,7 +17,11 @@ resolvers in ThisBuild += "neo4j" at "http://m2.neo4j.org/content/repositories/r
 resolvers in ThisBuild += "cloudera" at "https://repository.cloudera.com/artifactory/repo/"
 
 val commonSettings = Seq(
-	version := "1.0"
+	version := "1.0",
+	excludeDependencies ++= Seq(
+		// commons-logging is replaced by jcl-over-slf4j
+		ExclusionRule("org.slf4j", "slf4j-log4j12")
+	)
 	//	ivyScala := ivyScala.value map {
 	//		_.copy(overrideScalaVersion = true)
 	//	}
@@ -28,7 +32,6 @@ lazy val common = project.settings(commonSettings: _*).settings(
 		Seq(
 			Libraries.ScalaTest,
 			Libraries.Mockito,
-			Libraries.SlfLog4j,
 			Libraries.Apache.Lang3,
 			Libraries.Apache.CommonsIO
 		) ++ Spark.Core

@@ -71,7 +71,6 @@ object Deps
 	{
 		val Config = "com.typesafe" % "config" % "1.3.0"
 		val JodaConvert = "org.joda" % "joda-convert" % "1.7"
-		val SlfLog4j = "org.slf4j" % "slf4j-log4j12" % "1.7.12"
 		val ScalaTest = "org.scalatest" %% "scalatest" % "3.0.5" % "test"
 		val Mockito = "org.mockito" % "mockito-all" % "1.10.19" % "test"
 
