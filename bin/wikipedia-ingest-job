@@ -10,11 +10,12 @@ JAR=target/wikipedia.jar
 spark-submit --class com.aktit.wikipedia.IngestWikipediaJob \
 	--driver-memory 1g \
 	--executor-memory 8g \
-	--conf spark.executor.memoryOverhead=768 \
+	--conf spark.executor.memoryOverhead=4096 \
 	--executor-cores 8 \
 	--num-executors 1 \
-	--master yarn-cluster \
-	--conf spark.src=/wikipedia/src/articles.A-B/3_Biotech \
+	--master yarn \
+	--deploy-mode cluster \
+	--conf spark.src=/wikipedia/src \
 	--conf spark.out=/wikipedia/serialized \
 	--conf spark.local.dir=/tmp \
 	$JAR
