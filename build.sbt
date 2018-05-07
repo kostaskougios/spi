@@ -158,3 +158,19 @@ lazy val experiments = project.settings(commonSettings: _*).settings(
 	classpathConfiguration in Runtime := Configurations.CompileInternal
 ).dependsOn(common % "test->test;compile->compile", xml)
 	.enablePlugins(PackPlugin)
+
+lazy val loaders = project.settings(commonSettings: _*).settings(
+	//	xerial.sbt.Pack.packAutoSettings,
+	libraryDependencies ++= {
+		Seq(
+			Libraries.ScalaTest,
+			Libraries.Mockito,
+			Libraries.JodaConvert,
+			Libraries.Apache.Lang3,
+			Libraries.Apache.CommonsIO
+		) ++ Spark.Core
+	},
+	// makes sure "provided" deps are part of the runtime classpath
+	classpathConfiguration in Runtime := Configurations.CompileInternal
+).dependsOn(common % "test->test;compile->compile", xml)
+	.enablePlugins(PackPlugin)

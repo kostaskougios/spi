@@ -1,8 +1,8 @@
-package com.aktit.wikipedia
+package com.aktit.loaders
 
 import java.io.File
 
-import com.aktit.wikipedia.dto.WikiFile
+import com.aktit.loaders.dto.TextFile
 import org.apache.commons.io.FileUtils
 import org.apache.spark.internal.Logging
 import org.apache.spark.{SparkConf, SparkContext}
@@ -10,18 +10,18 @@ import org.apache.spark.{SparkConf, SparkContext}
 import scala.collection.JavaConverters.collectionAsScalaIterableConverter
 
 /**
-  * Wikipedia xml files are many single xml files. It takes a lot of time
-  * to upload those to hadoop via hdfs dfs -copyFromLocal and also to
-  * process them as single files is slower and tricky. Instead we
-  * serialize them to a big single hdfs file.
+  * It takes a lot of time to upload small files
+  * via hdfs dfs -copyFromLocal and also to
+  * process them as single files is slower.
+  * Instead we serialize them to a big single hdfs file.
   *
   * This needs to run locally on a machine with the wikipedia files. Run it with i.e.:
   *
-  * -Dspark.src=/home/ariskk/temp/articles -Dspark.out=hdfs://server.lan/wikipedia/src -Dspark.master=local[4]
+  * -Dspark.src=/home/ariskk/temp/articles -Dspark.extensions=xml -Dspark.out=hdfs://server.lan/wikipedia/src -Dspark.master=local[4]
   *
   * @author kostas.kougios
   */
-object UploadAndMergeXmlFilesToOneHdfsFile extends Logging
+object UploadAndMergeFilesToOneHdfsFile extends Logging
 {
 
 	def main(args: Array[String]): Unit = {
@@ -30,14 +30,15 @@ object UploadAndMergeXmlFilesToOneHdfsFile extends Logging
 		val src = conf.get("spark.src")
 		val srcDir = new File(src)
 		if (!srcDir.exists) throw new IllegalArgumentException(s"Source directory $src not found.")
+		val extensions = conf.get("spark.extensions").split(",")
 		val outDir = conf.get("spark.out")
 
 		val sc = new SparkContext(conf)
 
 		try {
-			val allFiles = FileUtils.listFiles(srcDir, Array("nxml"), true).asScala.toList
+			val allFiles = FileUtils.listFiles(srcDir, extensions, true).asScala.toList
 			logInfo(s"Files : ${allFiles.size}")
-			sc.parallelize(allFiles).map(WikiFile.fromFile).saveAsObjectFile(outDir)
+			sc.parallelize(allFiles).map(TextFile.fromFile).saveAsObjectFile(outDir)
 		} finally {
 			sc.stop()
 		}
