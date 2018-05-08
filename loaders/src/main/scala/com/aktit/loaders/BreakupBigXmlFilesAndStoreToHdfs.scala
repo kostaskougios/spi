@@ -1,8 +1,9 @@
 package com.aktit.loaders
 
-import java.io.File
+import java.io.{File, FileInputStream}
 
-import com.aktit.loaders.dto.TextFile
+import com.aktit.loaders.dto.XmlRow
+import com.aktit.xml.XmlPartialStreaming
 import org.apache.commons.io.FileUtils
 import org.apache.spark.internal.Logging
 import org.apache.spark.{SparkConf, SparkContext}
@@ -10,18 +11,16 @@ import org.apache.spark.{SparkConf, SparkContext}
 import scala.collection.JavaConverters.collectionAsScalaIterableConverter
 
 /**
-  * It takes a lot of time to upload small files
-  * via hdfs dfs -copyFromLocal and also to
-  * process them as single files is slower.
-  * Instead we serialize them to a big single hdfs file.
+  * Breaks up big xml files into small xml chunks which can be parallelized when
+  * processed on hadoop.
   *
   * This needs to run locally on a machine with the files. Run it with i.e.:
   *
-  * -Dspark.src=/home/ariskk/temp/articles -Dspark.file-extensions=xml -Dspark.out=hdfs://server.lan/wikipedia/src -Dspark.master=local[4]
+  * -Dspark.src=/home/ariskk/temp/articles -Dspark.file-extensions=xml -Dspark.breakup-element=page -Dspark.out=hdfs://server.lan/wikipedia/src -Dspark.master=local[4]
   *
   * @author kostas.kougios
   */
-object UploadAndMergeFilesToOneHdfsFile extends Logging
+object BreakupBigXmlFilesAndStoreToHdfs extends Logging
 {
 
 	def main(args: Array[String]): Unit = {
@@ -31,6 +30,7 @@ object UploadAndMergeFilesToOneHdfsFile extends Logging
 		val srcDir = new File(src)
 		if (!srcDir.exists) throw new IllegalArgumentException(s"Source directory $src not found.")
 		val fileExtensions = conf.get("spark.file-extensions").split(",")
+		val breakupElement = conf.get("spark.breakup-element")
 		val outDir = conf.get("spark.out")
 
 		val sc = new SparkContext(conf)
@@ -38,7 +38,13 @@ object UploadAndMergeFilesToOneHdfsFile extends Logging
 		try {
 			val allFiles = FileUtils.listFiles(srcDir, fileExtensions, true).asScala.toList
 			logInfo(s"Files : ${allFiles.size}")
-			sc.parallelize(allFiles).map(TextFile.fromFile).saveAsObjectFile(outDir)
+			sc.parallelize(allFiles)
+				.flatMap { file =>
+					logInfo(s"processing file $file")
+					val xml = new XmlPartialStreaming
+					xml.parse(new FileInputStream(file), breakupElement)
+						.map(XmlRow.apply)
+				}.saveAsObjectFile(outDir)
 		} finally {
 			sc.stop()
 		}
