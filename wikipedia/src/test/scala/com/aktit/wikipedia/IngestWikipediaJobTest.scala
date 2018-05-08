@@ -1,5 +1,6 @@
 package com.aktit.wikipedia
 
+import com.aktit.loaders.dto.XmlRow
 import com.aktit.spark.testing.BaseSparkSuite
 import com.aktit.wikipedia.IngestWikipediaJob._
 import com.aktit.wikipedia.dto.{ContributorIP, ContributorUser}
@@ -11,7 +12,55 @@ import org.joda.time.DateTime
   */
 class IngestWikipediaJobTest extends BaseSparkSuite
 {
-	val pages = extractDataFromXml(sc.binaryFiles("wikipedia/test-files/IngestWikipediaJobTest")).collect().toSeq
+	val pages = extractDataFromXml(
+		sc.parallelize(
+			List(
+				XmlRow("en_1.xml",
+					<page>
+						<title>AccessibleComputing</title>
+						<ns>0</ns>
+						<id>10</id>
+						<redirect title="Computer accessibility"/>
+						<revision>
+							<id>631144794</id>
+							<parentid>381202555</parentid>
+							<timestamp>2014-10-26T04:50:23Z</timestamp>
+							<contributor>
+								<ip>1.2.3.4</ip>
+							</contributor>
+							<comment>add [[WP:RCAT|rcat]]s</comment>
+							<model>wikitext</model>
+							<format>text/x-wiki</format>
+							<text xml:space="preserve">text1</text>
+							<sha1>4ro7vvppa5kmm0o1egfjztzcwd0vabw</sha1>
+						</revision>
+					</page>
+				),
+				XmlRow(
+					"us_2.xml",
+					<page>
+						<title>Autism</title>
+						<ns>0</ns>
+						<id>25</id>
+						<revision>
+							<id>674604893</id>
+							<parentid>674604120</parentid>
+							<timestamp>2015-08-05T00:44:14Z</timestamp>
+							<contributor>
+								<username>Flyer22</username>
+								<id>4293477</id>
+							</contributor>
+							<comment>Undid revision 674604120 by [[Special:Contributions/Zimmygirl7|Zimmygirl7]]</comment>
+							<model>wikitext</model>
+							<format>text/x-wiki</format>
+							<text xml:space="preserve">text2</text>
+							<sha1>nbh7faiiieiyqj6sapyrhvaoed0h6j2</sha1>
+						</revision>
+					</page>
+				)
+			)
+		)
+	).collect().toSeq
 
 	import Data._
 

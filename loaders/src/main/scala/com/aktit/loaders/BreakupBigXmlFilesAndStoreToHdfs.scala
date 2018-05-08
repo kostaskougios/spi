@@ -22,9 +22,7 @@ import scala.collection.JavaConverters.collectionAsScalaIterableConverter
   */
 object BreakupBigXmlFilesAndStoreToHdfs extends Logging
 {
-
 	def main(args: Array[String]): Unit = {
-
 		val conf = new SparkConf().setAppName(getClass.getName)
 		val src = conf.get("spark.src")
 		val srcDir = new File(src)
@@ -43,7 +41,7 @@ object BreakupBigXmlFilesAndStoreToHdfs extends Logging
 					logInfo(s"processing file $file")
 					val xml = new XmlPartialStreaming
 					xml.parse(new FileInputStream(file), breakupElement)
-						.map(XmlRow.apply)
+						.map(XmlRow(file.getName, _))
 				}.saveAsObjectFile(outDir)
 		} finally {
 			sc.stop()
