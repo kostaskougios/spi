@@ -44,8 +44,8 @@ object IngestWikipediaJob extends Logging
 			Page.fromXml(xmlRow.xml, lang)
 	}
 
-	def mergeByIdPerLang(pages: RDD[Page]): RDD[Page] = pages.keyBy(p => s"${p.id}-${p.lang}").reduceByKey({
-		(p1, p2) =>
-			p1.merge(p2)
-	}, 128).map(_._2)
+	def mergeByIdPerLang(pages: RDD[Page]) =
+		pages.keyBy(p => s"${p.id}-${p.lang}")
+			.reduceByKey(_.merge(_), 512)
+			.map(_._2)
 }

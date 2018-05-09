@@ -1,7 +1,7 @@
 
 echo "removing target dir"
 
-hdfs dfs -rmdir /wikipedia/serialized
+hdfs dfs -rm -r -f /wikipedia/serialized
 
 echo "submitting spark job"
 
@@ -10,8 +10,8 @@ JAR=target/wikipedia.jar
 spark-submit --class com.aktit.wikipedia.IngestWikipediaJob \
 	--driver-memory 1g \
 	--executor-memory 8g \
-	--conf spark.executor.memoryOverhead=4096 \
-	--executor-cores 8 \
+	--conf spark.executor.memoryOverhead=2048 \
+	--executor-cores 16 \
 	--num-executors 1 \
 	--master yarn \
 	--deploy-mode cluster \
