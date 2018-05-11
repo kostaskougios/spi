@@ -16,7 +16,7 @@ object Deps
 
 	object Spark
 	{
-		val Version = "2.3.0"
+		val Version = "2.3.0-hadoop-2.7.6-akt"
 		val Core = Seq(
 			"org.apache.spark" %% "spark-core" % Version % "provided",
 			"ch.qos.logback" % "logback-classic" % "1.2.3"
