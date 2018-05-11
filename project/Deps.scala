@@ -34,7 +34,7 @@ object Deps
 
 	object HBase
 	{
-		val Version = "1.1.2"
+		val Version = "2.0.0"
 		val Common = "org.apache.hbase" % "hbase-common" % Version
 		val Client = "org.apache.hbase" % "hbase-client" % Version
 		val Server = "org.apache.hbase" % "hbase-server" % Version
