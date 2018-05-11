@@ -16,13 +16,20 @@ import scala.collection.JavaConverters.collectionAsScalaIterableConverter
   *
   * This needs to run locally on a machine with the files. Run it with i.e.:
   *
-  * -Dspark.src=/home/ariskk/temp/articles -Dspark.file-extensions=xml -Dspark.breakup-element=page -Dspark.out=hdfs://server.lan/wikipedia/src -Dspark.master=local[4]
+  * -Dspark.src=/home/ariskk/temp/wikipedia
+  * -Dspark.out=hdfs://server.lan/wikipedia/src
+  * -Dspark.file-extensions=xml
+  * -Dspark.breakup-element=page
+  * -Dspark.serializer=org.apache.spark.serializer.KryoSerializer
+  * -Dspark.master=local[4]
   *
   * @author kostas.kougios
   */
 object BreakupBigXmlFilesAndStoreToHdfs extends Logging
 {
 	def main(args: Array[String]): Unit = {
+		XmlPartialStreaming.setup()
+
 		val conf = new SparkConf().setAppName(getClass.getName)
 		val src = conf.get("spark.src")
 		val srcDir = new File(src)

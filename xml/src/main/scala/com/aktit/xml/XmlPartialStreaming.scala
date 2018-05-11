@@ -4,12 +4,13 @@ import java.io.{InputStream, StringWriter}
 
 import com.aktit.utils.FailFast
 import com.sun.xml.internal.stream.events.DummyEvent
+import javax.xml.parsers.SAXParserFactory
 import javax.xml.stream.XMLInputFactory
 import javax.xml.stream.events._
 import org.apache.commons.lang3.StringEscapeUtils
 
 import scala.collection.JavaConverters._
-import scala.xml.{Node, XML}
+import scala.xml.{Node, SAXParser, Source, XML}
 
 /**
   * Loads each scala.xml.Node at a time, avoiding loading the whole xml into memory.
@@ -20,6 +21,14 @@ class XmlPartialStreaming
 {
 	private val xmlInputFactory = XMLInputFactory.newInstance
 	xmlInputFactory.setProperty(XMLInputFactory.SUPPORT_DTD, false)
+
+	private def newParser: SAXParser = {
+		val f = SAXParserFactory.newInstance
+		f.setNamespaceAware(false)
+		f.newSAXParser
+	}
+
+	private val parser = newParser
 
 	def parse(in: InputStream, filterElement: String): Iterator[Node] = {
 		FailFast.notNull(in, "in")
@@ -47,7 +56,8 @@ class XmlPartialStreaming
 							within = false
 							val xmlStr = xmlAsString.toString
 							try {
-								val n = XML.loadString(xmlStr)
+								parser.reset()
+								val n = XML.loadXML(Source.fromString(xmlStr), parser)
 								return n #:: nextElement
 							} catch {
 								case e: Throwable =>
@@ -83,4 +93,11 @@ class XmlPartialStreaming
 	}
 
 	private def toString(a: Attribute) = s"""${a.getName.getLocalPart}="${StringEscapeUtils.escapeXml11(a.getValue)}" """
+}
+
+object XmlPartialStreaming
+{
+	def setup(): Unit = {
+		System.setProperty("jdk.xml.totalEntitySizeLimit", "2147480000") // avoids Message: JAXP00010004: The accumulated size of entities is "50,000,001" that exceeded the "50,000,000" limit set by "FEATURE_SECURE_PROCESSING"
+	}
 }
