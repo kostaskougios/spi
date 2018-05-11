@@ -3,7 +3,7 @@ import sbt._
 object Deps
 {
 	val ScalaVersion = "2.11.8"
-	val PhoenixVersion = "4.13.1-HBase-1.2"
+	val PhoenixVersion = "5.0.0-alpha-HBase-2.0"
 
 	object Scala
 	{
@@ -16,7 +16,7 @@ object Deps
 
 	object Spark
 	{
-		val Version = "2.3.0-akt"
+		val Version = "2.3.0"
 		val Core = Seq(
 			"org.apache.spark" %% "spark-core" % Version % "provided",
 			"ch.qos.logback" % "logback-classic" % "1.2.3"
