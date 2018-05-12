@@ -42,7 +42,7 @@ bin/wikipedia-ingest-job
 to run IngestWikipediaJob.
 
 I submit these jobs to my home hadoop cluster (hadoop, hbase, zookeeper, kafka) of 3x virtual servers running on a 16 core opteron - 64GB RAM server.
-I manually did the installation of hadoop by downloading the tar.gz files and installing them on each virtual server.
+The installation of all servers is described in my linkedin account, https://www.linkedin.com/in/kostaskougios/
 
 
 Other examples include:
