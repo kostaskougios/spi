@@ -1,7 +1,7 @@
 
 echo "removing target dir"
 
-hdfs dfs -rm -r -f /wikipedia/serialized
+hdfs dfs -rm -r -f /wikipedia/pages
 
 echo "submitting spark job"
 
