@@ -16,6 +16,6 @@ spark-submit --class com.aktit.wikipedia.IngestWikipediaJob \
 	--master yarn \
 	--deploy-mode cluster \
 	--conf spark.src=/wikipedia/src \
-	--conf spark.out=/wikipedia/serialized \
+	--conf spark.out=/wikipedia/pages \
 	--conf spark.local.dir=/tmp \
 	$JAR

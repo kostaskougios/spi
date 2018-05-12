@@ -1,3 +1,5 @@
+-- DDL for the hbase wikipedia database
+
 -- drop
 
 drop table pages;

@@ -6,7 +6,9 @@ import org.apache.spark.internal.Logging
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 /**
-  * Inserts Page's into hbase/phoenix database
+  * Inserts Page's into hbase/phoenix database.
+  *
+  * Run ddl.sql against hbase before running this job.
   *
   * @author kostas.kougios
   */

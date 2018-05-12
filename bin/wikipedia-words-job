@@ -7,7 +7,8 @@ spark-submit --class com.aktit.wikipedia.WordsPerRevisionJob \
 	--conf spark.yarn.executor.memoryOverhead=512 \
 	--executor-cores 1 \
 	--num-executors 3 \
-	--master yarn-cluster \
-	--conf spark.src=/wikipedia/serialized \
-	--conf spark.hbase.zookeeper=nn.lan \
+	--master yarn \
+	--deploy-mode cluster \
+	--conf spark.src=/wikipedia/pages \
+	--conf spark.hbase.zookeeper=server.lan \
 	$JAR

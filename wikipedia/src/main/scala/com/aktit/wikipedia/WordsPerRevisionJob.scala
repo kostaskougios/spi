@@ -8,7 +8,9 @@ import org.apache.spark.internal.Logging
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 /**
-  * Inserts word counts into hbase/phoenix database
+  * Inserts word counts into hbase/phoenix database.
+  *
+  * Run ddl.sql against hbase before running this job.
   *
   * @author kostas.kougios
   */
@@ -53,6 +55,6 @@ object WordsPerRevisionJob extends Logging
 		while (tokenizer.hasMoreElements) {
 			b += tokenizer.nextToken()
 		}
-		b.result()
+		b.result
 	}
 }
