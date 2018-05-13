@@ -7,6 +7,32 @@ to hdfs and then process them on hadoop and export them into HBase tables (sql, 
 I always trying to use the latest hadoop and spark build for it. To actually build/run this project, please build spark first as per the
 instructions in this file.
 
+Steps to run the wikipedia code to process wikipedia xml files and copy them to hbase/phoenix tables:
+
+- build spark (see instructions below)
+- Download the wikipedia exports from https://dumps.wikimedia.org/backup-index.html . The EN language is the largest export, the EL language is small and can help for quicker tests.
+- The loaders project contains BreakupBigXmlFilesAndStoreToHdfs class which can be used to efficiently upload the xml files to hdfs for efficient spark processing. Run it
+with the JVM args as per the class comments.
+- Now you should have a /wikipedia folder in hdfs.
+- Run
+
+bin/build-project wikipedia
+
+to build the wikipedia fat jar which will contain all the spark jobs for wikipedia processing.
+
+- Inspect & run
+
+bin/wikipedia-ingest-job
+
+to run the 1st job that processes the wikipedia data to an easier to use format.
+
+- If you want to populate hbase/phoenix tables, create the tables as per wikipedia/ddl.sql and then run
+
+bin/wikipedia-populate-database-job
+bin/wikipedia-words-job
+
+Those jobs can run on the same time.
+
 -------------------------------
 1. BUILDING SPARK
 -------------------------------

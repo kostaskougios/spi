@@ -20,7 +20,6 @@ import scala.collection.JavaConverters.collectionAsScalaIterableConverter
   * -Dspark.out=hdfs://server.lan/wikipedia/src
   * -Dspark.file-extensions=xml
   * -Dspark.breakup-element=page
-  * -Dspark.serializer=org.apache.spark.serializer.KryoSerializer
   * -Dspark.master=local[4]
   *
   * @author kostas.kougios
