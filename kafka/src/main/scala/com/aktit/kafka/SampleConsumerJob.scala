@@ -35,7 +35,7 @@ object SampleConsumerJob
 			// NOTE: not sure if the below is correct
 			val messages = KafkaUtils.createDirectStream[String, String](
 				ssc,
-				LocationStrategies.PreferBrokers,
+				LocationStrategies.PreferConsistent,
 				ConsumerStrategies.Subscribe[String, String](topics, kafkaParams)
 			)
 			messages.foreachRDD {
