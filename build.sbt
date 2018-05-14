@@ -132,7 +132,8 @@ lazy val kafka = project.settings(commonSettings: _*).settings(
 			Libraries.Mockito,
 			Libraries.JodaConvert,
 			Spark.Streaming,
-			Kafka.KafkaStreaming,
+			Kafka.SparkStreaming,
+			Kafka.Clients,
 			Libraries.Apache.Lang3,
 			Libraries.Apache.CommonsIO
 		) ++ Spark.Core

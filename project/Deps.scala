@@ -42,7 +42,8 @@ object Deps
 
 	object Kafka
 	{
-		val KafkaStreaming = "org.apache.spark" %% "spark-streaming-kafka-0-10" % Spark.Version
+		val SparkStreaming = "org.apache.spark" %% "spark-streaming-kafka-0-10" % Spark.Version
+		val Clients = "org.apache.kafka" % "kafka-clients" % "1.1.0"
 	}
 
 	object Libraries

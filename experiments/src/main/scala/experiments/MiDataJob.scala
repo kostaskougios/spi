@@ -30,7 +30,7 @@ object MiDataJob
 			println("------------ Expenses per month ---------------")
 			expenses.groupBy(_.date.getMonth).map {
 				case (month, data) =>
-					val biggest = data.toList.sortBy(_.amount).head
+					val biggest = data.toList.minBy(_.amount)
 					(month, data.map(_.amount).sum, biggest)
 			}.foreach {
 				case (month, total, biggest) =>
