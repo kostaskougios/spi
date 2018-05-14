@@ -1,22 +1,31 @@
 package com.aktit.kafka
 
+import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming._
 import org.apache.spark.streaming.kafka010._
 
 /**
-  * a spark streaming job that consumes a kafka stream every 2 seconds
+  * A spark streaming job that consumes a kafka stream every 2 seconds.
+  *
+  * Create the topic via:
+  *
+  * kafka-topics.sh --create --zookeeper server.lan:2181 --replication-factor 1 --partitions 1 --topic test_spark
   *
   * @author kostas.kougios
   */
 object SampleConsumerJob
 {
 	def main(args: Array[String]): Unit = {
-		val brokers = "d1.lan:9092,d2.lan:9092,d3.lan:9092"
-		val topics = Set("test_topic")
-		val kafkaParams = Map(
-			"metadata.broker.list" -> brokers,
-			"auto.offset.reset" -> "smallest"
+		val topics = Set("test_spark")
+
+		val kafkaParams = Map[String, Object](
+			"bootstrap.servers" -> "server.lan:9092",
+			"key.deserializer" -> classOf[StringDeserializer],
+			"value.deserializer" -> classOf[StringDeserializer],
+			"group.id" -> SampleConsumerJob.getClass.getSimpleName,
+			"auto.offset.reset" -> "latest",
+			"enable.auto.commit" -> (false: java.lang.Boolean)
 		)
 
 		val conf = new SparkConf().setAppName(getClass.getName)
