@@ -39,11 +39,12 @@ object WikipediaPagesConsumerJob
 			)
 			messages.foreachRDD {
 				rdd =>
-					rdd.foreach {
-						record =>
-							val page = record.value
-							println(s"--------------------> ${Thread.currentThread} ${page.lang} - ${page.title}")
-					}
+					println(rdd.count())
+				//					rdd.foreach {
+				//						record =>
+				//							val page = record.value
+				//							println(s"--------------------> ${Thread.currentThread} ${page.lang} - ${page.title}")
+				//					}
 			}
 			ssc.start()
 			ssc.awaitTermination()
