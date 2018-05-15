@@ -16,14 +16,14 @@ import scala.collection.JavaConverters.iterableAsScalaIterableConverter
   *
   * Create the topic via:
   *
-  * kafka-topics.sh --create --zookeeper server.lan:2181 --replication-factor 1 --partitions 8 --topic ConsumeWikipediaPages
+  * kafka-topics.sh --create --zookeeper server.lan:2181 --replication-factor 1 --partitions 8 --topic WikipediaPages
   *
   * Then run this on a machine with the files.
   *
   * @author kostas.kougios
   *         15/05/18 - 11:27
   */
-object ConsumeWikipediaPages extends App
+object WikipediaPagesProducer extends App
 {
 	val brokers = "server.lan:9092"
 	val topic = "WikipediaPages"
@@ -32,7 +32,7 @@ object ConsumeWikipediaPages extends App
 
 	val props = new Properties()
 	props.put("bootstrap.servers", brokers)
-	props.put("client.id", "ConsumeWikipediaPages")
+	props.put("client.id", getClass.getSimpleName)
 	props.put("key.serializer", "org.apache.kafka.common.serialization.LongSerializer")
 	props.put("value.serializer", "com.aktit.kafka.serialization.PageSerializer")
 	//props.put("batch.size", "16384")

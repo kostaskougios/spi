@@ -23,7 +23,7 @@ object SampleConsumerJob
 			"bootstrap.servers" -> "server.lan:9092",
 			"key.deserializer" -> classOf[StringDeserializer],
 			"value.deserializer" -> classOf[StringDeserializer],
-			"group.id" -> SampleConsumerJob.getClass.getSimpleName,
+			"group.id" -> WikipediaPagesConsumerJob.getClass.getSimpleName,
 			"auto.offset.reset" -> "latest",
 			"enable.auto.commit" -> (false: java.lang.Boolean)
 		)

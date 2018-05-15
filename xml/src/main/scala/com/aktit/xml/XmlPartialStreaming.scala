@@ -15,6 +15,8 @@ import scala.xml.{Node, SAXParser, Source, XML}
 /**
   * Loads each scala.xml.Node at a time, avoiding loading the whole xml into memory.
   *
+  * Note: this class requires optimization/refactoring.
+  *
   * @author kostas.kougios
   */
 class XmlPartialStreaming
