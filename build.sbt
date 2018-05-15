@@ -38,6 +38,17 @@ lazy val common = project.settings(commonSettings: _*).settings(
 	},
 	classpathConfiguration in Runtime := Configurations.CompileInternal
 )
+
+lazy val model = project.settings(commonSettings: _*).settings(
+	libraryDependencies ++= {
+		Seq(
+			Libraries.ScalaTest,
+			Libraries.Apache.Lang3,
+			Libraries.Apache.CommonsIO
+		) ++ Scala.Xml
+	}
+)
+
 lazy val xml = project.settings(commonSettings: _*).settings(
 	libraryDependencies ++= {
 		Seq(
@@ -140,7 +151,7 @@ lazy val kafka = project.settings(commonSettings: _*).settings(
 	},
 	// makes sure "provided" deps are part of the runtime classpath
 	classpathConfiguration in Runtime := Configurations.CompileInternal
-).dependsOn(common % "test->test;compile->compile", xml)
+).dependsOn(common % "test->test;compile->compile", xml, model)
 	.enablePlugins(PackPlugin)
 
 lazy val experiments = project.settings(commonSettings: _*).settings(
@@ -173,5 +184,5 @@ lazy val loaders = project.settings(commonSettings: _*).settings(
 	},
 	// makes sure "provided" deps are part of the runtime classpath
 	classpathConfiguration in Runtime := Configurations.CompileInternal
-).dependsOn(common % "test->test;compile->compile", xml)
+).dependsOn(common % "test->test;compile->compile", model, xml)
 	.enablePlugins(PackPlugin)
