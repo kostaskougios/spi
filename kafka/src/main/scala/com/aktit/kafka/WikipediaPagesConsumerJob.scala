@@ -4,15 +4,18 @@ import com.aktit.kafka.serialization.PageDeserializer
 import com.aktit.wikipedia.dto.Page
 import org.apache.kafka.common.serialization.LongDeserializer
 import org.apache.spark.SparkConf
+import org.apache.spark.internal.Logging
 import org.apache.spark.streaming._
 import org.apache.spark.streaming.kafka010._
 
 /**
   * Spark stream job that consumes ConsumeWikipediaPages periodically.
   *
+  * Run it via bin/kafka-wikipedia-pages-consumer-job
+  *
   * @author kostas.kougios
   */
-object WikipediaPagesConsumerJob
+object WikipediaPagesConsumerJob extends Logging
 {
 	def main(args: Array[String]): Unit = {
 		val conf = new SparkConf().setAppName(getClass.getName)
@@ -39,7 +42,7 @@ object WikipediaPagesConsumerJob
 			)
 			messages.foreachRDD {
 				rdd =>
-					println(rdd.count())
+					logInfo(s"Consuming ${rdd.count} pages")
 				//					rdd.foreach {
 				//						record =>
 				//							val page = record.value

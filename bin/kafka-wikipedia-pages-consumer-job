@@ -1,0 +1,15 @@
+
+echo "submitting spark job"
+
+JAR=target/kafka.jar
+
+spark-submit --class com.aktit.kafka.WikipediaPagesConsumerJob \
+	--driver-memory 1g \
+	--executor-memory 2g \
+	--conf spark.executor.memoryOverhead=512 \
+	--executor-cores 8 \
+	--num-executors 1 \
+	--master yarn \
+	--deploy-mode cluster \
+	--conf spark.bootstrap.servers=server.lan:9092 \
+	$JAR
