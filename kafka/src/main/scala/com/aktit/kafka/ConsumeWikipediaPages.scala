@@ -2,6 +2,9 @@ package com.aktit.kafka
 
 import java.util.Properties
 
+import com.aktit.wikipedia.dto.Page
+import org.apache.kafka.clients.producer.KafkaProducer
+
 /**
   * Will break up the large wikipedia xml files and send each <page> element
   * to kafka.
@@ -18,7 +21,8 @@ object ConsumeWikipediaPages extends App
 	val props = new Properties()
 	props.put("bootstrap.servers", brokers)
 	props.put("client.id", "ConsumeWikipediaPages")
-	props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer")
-	props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer")
+	props.put("key.serializer", "org.apache.kafka.common.serialization.LongSerializer")
+	props.put("value.serializer", "com.aktit.kafka.serialization.PageSerializer")
 
+	val producer = new KafkaProducer[Long, Page](props)
 }

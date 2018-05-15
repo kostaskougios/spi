@@ -44,7 +44,9 @@ lazy val model = project.settings(commonSettings: _*).settings(
 		Seq(
 			Libraries.ScalaTest,
 			Libraries.Apache.Lang3,
-			Libraries.Apache.CommonsIO
+			Libraries.Apache.CommonsIO,
+			Libraries.Joda,
+			Libraries.JodaConvert
 		) ++ Scala.Xml
 	}
 )
@@ -132,7 +134,7 @@ lazy val wikipedia = project.settings(commonSettings: _*).settings(
 	},
 	// makes sure "provided" deps are part of the runtime classpath
 	classpathConfiguration in Runtime := Configurations.CompileInternal
-).dependsOn(common % "test->test;compile->compile", xml, loaders)
+).dependsOn(common % "test->test;compile->compile", xml, loaders, model)
 	.enablePlugins(PackPlugin)
 
 lazy val kafka = project.settings(commonSettings: _*).settings(
