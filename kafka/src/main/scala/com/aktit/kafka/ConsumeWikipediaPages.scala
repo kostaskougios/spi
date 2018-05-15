@@ -16,7 +16,7 @@ import scala.collection.JavaConverters.iterableAsScalaIterableConverter
   *
   * Create the topic via:
   *
-  * kafka-topics.sh --create --zookeeper server.lan:2181 --replication-factor 1 --partitions 1 --topic ConsumeWikipediaPages
+  * kafka-topics.sh --create --zookeeper server.lan:2181 --replication-factor 1 --partitions 8 --topic ConsumeWikipediaPages
   *
   * Then run this on a machine with the files.
   *
@@ -39,6 +39,7 @@ object ConsumeWikipediaPages extends App
 
 	val producer = new KafkaProducer[Long, Page](props)
 	val allFiles = FileUtils.listFiles(new File(srcDir), Array("xml"), true).asScala.toList
+	XmlPartialStreaming.setup()
 
 	for (file <- allFiles) {
 		val xml = new XmlPartialStreaming

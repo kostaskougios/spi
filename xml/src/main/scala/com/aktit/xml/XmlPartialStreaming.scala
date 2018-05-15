@@ -98,6 +98,7 @@ class XmlPartialStreaming
 object XmlPartialStreaming
 {
 	def setup(): Unit = {
-		System.setProperty("jdk.xml.totalEntitySizeLimit", "2147480000") // avoids Message: JAXP00010004: The accumulated size of entities is "50,000,001" that exceeded the "50,000,000" limit set by "FEATURE_SECURE_PROCESSING"
+		// avoids Message: JAXP00010004: The accumulated size of entities is "50,000,001" that exceeded the "50,000,000" limit set by "FEATURE_SECURE_PROCESSING"
+		System.setProperty("jdk.xml.totalEntitySizeLimit", "2147480000")
 	}
 }
