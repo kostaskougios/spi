@@ -2,16 +2,27 @@ package com.aktit.kafka
 
 import com.aktit.kafka.serialization.PageDeserializer
 import com.aktit.wikipedia.dto.Page
+import com.datastax.spark.connector._
 import org.apache.kafka.common.serialization.LongDeserializer
 import org.apache.spark.SparkConf
 import org.apache.spark.internal.Logging
 import org.apache.spark.streaming._
 import org.apache.spark.streaming.kafka010._
-
 /**
   * Spark stream job that consumes ConsumeWikipediaPages periodically.
   *
+  * Before running, create the wikipedia keyspace and table via cqlsh:
+  *
+  * create keyspace wikipedia WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
+  * create table wikipedia.words(word text, page_id int, revision_id int, primary key (word , page_id)) ;
+  *
   * Run it via bin/kafka-wikipedia-pages-consumer-job
+  *
+  * Locally run with
+  *
+  * -Dspark.bootstrap.servers=server.lan:9092
+  * -Dspark.master=local[4]
+  * -Dspark.cassandra.connection.host=server.lan
   *
   * @author kostas.kougios
   */
@@ -42,12 +53,21 @@ object WikipediaPagesConsumerJob extends Logging
 			)
 			messages.foreachRDD {
 				rdd =>
-					logInfo(s"Consuming ${rdd.count} pages")
-				//					rdd.foreach {
-				//						record =>
-				//							val page = record.value
-				//							println(s"--------------------> ${Thread.currentThread} ${page.lang} - ${page.title}")
-				//					}
+					// note that rdd.count actually forces the rdd to be calculated but it is useful for experimentation
+					logInfo(s"Saving words from ${rdd.count} pages to cassandra")
+
+					// now break the pages to words and store them in cassandra for this batch
+					rdd.flatMap {
+						cr =>
+							val page = cr.value
+							page.revisions.flatMap {
+								revision =>
+									revision.breakToWords.map {
+										word =>
+											(word, page.id, revision.id)
+									}
+							}
+					}.saveToCassandra("wikipedia", "words", SomeColumns("word", "page_id", "revision_id"))
 			}
 			ssc.start()
 			ssc.awaitTermination()

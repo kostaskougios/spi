@@ -1,5 +1,7 @@
 package com.aktit.wikipedia.dto
 
+import java.util.StringTokenizer
+
 import org.joda.time.DateTime
 
 /**
@@ -17,3 +19,14 @@ case class Revision(
 	text: String,
 	sha1: String
 )
+{
+	def breakToWords = {
+		val tokenizer = new StringTokenizer(text, " \t\n\r\f,.:;?![]'@$%^&*()-+=\"'")
+		val b = Seq.newBuilder[String]
+		while (tokenizer.hasMoreElements) {
+			b += tokenizer.nextToken()
+		}
+		b.result
+	}
+
+}

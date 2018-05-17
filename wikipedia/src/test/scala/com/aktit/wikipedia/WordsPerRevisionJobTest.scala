@@ -12,12 +12,6 @@ class WordsPerRevisionJobTest extends BaseSparkSuite
 	import Data._
 	import WordsPerRevisionJob._
 
-	test("break words") {
-		break("sofia, [malgré] tout aimait: :la laitue et le choux! dot.com @ $ % ^ & * ( ) - + =") should be(Seq(
-			"sofia", "malgré", "tout", "aimait", "la", "laitue", "et", "le", "choux", "dot", "com"
-		))
-	}
-
 	test("words") {
 		val all = words(
 			sc.parallelize(

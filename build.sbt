@@ -149,7 +149,8 @@ lazy val kafka = project.settings(commonSettings: _*).settings(
 			Kafka.Clients,
 			Libraries.Apache.Lang3,
 			Libraries.Apache.CommonsIO,
-			Spark.CassandraConnector
+			Spark.CassandraConnector,
+			Spark.Sql
 		) ++ Spark.Core
 	},
 	// makes sure "provided" deps are part of the runtime classpath

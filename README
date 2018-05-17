@@ -34,7 +34,7 @@ bin/wikipedia-words-job
 Those jobs can run on the same time.
 
 -------------------------------
-1. BUILDING SPARK
+BUILDING SPARK
 -------------------------------
 
 Clone the version you need:
@@ -54,7 +54,16 @@ mvn versions:set -DnewVersion=2.3.0-hadoop-2.7.6-akt
 see http://spark.apache.org/docs/latest/building-spark.html
 
 -------------------------------
-2. Compiling this project
+BUILDING SPARK-CASSANDRA
+CONNECTOR
+-------------------------------
+
+This probably won't be required in a few weeks but at the moment spark cassandra connector doesn't support
+spark 2.3.0. There is a PR at https://github.com/datastax/spark-cassandra-connector/pull/1175
+which I used to locally build it.
+
+-------------------------------
+Compiling this project
 -------------------------------
 
 You can run those locally within your ide or build them and execute them at your hadoop cluster. To build them do:

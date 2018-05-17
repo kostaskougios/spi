@@ -1,7 +1,5 @@
 package com.aktit.wikipedia
 
-import java.util.StringTokenizer
-
 import com.aktit.wikipedia.dto.Page
 import org.apache.phoenix.spark._
 import org.apache.spark.internal.Logging
@@ -43,18 +41,9 @@ object WordsPerRevisionJob extends Logging
 
 	def words(pages: RDD[Page]) = pages.flatMap(_.revisions).flatMap {
 		rev =>
-			break(rev.text).map {
+			rev.breakToWords.map {
 				word =>
 					(rev.id, word.toLowerCase)
 			}
-	}
-
-	def break(text: String) = {
-		val tokenizer = new StringTokenizer(text, " \t\n\r\f,.:;?![]'@$%^&*()-+=\"'")
-		val b = Seq.newBuilder[String]
-		while (tokenizer.hasMoreElements) {
-			b += tokenizer.nextToken()
-		}
-		b.result
 	}
 }
