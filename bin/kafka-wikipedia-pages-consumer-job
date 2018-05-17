@@ -12,4 +12,5 @@ spark-submit --class com.aktit.kafka.WikipediaPagesConsumerJob \
 	--master yarn \
 	--deploy-mode cluster \
 	--conf spark.bootstrap.servers=server.lan:9092 \
+	--conf spark.cassandra.connection.host=server.lan \
 	$JAR
