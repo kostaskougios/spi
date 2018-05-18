@@ -10,6 +10,19 @@ object WikipediaBuilder
 {
 	val Time = DateTime.now
 
+	def page(
+		id: Long = 100l,
+		title: String = "page title",
+		lang: String = "en",
+		redirect: Option[String] = Some("redirect"),
+		revisions: Seq[Revision] = List(revision(id = 101, parentId = 100), revision(id = 102, parentId = 100))
+	) = Page(
+		id,
+		title,
+		lang,
+		redirect,
+		revisions
+	)
 	def revision(
 		id: Long = 10,
 		parentId: Long = 1,

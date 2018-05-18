@@ -16,6 +16,7 @@ import scala.collection.JavaConverters.iterableAsScalaIterableConverter
   *
   * Create the topic via:
   *
+  * (delete it first : kafka-topics.sh --zookeeper server.lan:2181 --delete --topic WikipediaPages )
   * kafka-topics.sh --create --zookeeper server.lan:2181 --replication-factor 1 --partitions 8 --topic WikipediaPages
   *
   * Then run this on a machine with the files.
@@ -34,6 +35,7 @@ object WikipediaPagesProducer extends App
 	props.put("bootstrap.servers", brokers)
 	props.put("client.id", getClass.getSimpleName)
 	props.put("key.serializer", "org.apache.kafka.common.serialization.LongSerializer")
+	// We will store the data in kafka by serializing the Page class.
 	props.put("value.serializer", "com.aktit.kafka.serialization.PageSerializer")
 	//props.put("batch.size", "16384")
 

@@ -21,9 +21,9 @@ object Deps
 			"org.apache.spark" %% "spark-core" % Version % "provided",
 			"ch.qos.logback" % "logback-classic" % "1.2.3"
 		)
-		val Streaming = "org.apache.spark" %% "spark-streaming" % Version
+		val Streaming = "org.apache.spark" %% "spark-streaming" % Version % "provided"
 		val GraphX = "org.apache.spark" %% "spark-graphx" % Version % "provided"
-		val Sql = "org.apache.spark" %% "spark-sql" % Version
+		val Sql = "org.apache.spark" %% "spark-sql" % Version % "provided"
 		val Phoenix = Seq(
 			"org.apache.phoenix" % "phoenix-spark" % PhoenixVersion,
 			"org.apache.phoenix" % "phoenix-core" % PhoenixVersion exclude("sqlline", "sqlline")
