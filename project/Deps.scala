@@ -16,18 +16,21 @@ object Deps
 
 	object Spark
 	{
-		val Version = "2.3.0-hadoop-2.7.6-akt"
+		val Version = "2.3.0-hadoop-2.7.6-akt" // NOTE: modify packExcludeJars in build.sbt if you change this
+	private val SparkCore = "org.apache.spark" %% "spark-core" % Version
 		val Core = Seq(
-			"org.apache.spark" %% "spark-core" % Version % "provided",
+			SparkCore,
 			"ch.qos.logback" % "logback-classic" % "1.2.3"
 		)
-		val Streaming = "org.apache.spark" %% "spark-streaming" % Version % "provided"
-		val GraphX = "org.apache.spark" %% "spark-graphx" % Version % "provided"
-		val Sql = "org.apache.spark" %% "spark-sql" % Version % "provided"
+		val Streaming = "org.apache.spark" %% "spark-streaming" % Version
+		val GraphX = "org.apache.spark" %% "spark-graphx" % Version
+		val Sql = "org.apache.spark" %% "spark-sql" % Version
 		val Phoenix = Seq(
 			"org.apache.phoenix" % "phoenix-spark" % PhoenixVersion,
 			"org.apache.phoenix" % "phoenix-core" % PhoenixVersion exclude("sqlline", "sqlline")
 		)
+
+		val AllContainedInSparkSubmit = Seq(SparkCore, Streaming, GraphX, Sql)
 
 		val HBaseSpark = "com.cloudera" % "spark-hbase" % "0.0.2-clabs"
 

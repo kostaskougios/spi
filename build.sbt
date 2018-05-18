@@ -16,15 +16,22 @@ resolvers in ThisBuild += "neo4j" at "http://m2.neo4j.org/content/repositories/r
 
 resolvers in ThisBuild += "cloudera" at "https://repository.cloudera.com/artifactory/repo/"
 
+lazy val sparkJars = {
+	val r = Deps.Spark.AllContainedInSparkSubmit.map(_.name + ".*")
+	println("------------------------------------------------------------------------------------------------------")
+	println(s"Spark Jars to exclude: ${r.mkString(", ")}")
+	println("------------------------------------------------------------------------------------------------------")
+	r
+}
+
 val commonSettings = Seq(
 	version := "1.0",
 	excludeDependencies ++= Seq(
 		// commons-logging is replaced by jcl-over-slf4j
 		ExclusionRule("org.slf4j", "slf4j-log4j12")
-	)
-	//	ivyScala := ivyScala.value map {
-	//		_.copy(overrideScalaVersion = true)
-	//	}
+	),
+	// don't include spark deps when deploying via spark-submit
+	packExcludeJars := sparkJars
 )
 
 lazy val common = project.settings(commonSettings: _*).settings(
@@ -35,8 +42,7 @@ lazy val common = project.settings(commonSettings: _*).settings(
 			Libraries.Apache.Lang3,
 			Libraries.Apache.CommonsIO
 		) ++ Spark.Core
-	},
-	classpathConfiguration in Runtime := Configurations.CompileInternal
+	}
 )
 
 lazy val model = project.settings(commonSettings: _*).settings(
@@ -72,9 +78,7 @@ lazy val sql = project.settings(commonSettings: _*).settings(
 			Libraries.Apache.Lang3,
 			Libraries.Apache.CommonsIO
 		) ++ Spark.Core
-	},
-	// makes sure "provided" deps are part of the runtime classpath
-	classpathConfiguration in Runtime := Configurations.CompileInternal
+	}
 ).dependsOn(common % "test->test;compile->compile", xml)
 	.enablePlugins(PackPlugin)
 
@@ -91,9 +95,7 @@ lazy val phoenix = project.settings(commonSettings: _*).settings(
 			Libraries.Apache.Lang3,
 			Libraries.Apache.CommonsIO
 		) ++ Spark.Phoenix ++ Spark.Core
-	},
-	// makes sure "provided" deps are part of the runtime classpath
-	classpathConfiguration in Runtime := Configurations.CompileInternal
+	}
 ).dependsOn(common % "test->test;compile->compile", xml)
 	.enablePlugins(PackPlugin)
 
@@ -110,9 +112,7 @@ lazy val hbase = project.settings(commonSettings: _*).settings(
 			Libraries.Apache.Lang3,
 			Libraries.Apache.CommonsIO
 		) ++ Spark.Phoenix ++ Spark.Core
-	},
-	// makes sure "provided" deps are part of the runtime classpath
-	classpathConfiguration in Runtime := Configurations.CompileInternal
+	}
 ).dependsOn(common % "test->test;compile->compile")
 	.enablePlugins(PackPlugin)
 
@@ -131,9 +131,7 @@ lazy val wikipedia = project.settings(commonSettings: _*).settings(
 			Libraries.Apache.Lang3,
 			Libraries.Apache.CommonsIO
 		) ++ Spark.Phoenix ++ Spark.Core
-	},
-	// makes sure "provided" deps are part of the runtime classpath
-	classpathConfiguration in Runtime := Configurations.CompileInternal
+	}
 ).dependsOn(common % "test->test;compile->compile", xml, loaders, model)
 	.enablePlugins(PackPlugin)
 
@@ -152,9 +150,7 @@ lazy val kafka = project.settings(commonSettings: _*).settings(
 			Spark.CassandraConnector,
 			Spark.Sql
 		) ++ Spark.Core
-	},
-	// makes sure "provided" deps are part of the runtime classpath
-	classpathConfiguration in Runtime := Configurations.CompileInternal
+	}
 ).dependsOn(common % "test->test;compile->compile", xml, model)
 	.enablePlugins(PackPlugin)
 
@@ -169,9 +165,7 @@ lazy val experiments = project.settings(commonSettings: _*).settings(
 			Libraries.Apache.Lang3,
 			Libraries.Apache.CommonsIO
 		) ++ Spark.Core
-	},
-	// makes sure "provided" deps are part of the runtime classpath
-	classpathConfiguration in Runtime := Configurations.CompileInternal
+	}
 ).dependsOn(common % "test->test;compile->compile", xml)
 	.enablePlugins(PackPlugin)
 
@@ -185,8 +179,6 @@ lazy val loaders = project.settings(commonSettings: _*).settings(
 			Libraries.Apache.Lang3,
 			Libraries.Apache.CommonsIO
 		) ++ Spark.Core
-	},
-	// makes sure "provided" deps are part of the runtime classpath
-	classpathConfiguration in Runtime := Configurations.CompileInternal
+	}
 ).dependsOn(common % "test->test;compile->compile", model, xml)
 	.enablePlugins(PackPlugin)
