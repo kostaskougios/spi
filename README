@@ -54,15 +54,6 @@ mvn versions:set -DnewVersion=2.3.0-hadoop-2.7.6-akt
 see http://spark.apache.org/docs/latest/building-spark.html
 
 -------------------------------
-BUILDING SPARK-CASSANDRA
-CONNECTOR
--------------------------------
-
-This probably won't be required in a few weeks but at the moment spark cassandra connector doesn't support
-spark 2.3.0. There is a PR at https://github.com/datastax/spark-cassandra-connector/pull/1175
-which I used to locally build it.
-
--------------------------------
 Compiling this project
 -------------------------------
 
