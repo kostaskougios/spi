@@ -3,6 +3,7 @@ package com.aktit.kafka
 import com.aktit.kafka.serialization.PageDeserializer
 import com.aktit.wikipedia.dto.Page
 import com.datastax.spark.connector._
+import org.apache.commons.lang3.StringUtils
 import org.apache.kafka.common.serialization.LongDeserializer
 import org.apache.spark.SparkConf
 import org.apache.spark.internal.Logging
@@ -53,7 +54,7 @@ object WikipediaPagesConsumerJob extends Logging
 			)
 			messages.foreachRDD {
 				rdd =>
-					// note that rdd.count actually forces the rdd to be calculated but it is useful for experimentation
+					// note that rdd.count actually forces the rdd to be calculated but it is useful stat during experimentation
 					logInfo(s"Saving words from ${rdd.count} pages to cassandra")
 
 					// now break the pages to words and store them in cassandra for this batch
@@ -64,7 +65,7 @@ object WikipediaPagesConsumerJob extends Logging
 								revision =>
 									revision.breakToWords.map {
 										word =>
-											(word, page.id, revision.id)
+											(StringUtils.substring(word, 0, 1024), page.id, revision.id)
 									}
 							}
 					}.saveToCassandra("wikipedia", "words", SomeColumns("word", "page_id", "revision_id"))
