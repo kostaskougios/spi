@@ -26,9 +26,11 @@ object Deps
 		val Streaming = "org.apache.spark" %% "spark-streaming" % Version
 		val GraphX = "org.apache.spark" %% "spark-graphx" % Version
 		val Sql = "org.apache.spark" %% "spark-sql" % Version
+
+		private val PhoenixExclusions = Seq(ExclusionRule(organization = "org.apache.hadoop"), ExclusionRule("sqlline", "sqlline"))
 		val Phoenix = Seq(
-			"org.apache.phoenix" % "phoenix-spark" % PhoenixVersion,
-			"org.apache.phoenix" % "phoenix-core" % PhoenixVersion exclude("sqlline", "sqlline")
+			"org.apache.phoenix" % "phoenix-spark" % PhoenixVersion excludeAll (PhoenixExclusions: _*),
+			"org.apache.phoenix" % "phoenix-core" % PhoenixVersion excludeAll (PhoenixExclusions: _*)
 		)
 
 		val AllContainedInSparkSubmit = Seq(SparkCore, Streaming, GraphX, Sql)

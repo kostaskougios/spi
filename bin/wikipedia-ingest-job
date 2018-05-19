@@ -5,9 +5,9 @@ hdfs dfs -rm -r -f /wikipedia/pages
 
 echo "submitting spark job"
 
-JAR=target/wikipedia.jar
+. bin/spark/mock-spark wikipedia/target/pack
 
-spark-submit --class com.aktit.wikipedia.IngestWikipediaJob \
+bin/spark/spark-submit --class com.aktit.wikipedia.IngestWikipediaJob \
 	--driver-memory 1g \
 	--executor-memory 8g \
 	--conf spark.executor.memoryOverhead=2048 \
@@ -18,4 +18,4 @@ spark-submit --class com.aktit.wikipedia.IngestWikipediaJob \
 	--conf spark.src=/wikipedia/src \
 	--conf spark.out=/wikipedia/pages \
 	--conf spark.local.dir=/tmp \
-	$JAR
+	bin/spark/empty.jar
