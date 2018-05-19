@@ -2,7 +2,7 @@ import sbt._
 
 object Deps
 {
-	val ScalaVersion = "2.11.8"
+	val ScalaVersion = "2.11.8" // see mock-spark if you change scala's version
 	val PhoenixVersion = "5.0.0-alpha-HBase-2.0"
 
 	object Scala

@@ -1,0 +1,6 @@
+SH=$1
+
+echo "Spark home is mocked to $SH"
+
+export SPARK_HOME=$SH
+export SPARK_SCALA_VERSION=2.11

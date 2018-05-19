@@ -1,8 +1,7 @@
 
 echo "submitting spark job"
 
-export SPARK_HOME=kafka/target/pack
-export SPARK_SCALA_VERSION=2.11
+. bin/spark/mock-spark kafka/target/pack
 
 bin/spark/spark-submit --class com.aktit.kafka.WikipediaPagesConsumerJob \
 	--driver-memory 1g \
