@@ -1,13 +1,14 @@
 
-JAR=target/phoenix.jar
+. bin/spark/mock-spark phoenix/target/pack
 
-spark-submit --class com.aktit.phoenix.SamplePopulateJob \
+bin/spark/spark-submit --class com.aktit.phoenix.SamplePopulateJob \
 	--driver-memory 1g \
 	--executor-memory 1g \
-	--conf spark.yarn.executor.memoryOverhead=1024 \
+	--conf spark.executor.memoryOverhead=1024 \
 	--executor-cores 4 \
 	--num-executors 3 \
-	--master yarn-cluster \
+	--master yarn \
+	--deploy-mode cluster \
 	--conf spark.num-of-rows=1000000000000 \
-	--conf spark.hbase.zookeeper=nn.lan \
-	$JAR
+	--conf spark.hbase.zookeeper=server.lan \
+	bin/spark/empty.jar
