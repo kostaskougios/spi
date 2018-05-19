@@ -1,7 +1,7 @@
 
-JAR=target/wikipedia.jar
+. bin/spark/mock-spark wikipedia/target/pack
 
-spark-submit --class com.aktit.wikipedia.WordsPerRevisionJob \
+bin/spark/spark-submit --class com.aktit.wikipedia.WordsPerRevisionJob \
 	--driver-memory 1g \
 	--executor-memory 1g \
 	--conf spark.yarn.executor.memoryOverhead=512 \
@@ -11,4 +11,4 @@ spark-submit --class com.aktit.wikipedia.WordsPerRevisionJob \
 	--deploy-mode cluster \
 	--conf spark.src=/wikipedia/pages \
 	--conf spark.hbase.zookeeper=server.lan \
-	$JAR
+	bin/spark/empty.jar
