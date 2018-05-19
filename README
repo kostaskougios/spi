@@ -4,12 +4,14 @@ This is a sample scala/spark project. It contains simple examples and also a cou
 For a good spark example, please see the wikipedia project, it contains code to load wikipedia exports (xml files from https://dumps.wikimedia.org/backup-index.html)
 to hdfs and then process them on hadoop and export them into HBase tables (sql, phoenix).
 
-I always trying to use the latest hadoop and spark build for it. To actually build/run this project, please build spark first as per the
-instructions in this file.
+Also don't miss the kafka examples, a kafka -> spark streaming -> cassandra pipeline.
+
+I always trying to use the latest hadoop and spark build for it. To actually build/run this project, please understand how spark jobs are submitted first as per the
+instructions below in this file.
 
 Steps to run the wikipedia code to process wikipedia xml files and copy them to hbase/phoenix tables:
 
-- build spark (see instructions below)
+- Build spark (see "BUILDING SPARK") for your hadoop version.
 - Download the wikipedia exports from https://dumps.wikimedia.org/backup-index.html . The EN language is the largest export, the EL language is small and can help for quicker tests.
 - The loaders project contains BreakupBigXmlFilesAndStoreToHdfs class which can be used to efficiently upload the xml files to hdfs for efficient spark processing. Run it
 with the JVM args as per the class comments.
@@ -18,7 +20,7 @@ with the JVM args as per the class comments.
 
 bin/build-project wikipedia
 
-to build the wikipedia fat jar which will contain all the spark jobs for wikipedia processing.
+to build the wikipedia jars which will contain all the spark jobs for wikipedia processing.
 
 - Inspect & run
 
@@ -32,6 +34,21 @@ bin/wikipedia-populate-database-job
 bin/wikipedia-words-job
 
 Those jobs can run on the same time.
+
+-------------------------------
+HOW SPARK JOBS ARE SUBMITTED
+-------------------------------
+
+Having a scala project with dependencies on top of spark is a touch task at best. Keeping the dependencies sane
+and not overlapping is hard to impossible the more libraries you use. sbt dependencies can overlap with jars in
+the spark/jars distro folder resulting to some very hard to debug and fix classloader issues (i.e. class
+List can't be assigned to a field of type List because the classes were loaded from different spark classloaders).
+
+There is a simple way which not only fixes the above but also allows us not to need a spark distro on dev boxes
+and to also be able to use the spark version as declared in build.sbt. Spark scala projects contain all the spark
+jars required for spark-submit to run. So instead of using a spark-distro, all the modules of this project are build
+by exporting the dependent jars into a pseudo-distro structure (mainly a "jars" folder), and that folder is used to
+both submit the task and is used to execute the task on yarn.
 
 -------------------------------
 BUILDING SPARK
@@ -49,7 +66,6 @@ export MAVEN_OPTS="-Xmx2g -XX:ReservedCodeCacheSize=512m"
 mvn versions:set -DnewVersion=2.3.0-hadoop-2.7.6-akt
 
 ./build/mvn -DskipTests -Pyarn -Phadoop-2.7 -Dhadoop.version=2.7.6 clean install
-
 
 see http://spark.apache.org/docs/latest/building-spark.html
 
