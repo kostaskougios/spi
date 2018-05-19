@@ -50,6 +50,8 @@ jars required for spark-submit to run. So instead of using a spark-distro, all t
 by exporting the dependent jars into a pseudo-distro structure (mainly a "jars" folder), and that folder is used to
 both submit the task and is used to execute the task on yarn.
 
+see bin/build-project and bin/spark folder.
+
 -------------------------------
 BUILDING SPARK
 -------------------------------
