@@ -16,22 +16,12 @@ resolvers in ThisBuild += "neo4j" at "http://m2.neo4j.org/content/repositories/r
 
 resolvers in ThisBuild += "cloudera" at "https://repository.cloudera.com/artifactory/repo/"
 
-lazy val sparkJars = {
-	val r = Deps.Spark.AllContainedInSparkSubmit.map(_.name + ".*")
-	println("------------------------------------------------------------------------------------------------------")
-	println(s"Spark Jars to exclude: ${r.mkString(", ")}")
-	println("------------------------------------------------------------------------------------------------------")
-	r
-}
-
 val commonSettings = Seq(
 	version := "1.0",
 	excludeDependencies ++= Seq(
 		// commons-logging is replaced by jcl-over-slf4j
 		ExclusionRule("org.slf4j", "slf4j-log4j12")
-	),
-	// don't include spark deps when deploying via spark-submit
-	packExcludeJars := sparkJars ++ Seq("scala-compiler.*", "scala-library.*")
+	)
 )
 
 lazy val common = project.settings(commonSettings: _*).settings(

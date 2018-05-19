@@ -20,6 +20,7 @@ object Deps
 	private val SparkCore = "org.apache.spark" %% "spark-core" % Version
 		val Core = Seq(
 			SparkCore,
+			"org.apache.spark" %% "spark-yarn" % Version, // we need this to deploy to yarn
 			"ch.qos.logback" % "logback-classic" % "1.2.3"
 		)
 		val Streaming = "org.apache.spark" %% "spark-streaming" % Version

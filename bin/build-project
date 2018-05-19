@@ -9,19 +9,5 @@ echo "Building $PROJECT"
 
 sbt "clean" "project $PROJECT" "pack"
 
-WD=`pwd`
-rm -r -f /tmp/$PROJECT-job
-mkdir /tmp/$PROJECT-job
-
-cd /tmp/$PROJECT-job
-
-echo "unpacking"
-
-find $WD/$PROJECT/target/pack/lib/ -name '*.jar' -exec jar xf {} \;
-
-echo "repacking"
-
-rm -f META-INF/* 2> /dev/null
-jar cf $WD/target/$PROJECT.jar *
-
-echo "done, jar is $WD/target/$PROJECT.jar"
+# Make it look like a spark distro
+mv $PROJECT/target/pack/lib $PROJECT/target/pack/jars

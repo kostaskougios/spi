@@ -1,9 +1,10 @@
 
 echo "submitting spark job"
 
-JAR=target/kafka.jar
+export SPARK_HOME=kafka/target/pack
+export SPARK_SCALA_VERSION=2.11
 
-spark-submit --class com.aktit.kafka.WikipediaPagesConsumerJob \
+bin/spark/spark-submit --class com.aktit.kafka.WikipediaPagesConsumerJob \
 	--driver-memory 1g \
 	--executor-memory 2g \
 	--conf spark.executor.memoryOverhead=512 \
@@ -13,4 +14,4 @@ spark-submit --class com.aktit.kafka.WikipediaPagesConsumerJob \
 	--deploy-mode cluster \
 	--conf spark.bootstrap.servers=server.lan:9092 \
 	--conf spark.cassandra.connection.host=server.lan \
-	$JAR
+	bin/spark/empty.jar
