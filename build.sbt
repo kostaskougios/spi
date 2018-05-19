@@ -31,7 +31,7 @@ val commonSettings = Seq(
 		ExclusionRule("org.slf4j", "slf4j-log4j12")
 	),
 	// don't include spark deps when deploying via spark-submit
-	packExcludeJars := sparkJars
+	packExcludeJars := sparkJars ++ Seq("scala-compiler.*", "scala-library.*")
 )
 
 lazy val common = project.settings(commonSettings: _*).settings(

@@ -17,10 +17,6 @@ cd /tmp/$PROJECT-job
 
 echo "unpacking"
 
-# these are part of spark.jar
-rm $WD/$PROJECT/target/pack/lib/scala-compiler-*
-rm $WD/$PROJECT/target/pack/lib/scala-library-*
-
 find $WD/$PROJECT/target/pack/lib/ -name '*.jar' -exec jar xf {} \;
 
 echo "repacking"
