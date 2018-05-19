@@ -1,13 +1,10 @@
 
-JAR=target/sql.jar
+. bin/spark/mock-spark sql/target/pack
 
-spark-submit --class com.aktit.testjob.SqlTestJob \
+bin/spark/spark-submit --class com.aktit.testjob.SqlTestJob \
 	--driver-memory 1g \
 	--executor-memory 1g \
 	--executor-cores 4 \
 	--num-executors 2 \
 	--master yarn-cluster \
-	$JAR
-
-#	--conf spark.yarn.executor.memoryOverhead=128 \
-
+	bin/spark/empty.jar
