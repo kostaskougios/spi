@@ -12,12 +12,13 @@ import org.scalatest.Matchers._
   */
 class PageAvroSuite extends FunSuite
 {
+	val avroSerializer = new AvroSerializer[Page]
 	val pg = page()
 
 	implicit val fromRecord = FromRecord[Revision]
 
 	test("serialization/deserialization") {
-		val data = AvroSerialization.serializeSingleBinary(pg)
-		AvroSerialization.deserializeSingleBinary[Page](data) should be(pg)
+		val data = avroSerializer.serializeSingleBinary(pg)
+		avroSerializer.deserializeSingleBinary(data) should be(pg)
 	}
 }

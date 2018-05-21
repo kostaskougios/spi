@@ -1,6 +1,6 @@
 package com.aktit.avro.benchmarks
 
-import com.aktit.avro.AvroSerialization
+import com.aktit.avro.serializers.DTOSerializers
 import com.aktit.wikipedia.dto.WikipediaBuilder.page
 import org.apache.commons.lang3.SerializationUtils
 
@@ -10,10 +10,11 @@ import org.apache.commons.lang3.SerializationUtils
   */
 object AvroBenchmark extends App
 {
+
 	val pg = page()
 
 	measure("java serialization", SerializationUtils.serialize(pg))
-	measure("avro serialization", AvroSerialization.serializeSingleBinary(pg))
+	measure("avro serialization", DTOSerializers.pageSerializer.serializeSingleBinary(pg))
 
 	def measure(title: String, f: => AnyRef) = {
 
