@@ -19,6 +19,7 @@ class TextFileAvroSuite extends FunSuite
 		AvroSerialization.deserializeSingleBinary[TextFile](data) should be(tf)
 	}
 
+	// just to prove of the benefits ... (not a real test case)
 	test("avro is more efficient than java serialization") {
 		val jData = SerializationUtils.serialize(tf) // normally 125 bytes
 		val aData = AvroSerialization.serializeSingleBinary(tf) // should be 27 bytes
