@@ -1,5 +1,6 @@
 package com.aktit.wikipedia.dto
 
+import com.aktit.dto.EpochDateTime
 import org.joda.time.DateTime
 
 /**
@@ -8,7 +9,7 @@ import org.joda.time.DateTime
   */
 object WikipediaBuilder
 {
-	val Time = DateTime.now
+	val Time = EpochDateTime(DateTime.now)
 
 	def page(
 		id: Long = 100l,
@@ -26,7 +27,7 @@ object WikipediaBuilder
 	def revision(
 		id: Long = 10,
 		parentId: Long = 1,
-		time: DateTime = Time,
+		time: EpochDateTime = Time,
 		contributor: Contributor = contributorUser(),
 		comment: String = "the comment",
 		model: String = "the model",

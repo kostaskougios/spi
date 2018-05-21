@@ -6,7 +6,7 @@ import scala.xml.NodeSeq
   * @author kostas.kougios
   *         Date: 23/09/15
   */
-trait Contributor
+sealed trait Contributor
 
 object Contributor
 {

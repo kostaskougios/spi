@@ -2,7 +2,7 @@ package com.aktit.wikipedia.dto
 
 import java.util.StringTokenizer
 
-import org.joda.time.DateTime
+import com.aktit.dto.EpochDateTime
 
 /**
   * @author kostas.kougios
@@ -11,7 +11,7 @@ import org.joda.time.DateTime
 case class Revision(
 	id: Long,
 	parentId: Long,
-	time: DateTime,
+	time: EpochDateTime,
 	contributor: Contributor,
 	comment: String,
 	model: String,

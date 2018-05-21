@@ -1,5 +1,6 @@
 package com.aktit.wikipedia.dto
 
+import com.aktit.dto.EpochDateTime
 import org.joda.time.DateTime
 
 import scala.xml.{Node, NodeSeq}
@@ -38,7 +39,7 @@ object Page
 					Revision(
 						(revisionXml \ "id").text.trim.toLong,
 						extractParentId(revisionXml),
-						DateTime.parse((revisionXml \ "timestamp").text.trim),
+						EpochDateTime(DateTime.parse((revisionXml \ "timestamp").text.trim)),
 						Contributor.fromXml(revisionXml),
 						(revisionXml \ "comment").text.trim,
 						(revisionXml \ "model").text.trim,
