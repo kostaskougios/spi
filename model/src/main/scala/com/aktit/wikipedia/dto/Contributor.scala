@@ -14,7 +14,7 @@ object Contributor
 		val contributorXml = revisionXml \ "contributor"
 
 		if (contributorXml.flatMap(_.child).isEmpty) {
-			ContributorUnknown
+			ContributorUnknown()
 		} else {
 			if ((contributorXml \ "ip").isEmpty) {
 				ContributorUser((contributorXml \ "id").text.trim.toLong, (contributorXml \ "username").text)
@@ -29,4 +29,4 @@ case class ContributorUser(id: Long, name: String) extends Contributor
 
 case class ContributorIP(ip: String) extends Contributor
 
-case object ContributorUnknown extends Contributor
+case class ContributorUnknown() extends Contributor // note: avro4s doesn't like case object under the sealed trait
