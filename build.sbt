@@ -47,6 +47,17 @@ lazy val model = project.settings(commonSettings: _*).settings(
 	}
 )
 
+lazy val avro = project.settings(commonSettings: _*).settings(
+	libraryDependencies ++= {
+		Seq(
+			Libraries.ScalaTest,
+			Libraries.Apache.Lang3,
+			Libraries.Apache.CommonsIO,
+			Libraries.Avro4S
+		)
+	}
+).dependsOn(model % "test->test;compile->compile")
+
 lazy val xml = project.settings(commonSettings: _*).settings(
 	libraryDependencies ++= {
 		Seq(
