@@ -2,9 +2,9 @@ package com.aktit.wikipedia
 
 import com.aktit.wikipedia.dto.{ContributorUser, Page}
 import org.apache.phoenix.spark._
+import org.apache.spark.SparkContext
 import org.apache.spark.internal.Logging
 import org.apache.spark.rdd.RDD
-import org.apache.spark.{SparkConf, SparkContext}
 /**
   * Inserts Page's into hbase/phoenix database.
   *
@@ -17,7 +17,7 @@ object PagesToDatabaseJob extends Logging
 
 	def main(args: Array[String]): Unit = {
 
-		val conf = new SparkConf().setAppName(getClass.getName)
+		val conf = wikipediaSparkConf.setAppName(getClass.getName)
 		val src = conf.get("spark.src")
 		val zookeeper = conf.get("spark.hbase.zookeeper")
 
