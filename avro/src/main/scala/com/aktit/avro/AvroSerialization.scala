@@ -11,7 +11,7 @@ import com.sksamuel.avro4s._
 object AvroSerialization
 {
 	def serializeSingleBinary[T: SchemaFor : ToRecord](t: T): Array[Byte] = {
-		val bos = new ByteArrayOutputStream
+		val bos = new ByteArrayOutputStream(512)
 		val aos = AvroOutputStream.binary[T](bos)
 		try aos.write(t) finally aos.close()
 		bos.close()
