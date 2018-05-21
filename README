@@ -16,7 +16,7 @@ to hdfs and then process them on hadoop and export them into HBase tables (sql, 
 
 Also don't miss the kafka examples, a kafka -> spark streaming -> cassandra pipeline.
 
-I always trying to use the latest hadoop and spark build for it. To actually build/run this project, please understand how spark jobs are submitted first as per the
+I always try to use the latest hadoop and spark build for it. To actually build/run this project, please understand how spark jobs are submitted first as per the
 instructions below in this file.
 
 Steps to run the wikipedia code to process wikipedia xml files and copy them to hbase/phoenix tables:
