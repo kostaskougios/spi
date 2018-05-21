@@ -1,8 +1,13 @@
 My big data related articles that use/explain this repository:
 
+Spark on hadoop
+https://www.linkedin.com/pulse/spark-230-scala-hadoop-290-konstantine-kougios/
+
 Kafka -> Spark streaming -> Cassandra
 https://www.linkedin.com/pulse/kafka-cassandra-cql-tables-via-spark-streaming-konstantine-kougios/
 
+Spark -> HBase (on hadoop)
+https://www.linkedin.com/pulse/hbase-2-phoenix-sql-support-hadoop-276-spark-230-jobs-kougios/
 
 This is a sample scala/spark project. It contains simple examples and also a couple of a bit more complex processing jobs.
 
