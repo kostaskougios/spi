@@ -21,10 +21,11 @@ case class Revision(
 )
 {
 	def breakToWords = {
-		val tokenizer = new StringTokenizer(text, " \t\n\r\f,.:;?![]'@$%^&*()-+=\"'")
+		val tokenizer = new StringTokenizer(text, " |/{}\t\n\r\f,.:;?![]'@$%^&*()-+=\"'")
 		val b = Seq.newBuilder[String]
 		while (tokenizer.hasMoreElements) {
-			b += tokenizer.nextToken()
+			val n = tokenizer.nextToken()
+			if (!n.isEmpty) b += n
 		}
 		b.result
 	}
