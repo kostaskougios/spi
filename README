@@ -11,7 +11,7 @@ https://www.linkedin.com/pulse/hbase-2-phoenix-sql-support-hadoop-276-spark-230-
 
 This is a sample scala/spark project. It contains simple examples and also a couple of a bit more complex processing jobs.
 
-For a good spark example, please see the wikipedia project, it contains code to load wikipedia exports (xml files from https://dumps.wikimedia.org/backup-index.html)
+A good spark sample is the wikipedia project. It contains code to load wikipedia exports (xml files from https://dumps.wikimedia.org/backup-index.html)
 to hdfs and then process them on hadoop and export them into HBase tables (sql, phoenix).
 
 Also don't miss the kafka examples, a kafka -> spark streaming -> cassandra pipeline.
@@ -21,11 +21,11 @@ instructions below in this file.
 
 Steps to run the wikipedia code to process wikipedia xml files and copy them to hbase/phoenix tables:
 
-- Build spark (see "BUILDING SPARK") for your hadoop version.
+- Build spark (see "BUILDING SPARK") for your hadoop version. If your hadoop version matches the one used by spark, please change project/Deps.scala Spark.Version.
 - Download the wikipedia exports from https://dumps.wikimedia.org/backup-index.html . The EN language is the largest export, the EL language is small and can help for quicker tests.
 - The loaders project contains BreakupBigXmlFilesAndStoreToHdfs class which can be used to efficiently upload the xml files to hdfs for efficient spark processing. Run it
 with the JVM args as per the class comments.
-- Now you should have a /wikipedia folder in hdfs.
+- Now you should have a /wikipedia folder in hdfs. (Note all code can be run locally too)
 - Run
 
 bin/build-project wikipedia
