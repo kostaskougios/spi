@@ -9,7 +9,7 @@ import com.aktit.wikipedia.dto.Page
   */
 object DTOSerializers
 {
-	// one instance is the more performance efficient due to the reuse of avro4s implicit instances
+	// One instance is the more performance efficient due to the reuse of avro4s implicit instances.
 
 	val pageSerializer = new AvroSerializer[Page]
 
