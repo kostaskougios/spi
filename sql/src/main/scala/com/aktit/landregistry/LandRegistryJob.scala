@@ -28,11 +28,15 @@ object LandRegistryJob extends Logging
 			.builder
 			.getOrCreate
 
+		// the source file, should point to pp-complete.csv
 		val src = spark.conf.get("spark.src")
+
 		// For implicit conversions like converting RDDs to DataFrames
 		import spark.implicits._
 
 		val df = spark.read
+			// Normally we would get columns like _c0, _c1 ...etc but we can have something more
+			// meaningful. Also, we can specify the type, i.e. price is Integer and purchasedDate is Date.
 			.schema(StructType(
 				Seq(
 					StructField("id", StringType),
@@ -52,8 +56,10 @@ object LandRegistryJob extends Logging
 				)
 			))
 			.csv(src)
+		// show the schema and sample rows
 		df.show()
 
+		// find the most expensive properties for my postcode.
 		df.select($"postCode", $"price", $"purchasedDate")
 			.filter($"postCode".startsWith("BR2"))
 			.sort($"price" desc)
