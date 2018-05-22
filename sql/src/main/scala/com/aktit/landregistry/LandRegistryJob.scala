@@ -7,12 +7,16 @@ import org.apache.spark.sql.types._
 import scala.language.postfixOps
 
 /**
+  * This job will find the most expensive property since 1995 in Bromley's BR2 postcode.
+  *
   * Get the source data file from
   *
   * http://prod1.publicdata.landregistry.gov.uk.s3-website-eu-west-1.amazonaws.com/pp-complete.csv
   * (4GB)
   *
-  * It is not that big but will do.
+  * Run it with something like:
+  *
+  * -Dspark.master=local[4] -Dspark.src=/home/ariskk/big-data/land-registry/pp-complete.csv
   *
   * @author kostas.kougios
   */
