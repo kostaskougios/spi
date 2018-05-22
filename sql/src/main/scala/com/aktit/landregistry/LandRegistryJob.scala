@@ -54,8 +54,6 @@ object LandRegistryJob extends Logging
 			.withColumnRenamed("_c12", "address4")
 			.withColumnRenamed("_c13", "address5")
 		df.show()
-		println(df.dtypes.toList)
-		System.exit(0)
 
 		df.select($"postCode", $"price")
 			.filter($"postCode".startsWith("BR2"))
