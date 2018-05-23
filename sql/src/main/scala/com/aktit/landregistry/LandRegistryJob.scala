@@ -7,7 +7,8 @@ import org.apache.spark.sql.types._
 import scala.language.postfixOps
 
 /**
-  * This job will find the most expensive property since 1995 in Bromley's BR2 postcode.
+  * This job will find the most expensive property since 1995 in Bromley's BR2 postcode. A simple spark-sql
+  * example, all the code is contained in this file.
   *
   * Get the source data file from
   *
