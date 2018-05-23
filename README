@@ -9,6 +9,9 @@ https://www.linkedin.com/pulse/kafka-cassandra-cql-tables-via-spark-streaming-ko
 Spark -> HBase (on hadoop)
 https://www.linkedin.com/pulse/hbase-2-phoenix-sql-support-hadoop-276-spark-230-jobs-kougios/
 
+Spark-Sql, the most expensive property in my area:
+https://www.linkedin.com/pulse/spark-sql-finding-most-expensive-property-my-area-konstantine-kougios/
+
 This is a sample scala/spark project. It contains simple examples and also a couple of a bit more complex processing jobs.
 
 A good spark sample is the wikipedia project. It contains code to load wikipedia exports (xml files from https://dumps.wikimedia.org/backup-index.html)
