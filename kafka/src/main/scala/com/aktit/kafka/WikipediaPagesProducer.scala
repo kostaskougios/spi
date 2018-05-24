@@ -29,7 +29,7 @@ object WikipediaPagesProducer extends App
 	val brokers = "server.lan:9092"
 	val topic = "WikipediaPages"
 	// the directory where the wikipedia xml files are.
-	val srcDir = "/home/ariskk/temp/wikipedia"
+	val srcDir = "/home/ariskk/big-data/wikipedia"
 
 	val props = new Properties()
 	props.put("bootstrap.servers", brokers)

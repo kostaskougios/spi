@@ -15,7 +15,7 @@ import org.apache.spark.streaming.kafka010._
   * Before running, create the wikipedia keyspace and table via cqlsh:
   *
   * create keyspace wikipedia WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
-  * create table wikipedia.words(word text, page_id int, revision_id int, primary key (word , page_id)) ;
+  * create table wikipedia.words(word text, page_id int, revision_id int, primary key (word , page_id, revision_id));
   *
   * Run it via bin/kafka-wikipedia-pages-consumer-job
   *
