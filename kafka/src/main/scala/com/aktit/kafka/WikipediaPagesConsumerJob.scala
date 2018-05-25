@@ -44,7 +44,7 @@ object WikipediaPagesConsumerJob extends Logging
 			"value.deserializer" -> classOf[PageDeserializer],
 			"group.id" -> "WikipediaPagesConsumerJob",
 			"auto.offset.reset" -> "earliest",
-			"enable.auto.commit" -> (true: java.lang.Boolean)
+			"enable.auto.commit" -> (false: java.lang.Boolean)
 		)
 
 		val ssc = new StreamingContext(conf, Seconds(2))
