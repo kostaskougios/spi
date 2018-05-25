@@ -38,8 +38,8 @@ object WikipediaPagesConsumerJob extends Logging
 			"bootstrap.servers" -> conf.get("spark.bootstrap.servers"),
 			"key.deserializer" -> classOf[LongDeserializer],
 			"value.deserializer" -> classOf[PageDeserializer],
-			"group.id" -> WikipediaPagesConsumerJob.getClass.getSimpleName,
-			"auto.offset.reset" -> "latest",
+			"group.id" -> "WikipediaPagesConsumerJob",
+			"auto.offset.reset" -> "earliest",
 			"enable.auto.commit" -> (false: java.lang.Boolean)
 		)
 
