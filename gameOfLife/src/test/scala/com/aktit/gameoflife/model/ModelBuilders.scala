@@ -14,4 +14,11 @@ object ModelBuilders
 		left: Array[Int] = Array(),
 		right: Array[Int] = Array()
 	) = Boundaries(width, height, top, bottom, left, right)
+
+	def matrix(width: Int = 10, height: Int = 5, liveCoordinates: Seq[(Int, Int)] = Nil): Matrix =
+		Matrix(
+			width,
+			height,
+			liveCoordinates
+		)
 }

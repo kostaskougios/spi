@@ -41,10 +41,10 @@ object Boundaries
 		left: Array[Int],
 		right: Array[Int]
 	): Boundaries = {
-		check(top, -1, width + 1)
-		check(bottom, -1, width + 1)
-		check(left, 0, height)
-		check(right, 0, height)
+		check(top, -1, width)
+		check(bottom, -1, width)
+		check(left, 0, height - 1)
+		check(right, 0, height - 1)
 		BitSetBoundaries(BitSet(top.map(_ + 1): _*), BitSet(bottom.map(_ + 1): _*), BitSet(left: _*), BitSet(right: _*))
 	}
 
