@@ -68,10 +68,12 @@ object WikipediaPagesConsumerJob extends Logging
 							val page = cr.value
 							page.revisions.flatMap {
 								revision =>
-									revision.breakToWords.map {
-										word =>
-											(StringUtils.substring(word, 0, 1024), page.id, revision.id)
-									}
+									revision.breakToWords
+										.distinct
+										.map {
+											word =>
+												(StringUtils.substring(word, 0, 1024), page.id, revision.id)
+										}
 							}
 					}.saveToCassandra("wikipedia", "words", SomeColumns("word", "page_id", "revision_id"))
 					// The consumer offsets won't automatically be stored. We need to update

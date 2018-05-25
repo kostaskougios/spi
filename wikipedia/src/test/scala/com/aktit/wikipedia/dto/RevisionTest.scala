@@ -9,7 +9,23 @@ import org.scalatest.Matchers._
   */
 class RevisionTest extends FunSuite
 {
-	test("breakToWords") {
+	test("breakToWords splits words") {
+		WikipediaBuilder.revision(text = "hello world").breakToWords should be(Seq("hello", "world"))
+	}
+
+	test("breakToWords ignores dots") {
+		WikipediaBuilder.revision(text = "hello world.").breakToWords should be(Seq("hello", "world"))
+	}
+
+	test("breakToWords ignores !") {
+		WikipediaBuilder.revision(text = "hello world!").breakToWords should be(Seq("hello", "world"))
+	}
+
+	test("breakToWords ignores newline") {
+		WikipediaBuilder.revision(text = "hello\nworld").breakToWords should be(Seq("hello", "world"))
+	}
+
+	test("breakToWords complex") {
 		WikipediaBuilder.revision(text = "sofia, [malgré] tout aimait: :la laitue et le choux! dot.com @ $ % ^ & * ( ) - + =").breakToWords should be(Seq(
 			"sofia", "malgré", "tout", "aimait", "la", "laitue", "et", "le", "choux", "dot", "com"
 		))
