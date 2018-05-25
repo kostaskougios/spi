@@ -41,4 +41,28 @@ class BoundariesTest extends FunSuite
 			b.isRightLive(y) should be(live.contains(y))
 		}
 	}
+
+	test("out of bounds, top left") {
+		an[IllegalArgumentException] should be thrownBy {
+			boundaries(top = Array(-2))
+		}
+	}
+
+	test("out of bounds, top right") {
+		an[IllegalArgumentException] should be thrownBy {
+			boundaries(top = Array(11))
+		}
+	}
+
+	test("out of bounds, bottom left") {
+		an[IllegalArgumentException] should be thrownBy {
+			boundaries(bottom = Array(-2))
+		}
+	}
+
+	test("out of bounds, bottom right") {
+		an[IllegalArgumentException] should be thrownBy {
+			boundaries(bottom = Array(11))
+		}
+	}
 }
