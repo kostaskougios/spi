@@ -59,9 +59,6 @@ object WikipediaPagesConsumerJob extends Logging
 			)
 			messages.foreachRDD {
 				rdd =>
-					// note that rdd.count actually forces the rdd to be calculated but it is useful stat during experimentation
-					logInfo(s"Saving words from ${rdd.count} pages to cassandra")
-
 					// now break the pages to words and store them in cassandra for this batch
 					rdd.flatMap {
 						cr =>
