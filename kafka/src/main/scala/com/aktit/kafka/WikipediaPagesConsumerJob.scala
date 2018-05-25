@@ -25,6 +25,10 @@ import org.apache.spark.streaming.kafka010._
   * -Dspark.master=local[4]
   * -Dspark.cassandra.connection.host=server.lan
   *
+  * Get kafka group details :
+  *
+  * kafka-consumer-groups.sh --bootstrap-server server.lan:9092 --describe --group WikipediaPagesConsumerJob --members
+  *
   * @author kostas.kougios
   */
 object WikipediaPagesConsumerJob extends Logging
