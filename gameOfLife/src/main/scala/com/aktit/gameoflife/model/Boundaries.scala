@@ -33,6 +33,22 @@ trait Boundaries
 
 object Boundaries
 {
+	def apply(
+		width: Int,
+		height: Int,
+		top: Array[Int],
+		bottom: Array[Int],
+		left: Array[Int],
+		right: Array[Int]
+	): Boundaries = {
+		check(top, -1, width + 1)
+		check(bottom, -1, width + 1)
+		check(left, 0, height)
+		check(right, 0, height)
+		BitSetBoundaries(BitSet(top.map(_ + 1): _*), BitSet(bottom.map(_ + 1): _*), BitSet(left: _*), BitSet(right: _*))
+	}
+
+	private def check(a: Array[Int], min: Int, max: Int) = for (i <- a) if (i < min || i > max) throw new IllegalArgumentException(s"coordinate out of bounds: $i should be between $min and $max")
 
 	private case class BitSetBoundaries(top: BitSet, bottom: BitSet, left: BitSet, right: BitSet) extends Boundaries
 	{
