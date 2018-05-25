@@ -15,8 +15,25 @@ class MatrixTest extends FunSuite
 		m.isLive(0, 0) should be(true)
 	}
 
+	test("isLive bottom-left") {
+		val m = matrix(liveCoordinates = Seq((9, 4)))
+		m.isLive(9, 4) should be(true)
+	}
+
 	test("isLive top-right") {
 		val m = matrix(liveCoordinates = Seq((9, 0)))
 		m.isLive(9, 0) should be(true)
 	}
+
+	test("isLive bottom-right") {
+		val m = matrix(liveCoordinates = Seq((9, 4)))
+		m.isLive(9, 4) should be(true)
+	}
+
+	test("isLive negative") {
+		val m = matrix(liveCoordinates = Seq((1, 1)))
+		m.isLive(1, 0) should be(false)
+		m.isLive(0, 1) should be(false)
+	}
+
 }
