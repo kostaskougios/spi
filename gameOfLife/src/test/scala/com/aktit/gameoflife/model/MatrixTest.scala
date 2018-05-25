@@ -35,5 +35,4 @@ class MatrixTest extends FunSuite
 		m.isLive(1, 0) should be(false)
 		m.isLive(0, 1) should be(false)
 	}
-
 }

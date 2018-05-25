@@ -65,4 +65,28 @@ class BoundariesTest extends FunSuite
 			boundaries(bottom = Array(11))
 		}
 	}
+
+	test("out of bounds, left (top)") {
+		an[IllegalArgumentException] should be thrownBy {
+			boundaries(left = Array(-1))
+		}
+	}
+
+	test("out of bounds, left (bottom)") {
+		an[IllegalArgumentException] should be thrownBy {
+			boundaries(left = Array(5))
+		}
+	}
+
+	test("out of bounds, right (top)") {
+		an[IllegalArgumentException] should be thrownBy {
+			boundaries(right = Array(-1))
+		}
+	}
+
+	test("out of bounds, right (bottom)") {
+		an[IllegalArgumentException] should be thrownBy {
+			boundaries(right = Array(5))
+		}
+	}
 }
