@@ -183,3 +183,15 @@ lazy val loaders = project.settings(commonSettings: _*).settings(
 	}
 ).dependsOn(common % "test->test;compile->compile", model, xml)
 	.enablePlugins(PackPlugin)
+
+lazy val gameOfLife = project.settings(commonSettings: _*).settings(
+	//	xerial.sbt.Pack.packAutoSettings,
+	libraryDependencies ++= {
+		Seq(
+			Libraries.ScalaTest,
+			Libraries.Apache.Lang3,
+			Libraries.Apache.CommonsIO
+		) ++ Spark.Core
+	}
+).dependsOn(common % "test->test;compile->compile")
+	.enablePlugins(PackPlugin)
