@@ -9,6 +9,7 @@ import org.apache.spark.SparkConf
 import org.apache.spark.internal.Logging
 import org.apache.spark.streaming._
 import org.apache.spark.streaming.kafka010._
+
 /**
   * Spark stream job that consumes ConsumeWikipediaPages periodically.
   *
@@ -25,9 +26,9 @@ import org.apache.spark.streaming.kafka010._
   * -Dspark.master=local[4]
   * -Dspark.cassandra.connection.host=server.lan
   *
-  * Get kafka group details :
+  * Get kafka group details (current offset etc) :
   *
-  * kafka-consumer-groups.sh --bootstrap-server server.lan:9092 --describe --group WikipediaPagesConsumerJob --members
+  * kafka-consumer-groups.sh --bootstrap-server server.lan:9092 --describe --group WikipediaPagesConsumerJob
   *
   * @author kostas.kougios
   */
@@ -73,6 +74,14 @@ object WikipediaPagesConsumerJob extends Logging
 									}
 							}
 					}.saveToCassandra("wikipedia", "words", SomeColumns("word", "page_id", "revision_id"))
+					// The consumer offsets won't automatically be stored. We need to update
+					// them here because we consumed some data.
+					// See https://spark.apache.org/docs/2.3.0/streaming-kafka-0-10-integration.html#storing-offsets
+					// regarding other options for storing the kafka offsets.
+					// saveToCassandra is idempotent, it is ok if we replay it more than once if
+					// the code crashes before we store the offsets.
+					val offsetRanges = rdd.asInstanceOf[HasOffsetRanges].offsetRanges
+					messages.asInstanceOf[CanCommitOffsets].commitAsync(offsetRanges)
 			}
 			ssc.start()
 			ssc.awaitTermination()
