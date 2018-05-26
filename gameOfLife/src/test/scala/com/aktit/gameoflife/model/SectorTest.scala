@@ -95,4 +95,8 @@ class SectorTest extends FunSuite
 	test("Any live cell with more than three live neighbors dies, as if by overpopulation.") {
 		sector(liveCoordinates = Seq((1, 1), (2, 1), (0, 1), (1, 2), (0, 2))).evolve.isLive(1, 1) should be(false)
 	}
+
+	test("Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.") {
+		sector(liveCoordinates = Seq((1, 1), (2, 1), (0, 1))).evolve.isLive(1, 2) should be(true)
+	}
 }
