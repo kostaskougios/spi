@@ -1,6 +1,7 @@
 package com.aktit.gameoflife.model
 
 import scala.collection.immutable.BitSet
+import scala.util.Random
 
 /**
   * @author kostas.kougios
@@ -26,6 +27,12 @@ object Matrix
 
 		BitSetMatrix(width, height, bitSets)
 	}
+
+	def random(width: Int, height: Int, howManyLive: Int): Matrix = apply(
+		width,
+		height,
+		for (_ <- 1 to howManyLive) yield (Random.nextInt(width), Random.nextInt(height))
+	)
 
 	private case class BitSetMatrix(width: Int, height: Int, data: Array[BitSet]) extends Matrix
 	{

@@ -37,6 +37,18 @@ trait Boundaries
 
 object Boundaries
 {
+	def empty(
+		width: Int,
+		height: Int
+	): Boundaries = apply(
+		width,
+		height,
+		Array.empty[Int],
+		Array.empty[Int],
+		Array.empty[Int],
+		Array.empty[Int]
+	)
+
 	def apply(
 		width: Int,
 		height: Int,

@@ -56,6 +56,14 @@ trait Sector
 		} yield (x, y)
 		Sector(width, height, newAlive, boundaries)
 	}
+
+	def toAscii: String = (0 until height).map {
+		y =>
+			(0 until width).map {
+				x =>
+					if (isLive(x, y)) '█' else ' '
+			}.mkString
+	}.mkString("\n")
 }
 
 object Sector
@@ -68,8 +76,13 @@ object Sector
 		StdSector(matrix, boundaries)
 	}
 
+	def apply(matrix: Matrix, boundaries: Boundaries): Sector = StdSector(matrix, boundaries)
+
 	private case class StdSector(matrix: Matrix, boundaries: Boundaries) extends Sector
 	{
+		if (matrix.width != boundaries.width) throw new IllegalArgumentException(s"matrix.width != boundaries.width : ${matrix.width}!=${boundaries.width}")
+		if (matrix.height != boundaries.height) throw new IllegalArgumentException(s"matrix.height != boundaries.height : ${matrix.height}!=${boundaries.height}")
+
 		override def isLive(x: Int, y: Int) = {
 			if (x < -1 || x > matrix.width) throw new IllegalArgumentException(s"x is invalid : $x")
 			if (y < -1 || y > matrix.height) throw new IllegalArgumentException(s"y is invalid : $y")
