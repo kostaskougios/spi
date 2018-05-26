@@ -82,4 +82,8 @@ class SectorTest extends FunSuite
 		sector(boundaries = boundaries(bottom = Array(8, 9, 10), right = Array(3, 4))).liveNeighbours(9, 4) should be(5)
 	}
 
+	test("Any live cell with fewer than two live neighbors dies, as if by under population.") {
+		sector(liveCoordinates = Seq((1, 1), (2, 1))).evolve.isLive(1, 1) should be(false)
+	}
+
 }
