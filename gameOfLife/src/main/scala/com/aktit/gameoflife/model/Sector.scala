@@ -57,13 +57,16 @@ trait Sector
 		Sector(width, height, newAlive, boundaries)
 	}
 
-	def toAscii: String = (0 until height).map {
-		y =>
-			(0 until width).map {
-				x =>
-					if (isLive(x, y)) '█' else ' '
-			}.mkString
-	}.mkString("\n")
+	def toAscii: String = {
+		("▁" * (width + 2)) + "\n" +
+			(0 until height).map {
+				y =>
+					"▒" + (0 until width).map {
+						x =>
+							if (isLive(x, y)) '█' else ' '
+					}.mkString + "▒"
+			}.mkString("\n") + "\n" + ("▔" * (width + 2))
+	}
 }
 
 object Sector
