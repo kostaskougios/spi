@@ -21,4 +21,11 @@ object ModelBuilders
 			height,
 			liveCoordinates
 		)
+
+	def sector(
+		width: Int = 10,
+		height: Int = 5,
+		liveCoordinates: Seq[(Int, Int)] = Nil,
+		boundaries: Boundaries = ModelBuilders.boundaries()
+	) = Sector(width, height, liveCoordinates, boundaries)
 }
