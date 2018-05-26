@@ -57,6 +57,9 @@ trait Sector
 		Sector(width, height, newAlive, boundaries)
 	}
 
+	/**
+	  * Convert to ascii art.
+	  */
 	def toAscii: String = {
 		("▁" * (width + 2)) + "\n" +
 			(0 until height).map {

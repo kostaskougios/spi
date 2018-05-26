@@ -1,5 +1,7 @@
 package com.aktit.gameoflife.model
 
+import com.aktit.optimized.Tuples
+
 import scala.collection.immutable.BitSet
 import scala.util.Random
 
@@ -20,7 +22,7 @@ object Matrix
 {
 	def apply(width: Int, height: Int, liveCoordinates: Seq[(Int, Int)]): Matrix = {
 		val bitSetMap = liveCoordinates.groupBy(_._2).map {
-			case (y, coords) => (y, BitSet(coords.map(_._1): _*))
+			case (y, coords) => (y, BitSet(/* avoid Int boxing */ Tuples.tupleField1ToIntArray(coords): _*))
 		}
 		val bitSets = new Array[BitSet](height)
 		for (y <- 0 until height) if (bitSetMap.contains(y)) bitSets(y) = bitSetMap(y) else bitSets(y) = BitSet.empty
