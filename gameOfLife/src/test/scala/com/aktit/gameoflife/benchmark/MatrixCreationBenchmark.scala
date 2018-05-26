@@ -6,7 +6,7 @@ import com.aktit.utils.TimeMeasure.dt
 /**
   * This helps me measure and optimize the domain model
   *
-  * Run 1: dt = 3000
+  * Run 1: dt = 3000 ms
   * Run 2: dt = 2200 (Tuples.tupleField1ToIntArray)
   *
   * @author kostas.kougios
