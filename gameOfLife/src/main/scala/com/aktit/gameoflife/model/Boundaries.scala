@@ -22,6 +22,10 @@ import scala.collection.immutable.BitSet
   */
 trait Boundaries
 {
+	def width: Int
+
+	def height: Int
+
 	def isLeftLive(y: Int): Boolean
 
 	def isRightLive(y: Int): Boolean
@@ -45,12 +49,12 @@ object Boundaries
 		check(bottom, -1, width)
 		check(left, 0, height - 1)
 		check(right, 0, height - 1)
-		BitSetBoundaries(BitSet(top.map(_ + 1): _*), BitSet(bottom.map(_ + 1): _*), BitSet(left: _*), BitSet(right: _*))
+		BitSetBoundaries(width, height, BitSet(top.map(_ + 1): _*), BitSet(bottom.map(_ + 1): _*), BitSet(left: _*), BitSet(right: _*))
 	}
 
 	private def check(a: Array[Int], min: Int, max: Int) = for (i <- a) if (i < min || i > max) throw new IllegalArgumentException(s"coordinate out of bounds: $i should be between $min and $max")
 
-	private case class BitSetBoundaries(top: BitSet, bottom: BitSet, left: BitSet, right: BitSet) extends Boundaries
+	private case class BitSetBoundaries(width: Int, height: Int, top: BitSet, bottom: BitSet, left: BitSet, right: BitSet) extends Boundaries
 	{
 		def isLeftLive(y: Int): Boolean = left(y)
 

@@ -20,6 +20,9 @@ trait Sector
 object Sector
 {
 	def apply(width: Int, height: Int, liveCoordinates: Seq[(Int, Int)], boundaries: Boundaries): Sector = {
+		if (boundaries.width != width) throw new IllegalArgumentException("boundaries.width!=width")
+		if (boundaries.height != height) throw new IllegalArgumentException("boundaries.height!=height")
+
 		val matrix = Matrix(width, height, liveCoordinates)
 		DenseSector(matrix, boundaries)
 	}
@@ -27,13 +30,13 @@ object Sector
 	private case class DenseSector(matrix: Matrix, boundaries: Boundaries) extends Sector
 	{
 		override def isLive(x: Int, y: Int) = {
-			if (x < -1 || x > matrix.width + 1) throw new IllegalArgumentException(s"x is invalid : $x")
-			if (y < -1 || y > matrix.height + 1) throw new IllegalArgumentException(s"y is invalid : $y")
+			if (x < -1 || x > matrix.width) throw new IllegalArgumentException(s"x is invalid : $x")
+			if (y < -1 || y > matrix.height) throw new IllegalArgumentException(s"y is invalid : $y")
 
 			if (y == -1) boundaries.isTop(x)
-			else if (y == matrix.height + 1) boundaries.isBottom(x)
+			else if (y == matrix.height) boundaries.isBottom(x)
 			else if (x == -1) boundaries.isLeftLive(y)
-			else if (x == matrix.width + 1) boundaries.isRightLive(y)
+			else if (x == matrix.width) boundaries.isRightLive(y)
 			else matrix.isLive(x, y)
 		}
 	}
