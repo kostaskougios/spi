@@ -1,6 +1,7 @@
 package com.aktit.gameoflife.model
 
 import com.aktit.gameoflife.model.ModelBuilders.{boundaries, sector}
+import org.apache.commons.lang3.SerializationUtils
 import org.scalatest.FunSuite
 import org.scalatest.Matchers._
 
@@ -98,5 +99,10 @@ class SectorTest extends FunSuite
 
 	test("Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.") {
 		sector(liveCoordinates = Seq((1, 1), (2, 1), (0, 1))).evolve.isLive(1, 2) should be(true)
+	}
+
+	test("Sector is serializable") {
+		val s = sector(liveCoordinates = Seq((1, 1), (2, 1)), boundaries = boundaries(top = Array(1, 2, 3)))
+		SerializationUtils.serialize(s)
 	}
 }

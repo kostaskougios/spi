@@ -4,7 +4,7 @@ package com.aktit.gameoflife.model
   * @author kostas.kougios
   *         25/05/18 - 20:26
   */
-trait Sector
+trait Sector extends Serializable
 {
 	def width: Int
 
