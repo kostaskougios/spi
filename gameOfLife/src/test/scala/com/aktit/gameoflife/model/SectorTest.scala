@@ -50,6 +50,10 @@ class SectorTest extends FunSuite
 		sector(boundaries = boundaries(bottom = Array(3))).isLive(3, 5) should be(true)
 	}
 
+	test("liveNeighbours, no neighbours") {
+		sector().liveNeighbours(2, 3) should be(0)
+	}
+
 	test("liveNeighbours, vertical neighbours are counted") {
 		sector(liveCoordinates = Seq((2, 2), (2, 4))).liveNeighbours(2, 3) should be(2)
 	}
@@ -61,4 +65,21 @@ class SectorTest extends FunSuite
 	test("liveNeighbours, diagonal neighbours are counted") {
 		sector(liveCoordinates = Seq((2, 2), (4, 2), (2, 4), (4, 4))).liveNeighbours(3, 3) should be(4)
 	}
+
+	test("liveNeighbours, top left boundary neighbours are counted") {
+		sector(boundaries = boundaries(top = Array(-1, 0, 1), left = Array(0, 1))).liveNeighbours(0, 0) should be(5)
+	}
+
+	test("liveNeighbours, bottom left boundary neighbours are counted") {
+		sector(boundaries = boundaries(bottom = Array(-1, 0, 1), left = Array(3, 4))).liveNeighbours(0, 4) should be(5)
+	}
+
+	test("liveNeighbours, top right boundary neighbours are counted") {
+		sector(boundaries = boundaries(top = Array(8, 9, 10), right = Array(0, 1))).liveNeighbours(9, 0) should be(5)
+	}
+
+	test("liveNeighbours, bottom right boundary neighbours are counted") {
+		sector(boundaries = boundaries(bottom = Array(8, 9, 10), right = Array(3, 4))).liveNeighbours(9, 4) should be(5)
+	}
+
 }
