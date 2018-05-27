@@ -16,7 +16,7 @@ object SectorMemoryRequirements extends App
 
 	val sector = {
 		println(s"Creating Sector with ${(Width * Height) / 1000000} million cells")
-		val matrix = Matrix.newBuilder(Width, Height).addRandom(Width * Height / 10).result()
+		val matrix = Matrix.newBuilder(Width, Height).addRandomLiveCells(Width * Height / 10).result()
 		Sector(matrix, Boundaries.empty(Width, Height))
 	}
 

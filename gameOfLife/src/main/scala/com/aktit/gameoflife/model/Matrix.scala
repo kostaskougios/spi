@@ -10,7 +10,7 @@ import scala.util.Random
   * @author kostas.kougios
   *         25/05/18 - 22:20
   */
-trait Matrix
+trait Matrix extends Serializable
 {
 	def width: Int
 
@@ -29,12 +29,12 @@ object Matrix
 		val bitSets = new Array[BitSet](height)
 		for (y <- 0 until height) if (bitSetMap.contains(y)) bitSets(y) = bitSetMap(y) else bitSets(y) = BitSet.empty
 
-		BitSetMatrix(width, height, bitSets)
+		new BitSetMatrix(width, height, bitSets)
 	}
 
-	def apply(width: Int, height: Int, bitSets: Array[BitSet]): Matrix = BitSetMatrix(width, height, bitSets)
+	def apply(width: Int, height: Int, bitSets: Array[BitSet]): Matrix = new BitSetMatrix(width, height, bitSets)
 
-	private case class BitSetMatrix(width: Int, height: Int, data: Array[BitSet]) extends Matrix
+	private class BitSetMatrix(val width: Int, val height: Int, data: Array[BitSet]) extends Matrix
 	{
 		if (data.length != height) throw new IllegalArgumentException(s"expected array length to match the height of the matrix : ${data.length}!=$height")
 		for (s <- data) if (s.nonEmpty && (s.min < 0 || s.max > width)) throw new IllegalArgumentException(s"Invalid x coordinates ${s.min} to ${s.max}, should have been between 0 and $width")
@@ -44,6 +44,15 @@ object Matrix
 			if (y < 0 || y > height) throw new IllegalArgumentException(s"y is out of bounds : $y")
 			val b = data(y)
 			b.contains(x) // avoid b.apply due to Int boxing
+		}
+
+		// case classes don't correctly compare Array's
+		override def equals(obj: scala.Any): Boolean = obj match {
+			case o: Matrix =>
+				for (x <- 0 until width)
+					for (y <- 0 until height) if (o.isLive(x, y) != isLive(x, y)) return false
+				true
+			case _ => false
 		}
 	}
 
@@ -58,11 +67,11 @@ object Matrix
 			data(y) += x
 		}
 
-		def addRandom(n: Int): Builder = {
+		def addRandomLiveCells(n: Int): Builder = {
 			for (_ <- 1 to n) +=(Random.nextInt(width), Random.nextInt(height))
 			this
 		}
 
-		def result(): Matrix = BitSetMatrix(width, height, data.map(b => BitSet.fromBitMask(b.toBitMask)))
+		def result(): Matrix = new BitSetMatrix(width, height, data.map(b => BitSet.fromBitMask(b.toBitMask)))
 	}
 }

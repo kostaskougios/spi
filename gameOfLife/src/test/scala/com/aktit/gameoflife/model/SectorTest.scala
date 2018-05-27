@@ -101,6 +101,14 @@ class SectorTest extends FunSuite
 		sector(liveCoordinates = Seq((1, 1), (2, 1), (0, 1))).evolve.isLive(1, 2) should be(true)
 	}
 
+	test("evolve: no thread sync issues") {
+		for (i <- 1 to 1000) {
+			val s1 = Sector(Matrix.newBuilder(10, 10).addRandomLiveCells(50).result(), Boundaries.empty(10, 10))
+			s1.evolve should be(s1.evolve)
+			s1.evolve.evolve should be(s1.evolve.evolve)
+		}
+	}
+
 	test("Sector is serializable") {
 		val s = sector(liveCoordinates = Seq((1, 1), (2, 1)), boundaries = boundaries(top = Array(1, 2, 3)))
 		SerializationUtils.serialize(s)
