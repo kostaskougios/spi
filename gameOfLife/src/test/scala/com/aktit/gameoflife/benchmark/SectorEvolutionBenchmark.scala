@@ -13,12 +13,17 @@ import com.aktit.utils.TimeMeasure.dt
   */
 object SectorEvolutionBenchmark extends App
 {
-	val Width = 2000
-	val Height = 2000
+	val Width = 10000
+	val Height = 10000
 
-	println(s"Creating ${Width * Height} random matrix")
-	val matrix = Matrix.random(Width, Height, Width * Height / 10)
-	val sector = Sector(matrix, Boundaries.empty(Width, Height))
+	val width64 = Width / 64
+	val sector = {
+		println(s"Creating ${(Width * Height) / 1000000} million live nodes")
+		val matrix = Matrix.fastRandom(width64, Height)
+		Sector(matrix, Boundaries.empty(width64 * 64, Height))
+	}
+
+	println("Evolution begins!")
 
 	for (i <- 1 to 10000) {
 		val (time, _) = dt {

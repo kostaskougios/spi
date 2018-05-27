@@ -11,8 +11,8 @@ import org.apache.commons.lang3.SerializationUtils
   */
 object SectorMemoryRequirements extends App
 {
-	val Width = 80000
-	val Height = 80000
+	val Width = 100000
+	val Height = 100000
 
 	val width64 = Width / 64
 	val sector = {
@@ -23,8 +23,5 @@ object SectorMemoryRequirements extends App
 
 	val sz = ObjectSizeCalculator.getObjectSize(sector)
 	val serializedSz = SerializationUtils.serialize(sector).length
-	println(s"Sector ready, byte size is ${sz / (1024 * 1024)} mb, serialized size is ${serializedSz / (1024 * 1024)} mb, please profile now")
-
-	Thread.sleep(86400 * 1000)
-
+	println(s"Sector ready, byte size is ${sz / (1024 * 1024)} mb, serialized size is ${serializedSz / (1024 * 1024)} mb")
 }
