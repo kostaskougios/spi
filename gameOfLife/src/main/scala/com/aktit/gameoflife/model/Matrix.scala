@@ -24,6 +24,7 @@ object Matrix
 		val bitSetMap = liveCoordinates.groupBy(_._2).map {
 			case (y, coords) => (y, BitSet(/* avoid Int boxing */ Tuples.tupleField1ToIntArray(coords): _*))
 		}
+
 		val bitSets = new Array[BitSet](height)
 		for (y <- 0 until height) if (bitSetMap.contains(y)) bitSets(y) = bitSetMap(y) else bitSets(y) = BitSet.empty
 
@@ -35,6 +36,29 @@ object Matrix
 		height,
 		for (_ <- 1 to howManyLive) yield (Random.nextInt(width), Random.nextInt(height))
 	)
+
+	/**
+	  * Optimized (memory and performance) version of the random matrix creator but with limitations.
+	  * There is no option to choose the randomness of the live cells. And the width must be rounded
+	  * to increments of 64.
+	  *
+	  * This avoids the extra memory overhead of creating a Seq[(Int,Int)]
+	  *
+	  * @param width64 width64 = actualWidth / 64
+	  * @param height  the height
+	  * @return Matrix
+	  */
+	def fastRandom(width64: Int, height: Int): Matrix = {
+		val a = new Array[BitSet](height)
+		for (y <- 0 until height) a(y) = BitSet.fromBitMaskNoCopy(createRandomArray(width64))
+		BitSetMatrix(width64 * 64, height, a)
+	}
+
+	private def createRandomArray(width: Int) = {
+		val a = new Array[Long](width)
+		for (i <- 0 until width) a(i) = Random.nextLong()
+		a
+	}
 
 	private case class BitSetMatrix(width: Int, height: Int, data: Array[BitSet]) extends Matrix
 	{

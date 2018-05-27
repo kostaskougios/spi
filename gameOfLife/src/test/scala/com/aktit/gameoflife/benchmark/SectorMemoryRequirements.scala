@@ -5,25 +5,20 @@ import jdk.nashorn.internal.ir.debug.ObjectSizeCalculator
 import org.apache.commons.lang3.SerializationUtils
 
 /**
-  * Memory requirements of a fully live sector
+  * Memory requirements of a fully live sector and also for creating one.
   *
   * @author kostas.kougios
   */
 object SectorMemoryRequirements extends App
 {
-	val Width = 8000
-	val Height = 8000
+	val Width = 80000
+	val Height = 80000
 
+	val width64 = Width / 64
 	val sector = {
 		println(s"Creating ${(Width * Height) / 1000000} million live nodes")
-		val matrix = Matrix(
-			Width,
-			Height,
-			for {
-				x <- 0 until Width
-				y <- 0 until Height
-			} yield (x, y))
-		Sector(matrix, Boundaries.empty(Width, Height))
+		val matrix = Matrix.fastRandom(width64, Height)
+		Sector(matrix, Boundaries.empty(width64 * 64, Height))
 	}
 
 	val sz = ObjectSizeCalculator.getObjectSize(sector)
