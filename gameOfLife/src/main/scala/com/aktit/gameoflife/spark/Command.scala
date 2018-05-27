@@ -9,4 +9,6 @@ import org.apache.spark.SparkContext
 trait Command
 {
 	def run(sc: SparkContext, out: String): Unit
+
+	protected def turnDir(out: String, gameName: String, turn: Int) = out + "/" + gameName + s"/turn-" + turn
 }
