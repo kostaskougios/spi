@@ -31,6 +31,8 @@ object Matrix
 		BitSetMatrix(width, height, bitSets)
 	}
 
+	def apply(width: Int, height: Int, bitSets: Array[BitSet]): Matrix = BitSetMatrix(width, height, bitSets)
+
 	def random(width: Int, height: Int, howManyLive: Int): Matrix = apply(
 		width,
 		height,
