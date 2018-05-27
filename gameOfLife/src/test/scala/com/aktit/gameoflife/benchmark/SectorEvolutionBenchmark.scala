@@ -11,7 +11,7 @@ import com.aktit.utils.TimeMeasure.dt
   * Run 3 : 15000 ms - swapped for ( x then y ) to for (y then x), probably better cpu cache usage
   * Run 4 : 10000 ms - .par for Sector.evolve
   * Run 5 : 2500 ms  - used non-functional (internally mutable) code in Sector.evolve
-  * Run 6 : 3500 ms  - standarise Matrix creation and use Matrix.newBuilder
+  * Run 6 : 3500 ms  - standardise Matrix creation and use Matrix.newBuilder
   *
   * @author kostas.kougios
   *         26/05/18 - 23:44
