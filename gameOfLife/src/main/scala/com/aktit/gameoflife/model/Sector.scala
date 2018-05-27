@@ -54,8 +54,8 @@ trait Sector extends Serializable
 	  */
 	def evolve: Sector = {
 		val newAlive = for {
-			x <- 0 until width
 			y <- 0 until height
+			x <- 0 until width
 			n = liveNeighbours(x, y)
 			live = isLive(x, y)
 			if (live && (n == 2 || n == 3)) || (!live && n == 3)
