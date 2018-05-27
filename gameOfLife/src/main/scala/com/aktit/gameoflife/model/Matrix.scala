@@ -68,7 +68,8 @@ object Matrix
 		override def isLive(x: Int, y: Int): Boolean = {
 			if (x < 0 || x > width) throw new IllegalArgumentException(s"x is out of bounds : $x")
 			if (y < 0 || y > height) throw new IllegalArgumentException(s"y is out of bounds : $y")
-			data(y)(x)
+			val b = data(y)
+			b.contains(x) // avoid b.apply due to Int boxing
 		}
 	}
 

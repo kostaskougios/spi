@@ -29,6 +29,6 @@ object SectorEvolutionBenchmark extends App
 		val (time, _) = dt {
 			sector.evolve
 		}
-		println(s"$i : $time")
+		println(s"$i : $time millis")
 	}
 }
