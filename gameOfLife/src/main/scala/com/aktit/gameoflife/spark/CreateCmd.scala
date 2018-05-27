@@ -11,7 +11,7 @@ import org.apache.spark.internal.Logging
 case class CreateCmd(gameName: String, sectorWidth: Int, sectorHeight: Int, numSectorsHorizontal: Int, numSectorsVertical: Int, howManyLiveCells: Int) extends Command with Logging
 {
 	def run(sc: SparkContext, out: String) = {
-		val outDir = out + "/" + gameName
+		val outDir = out + "/" + gameName + "/turn-1"
 		val sectorCoords = for {
 			x <- 0 to numSectorsHorizontal.toInt
 			y <- 0 to numSectorsVertical.toInt

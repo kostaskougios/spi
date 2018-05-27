@@ -1,0 +1,16 @@
+
+echo "Starting game of life spark stream which accepts commands via kafka"
+
+. bin/spark/mock-spark gameOfLife/target/pack
+
+bin/spark/spark-submit --class com.aktit.gameoflife.GameOfLife \
+	--driver-memory 512m \
+	--executor-memory 16g \
+	--conf spark.executor.memoryOverhead=512 \
+	--executor-cores 8 \
+	--num-executors 1 \
+	--master yarn \
+	--deploy-mode cluster \
+	--conf spark.bootstrap.servers=server.lan:9092 \
+	--conf spark.out=/game-of-life \
+	bin/spark/empty.jar
