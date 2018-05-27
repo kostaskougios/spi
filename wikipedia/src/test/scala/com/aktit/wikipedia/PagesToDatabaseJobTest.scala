@@ -4,7 +4,7 @@ import java.sql.Timestamp
 
 import com.aktit.spark.testing.BaseSparkSuite
 import com.aktit.testconfig.Config
-import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql.SparkSession
 import org.joda.time.DateTime
 import scalikejdbc._
 
@@ -22,7 +22,9 @@ class PagesToDatabaseJobTest extends BaseSparkSuite
 
 	ConnectionPool.singleton(Config.PhoenixJdbcUrl, "", "")
 	implicit val session = AutoSession
-	val sqlContext = new SQLContext(sc)
+	val sqlContext = SparkSession
+		.builder
+		.getOrCreate
 
 	import sqlContext.implicits._
 
