@@ -68,13 +68,15 @@ object Boundaries
 
 	private case class BitSetBoundaries(width: Int, height: Int, top: BitSet, bottom: BitSet, left: BitSet, right: BitSet) extends Boundaries
 	{
-		def isLeftLive(y: Int): Boolean = left(y)
+		// avoid BitSet.apply due to Int boxing
 
-		def isRightLive(y: Int): Boolean = right(y)
+		def isLeftLive(y: Int): Boolean = left.contains(y)
 
-		def isTop(x: Int): Boolean = top(x + 1)
+		def isRightLive(y: Int): Boolean = right.contains(y)
 
-		def isBottom(x: Int): Boolean = bottom(x + 1)
+		def isTop(x: Int): Boolean = top.contains(x + 1)
+
+		def isBottom(x: Int): Boolean = bottom.contains(x + 1)
 	}
 
 }
