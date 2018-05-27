@@ -1,8 +1,5 @@
 package com.aktit.gameoflife.model
 
-import scala.collection.immutable.BitSet
-import scala.collection.mutable
-
 /**
   * @author kostas.kougios
   *         25/05/18 - 20:26
@@ -57,17 +54,15 @@ trait Sector extends Serializable
 	  */
 	def evolve: Sector = {
 		// this method needs to be optimized for performance and memory usage
-		val bitSets = for {y <- (0 until height).par} yield {
-			val b = new mutable.BitSet(width)
+		val b = Matrix.newBuilder(width, height)
+		for {y <- 0 until height} {
 			for {x <- 0 until width} {
 				val n = liveNeighbours(x, y)
 				val live = isLive(x, y)
-				if ((live && (n == 2 || n == 3)) || (!live && n == 3)) b += x
+				if ((live && (n == 2 || n == 3)) || (!live && n == 3)) b += (x, y)
 			}
-			BitSet.fromBitMaskNoCopy(b.toBitMask)
 		}
-		val matrix = Matrix(width, height, bitSets.toArray)
-		Sector(matrix, boundaries)
+		Sector(b.result(), boundaries)
 	}
 
 	/**
