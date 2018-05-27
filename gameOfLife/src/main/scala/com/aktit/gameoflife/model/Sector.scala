@@ -17,11 +17,17 @@ trait Sector extends Serializable
 	def isLive(x: Int, y: Int): Boolean
 
 	def liveNeighbours(x: Int, y: Int): Int = {
-		val live = for {
-			i <- x - 1 to x + 1
-			j <- y - 1 to y + 1 if (i != x || j != y) && isLive(i, j)
-		} yield 1
-		live.size
+		// this needs to be as fast as possible
+		var n = 0
+		if (isLive(x - 1, y - 1)) n += 1
+		if (isLive(x, y - 1)) n += 1
+		if (isLive(x + 1, y - 1)) n += 1
+		if (isLive(x - 1, y)) n += 1
+		if (isLive(x + 1, y)) n += 1
+		if (isLive(x - 1, y + 1)) n += 1
+		if (isLive(x, y + 1)) n += 1
+		if (isLive(x + 1, y + 1)) n += 1
+		n
 	}
 
 	/**

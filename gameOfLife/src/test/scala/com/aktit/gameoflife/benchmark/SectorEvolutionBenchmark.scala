@@ -6,7 +6,8 @@ import com.aktit.utils.TimeMeasure.dt
 /**
   * This helps me measure and optimize the domain model
   *
-  * Run 1 : 2000 ms
+  * Run 1 : 90000 ms
+  * Run 2 : 18000 ms - removed Int boxing and converted functional for-comprehensions to non-functional (Sector.liveNeighbours)
   *
   * @author kostas.kougios
   *         26/05/18 - 23:44
