@@ -10,7 +10,7 @@ object PlayGameNoSpark extends App
 {
 	val Width = 60
 	val Height = 20
-	val StartWithHowManyLive = Width * Height / 10
+	val StartWithHowManyLive = Width * Height / 5
 
 	val matrix = Matrix.newBuilder(Width, Height).addRandomLiveCells(StartWithHowManyLive).result()
 	var sector = Sector(matrix, Boundaries.empty(Width, Height))
