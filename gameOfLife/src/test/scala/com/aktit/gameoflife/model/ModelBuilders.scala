@@ -23,9 +23,11 @@ object ModelBuilders
 		)
 
 	def sector(
+		posX: Int = 0,
+		posY: Int = 0,
 		width: Int = 10,
 		height: Int = 5,
 		liveCoordinates: Seq[(Int, Int)] = Nil,
 		boundaries: Boundaries = ModelBuilders.boundaries()
-	) = Sector(width, height, liveCoordinates, boundaries)
+	) = Sector(posX, posY, width, height, liveCoordinates, boundaries)
 }

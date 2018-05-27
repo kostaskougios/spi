@@ -103,7 +103,7 @@ class SectorTest extends FunSuite
 
 	test("evolve: no thread sync issues") {
 		for (_ <- 1 to 1000) {
-			val s1 = Sector(Matrix.newBuilder(10, 10).addRandomLiveCells(50).result(), Boundaries.empty(10, 10))
+			val s1 = Sector(0, 0, Matrix.newBuilder(10, 10).addRandomLiveCells(50).result(), Boundaries.empty(10, 10))
 			s1.evolve should be(s1.evolve)
 			s1.evolve.evolve should be(s1.evolve.evolve)
 		}

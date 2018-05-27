@@ -1,11 +1,27 @@
 package com.aktit.gameoflife.model
 
 /**
+  * A game universe contains many sectors.
+  *
+  * Universe :
+  *
+  * S(1,1) S(1,2) S(1,3) ...
+  * S(2,1) S(2,2) S(2,3) ...
+  * ....
+  *
+  * This is a trait. We may have multiple implementations.
+  *
   * @author kostas.kougios
   *         25/05/18 - 20:26
   */
 trait Sector extends Serializable
 {
+	// position within the universe of sectors
+	def posX: Int
+
+	// position within the universe of sectors
+	def posY: Int
+
 	def width: Int
 
 	def height: Int
@@ -62,7 +78,7 @@ trait Sector extends Serializable
 				if ((live && (n == 2 || n == 3)) || (!live && n == 3)) b += (x, y)
 			}
 		}
-		Sector(b.result(), boundaries)
+		Sector(posX, posY, b.result(), boundaries)
 	}
 
 	/**
@@ -82,17 +98,17 @@ trait Sector extends Serializable
 
 object Sector
 {
-	def apply(width: Int, height: Int, liveCoordinates: Seq[(Int, Int)], boundaries: Boundaries): Sector = {
+	def apply(posX: Int, posY: Int, width: Int, height: Int, liveCoordinates: Seq[(Int, Int)], boundaries: Boundaries): Sector = {
 		if (boundaries.width != width) throw new IllegalArgumentException("boundaries.width!=width")
 		if (boundaries.height != height) throw new IllegalArgumentException("boundaries.height!=height")
 
 		val matrix = Matrix(width, height, liveCoordinates)
-		StdSector(matrix, boundaries)
+		StdSector(posX, posY, matrix, boundaries)
 	}
 
-	def apply(matrix: Matrix, boundaries: Boundaries): Sector = StdSector(matrix, boundaries)
+	def apply(posX: Int, posY: Int, matrix: Matrix, boundaries: Boundaries): Sector = StdSector(posX, posY, matrix, boundaries)
 
-	private case class StdSector(matrix: Matrix, boundaries: Boundaries) extends Sector
+	private case class StdSector(posX: Int, posY: Int, matrix: Matrix, boundaries: Boundaries) extends Sector
 	{
 		if (matrix.width != boundaries.width) throw new IllegalArgumentException(s"matrix.width != boundaries.width : ${matrix.width}!=${boundaries.width}")
 		if (matrix.height != boundaries.height) throw new IllegalArgumentException(s"matrix.height != boundaries.height : ${matrix.height}!=${boundaries.height}")

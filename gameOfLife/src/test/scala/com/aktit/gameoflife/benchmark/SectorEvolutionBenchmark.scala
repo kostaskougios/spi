@@ -24,7 +24,7 @@ object SectorEvolutionBenchmark extends App
 	val sector = {
 		println(s"Creating a sector with ${(Width * Height) / 1000000} million cells")
 		val matrix = Matrix.newBuilder(Width, Height).addRandomLiveCells(Width * Height / 10).result()
-		Sector(matrix, Boundaries.empty(Width, Height))
+		Sector(0, 0, matrix, Boundaries.empty(Width, Height))
 	}
 
 	println("Evolution begins!")

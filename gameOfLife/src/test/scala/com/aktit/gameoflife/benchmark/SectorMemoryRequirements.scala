@@ -18,7 +18,7 @@ object SectorMemoryRequirements extends App
 	val sector = {
 		println(s"Creating Sector with ${(Width * Height) / 1000000} million cells and ~$Live live cells")
 		val matrix = Matrix.newBuilder(Width, Height).addRandomLiveCells(Live).result()
-		Sector(matrix, Boundaries.empty(Width, Height))
+		Sector(0, 0, matrix, Boundaries.empty(Width, Height))
 	}
 
 	val sz = ObjectSizeCalculator.getObjectSize(sector)

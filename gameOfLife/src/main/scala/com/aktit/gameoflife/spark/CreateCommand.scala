@@ -20,7 +20,7 @@ case class CreateCommand(gameName: String, sectorWidth: Int, sectorHeight: Int, 
 			case (x, y) =>
 				logInfo(s"Creating sector at ($x,$y) for game $gameName")
 				val matrix = Matrix.newBuilder(sectorWidth, sectorHeight).addRandomLiveCells(howManyLiveCells).result()
-				val s = Sector(matrix, Boundaries.empty(sectorWidth, sectorHeight))
+				val s = Sector(x, y, matrix, Boundaries.empty(sectorWidth, sectorHeight))
 				logInfo(s"Now saving sector ($x,$y)")
 				s
 		}.saveAsObjectFile(outDir)
