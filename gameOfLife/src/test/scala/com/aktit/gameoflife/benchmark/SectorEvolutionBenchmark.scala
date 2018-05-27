@@ -9,6 +9,7 @@ import com.aktit.utils.TimeMeasure.dt
   * Run 1 : 90000 ms
   * Run 2 : 18000 ms - removed Int boxing and converted functional for-comprehensions to non-functional (Sector.liveNeighbours)
   * Run 3 : 15000 ms - swapped for ( x then y ) to for (y then x), probably better cpu cache usage
+  * Run 4 : 10000 ms - .par for Sector.evolve
   *
   * @author kostas.kougios
   *         26/05/18 - 23:44

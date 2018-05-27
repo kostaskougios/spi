@@ -54,13 +54,13 @@ trait Sector extends Serializable
 	  */
 	def evolve: Sector = {
 		val newAlive = for {
-			y <- 0 until height
+			y <- (0 until height).par
 			x <- 0 until width
 			n = liveNeighbours(x, y)
 			live = isLive(x, y)
 			if (live && (n == 2 || n == 3)) || (!live && n == 3)
 		} yield (x, y)
-		Sector(width, height, newAlive, boundaries)
+		Sector(width, height, newAlive.seq, boundaries)
 	}
 
 	/**
