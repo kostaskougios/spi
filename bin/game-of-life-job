@@ -5,7 +5,7 @@ echo "Starting game of life spark stream which accepts commands via kafka"
 
 bin/spark/spark-submit --class com.aktit.gameoflife.GameOfLife \
 	--driver-memory 512m \
-	--executor-memory 16g \
+	--executor-memory 28g \
 	--conf spark.executor.memoryOverhead=512 \
 	--executor-cores 8 \
 	--num-executors 1 \

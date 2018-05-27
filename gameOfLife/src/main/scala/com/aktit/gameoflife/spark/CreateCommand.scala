@@ -8,7 +8,7 @@ import org.apache.spark.internal.Logging
   * @author kostas.kougios
   *         27/05/18 - 20:39
   */
-case class CreateCmd(gameName: String, sectorWidth: Int, sectorHeight: Int, numSectorsHorizontal: Int, numSectorsVertical: Int, howManyLiveCells: Int) extends Command with Logging
+case class CreateCommand(gameName: String, sectorWidth: Int, sectorHeight: Int, numSectorsHorizontal: Int, numSectorsVertical: Int, howManyLiveCells: Int) extends Command with Logging
 {
 	def run(sc: SparkContext, out: String) = {
 		val outDir = out + "/" + gameName + "/turn-1"
