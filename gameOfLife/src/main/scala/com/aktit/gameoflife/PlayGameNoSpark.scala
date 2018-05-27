@@ -12,7 +12,7 @@ object PlayGameNoSpark extends App
 	val Height = 20
 	val StartWithHowManyLive = Width * Height / 10
 
-	val matrix = Matrix.random(Width, Height, StartWithHowManyLive)
+	val matrix = Matrix.newBuilder(Width, Height).addRandom(StartWithHowManyLive).result()
 	var sector = Sector(matrix, Boundaries.empty(Width, Height))
 	while (true) {
 		println(sector.toAscii)

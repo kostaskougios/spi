@@ -3,6 +3,7 @@ package com.aktit.gameoflife.model
 import com.aktit.optimized.Tuples
 
 import scala.collection.immutable.BitSet
+import scala.collection.mutable
 import scala.util.Random
 
 /**
@@ -32,12 +33,6 @@ object Matrix
 	}
 
 	def apply(width: Int, height: Int, bitSets: Array[BitSet]): Matrix = BitSetMatrix(width, height, bitSets)
-
-	def random(width: Int, height: Int, howManyLive: Int): Matrix = apply(
-		width,
-		height,
-		for (_ <- 1 to howManyLive) yield (Random.nextInt(width), Random.nextInt(height))
-	)
 
 	/**
 	  * Optimized (memory and performance) version of the random matrix creator but with limitations.
@@ -75,4 +70,22 @@ object Matrix
 		}
 	}
 
+	def newBuilder(width: Int, height: Int): Builder = new Builder(width, height)
+
+	class Builder private[Matrix](width: Int, height: Int)
+	{
+		private val data = new Array[mutable.BitSet](height)
+		for (y <- 0 until height) data(y) = new mutable.BitSet(width)
+
+		def +=(x: Int, y: Int): Unit = {
+			data(y) += x
+		}
+
+		def addRandom(n: Int): Builder = {
+			for (_ <- 1 to n) +=(Random.nextInt(width), Random.nextInt(height))
+			this
+		}
+
+		def result(): Matrix = BitSetMatrix(width, height, data.map(b => BitSet.fromBitMask(b.toBitMask)))
+	}
 }
