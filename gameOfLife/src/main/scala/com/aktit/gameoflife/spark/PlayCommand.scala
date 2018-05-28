@@ -12,10 +12,13 @@ class PlayCommand(gameName: String, turn: Int) extends GameCommand with Logging
 {
 	override def run(sc: SparkContext, out: String): Unit = {
 		logInfo(s"Will now play $gameName turn $turn")
-		sc.objectFile[Sector](turnDir(out, gameName, turn)).map {
+		val rdd = sc.objectFile[Sector](turnDir(out, gameName, turn)).map {
 			sector =>
-				logInfo("Evolving sector")
+				logInfo(s"Evolving sector (${sector.posX},${sector.posY})")
 				sector.evolve
-		}.saveAsObjectFile(turnDir(out, gameName, turn + 1))
+		}
+		val (edges, sectors) = includeEdges(rdd)
+		edges.saveAsObjectFile(turnEdgesDir(out, gameName, turn + 1))
+		sectors.saveAsObjectFile(turnDir(out, gameName, turn + 1))
 	}
 }
