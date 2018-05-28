@@ -94,10 +94,10 @@ trait Sector extends Serializable
 		top.mkString + "\n" +
 			(0 until height).map {
 				y =>
-					(if (isLive(-1, height)) "▒" else "░") + (0 until width).map {
+					(if (isLive(-1, y)) "▒" else "░") + (0 until width).map {
 						x =>
 							if (isLive(x, y)) '█' else ' '
-					}.mkString + (if (isLive(width, height)) "▒" else "░")
+					}.mkString + (if (isLive(width, y)) "▒" else "░")
 			}.mkString("\n") + "\n" + bottom.mkString
 	}
 

@@ -18,7 +18,7 @@ object QuickPlay extends Logging
 		val StartWithHowManyLive = Width * Height / 5
 		val GameName = "QuickPlay"
 
-		val conf = new SparkConf().setAppName(getClass.getName)
+		val conf = new SparkConf().setAppName(getClass.getName).set("spark.hadoop.validateOutputSpecs", "false")
 		val out = "/tmp"
 
 		val commands = Seq(
