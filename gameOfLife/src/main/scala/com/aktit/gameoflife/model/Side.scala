@@ -13,7 +13,11 @@ import scala.collection.immutable.BitSet
   */
 trait Side
 {
+	// Sector's posX that this side belongs to
+	def posX: Int
 
+	// Sector's posY that this side belongs to
+	def posY: Int
 }
 
 trait TopSide extends Side
@@ -26,20 +30,20 @@ trait RightSide extends Side
 
 object Side
 {
-	def top(s: BitSet): TopSide = BitSetTopSide(s)
+	def top(posX: Int, posY: Int, s: BitSet): TopSide = BitSetTopSide(posX, posY, s)
 
-	def bottom(s: BitSet): BottomSide = BitSetBottomSide(s)
+	def bottom(posX: Int, posY: Int, s: BitSet): BottomSide = BitSetBottomSide(posX, posY, s)
 
-	def left(s: BitSet): LeftSide = BitSetLeftSide(s)
+	def left(posX: Int, posY: Int, s: BitSet): LeftSide = BitSetLeftSide(posX, posY, s)
 
-	def right(s: BitSet): RightSide = BitSetRightSide(s)
+	def right(posX: Int, posY: Int, s: BitSet): RightSide = BitSetRightSide(posX, posY, s)
 
-	private case class BitSetTopSide(top: BitSet) extends TopSide
+	private case class BitSetTopSide(posX: Int, posY: Int, top: BitSet) extends TopSide
 
-	private case class BitSetBottomSide(top: BitSet) extends BottomSide
+	private case class BitSetBottomSide(posX: Int, posY: Int, top: BitSet) extends BottomSide
 
-	private case class BitSetLeftSide(top: BitSet) extends LeftSide
+	private case class BitSetLeftSide(posX: Int, posY: Int, top: BitSet) extends LeftSide
 
-	private case class BitSetRightSide(top: BitSet) extends RightSide
+	private case class BitSetRightSide(posX: Int, posY: Int, top: BitSet) extends RightSide
 
 }
