@@ -11,7 +11,7 @@ import scala.collection.immutable.BitSet
   * @author kostas.kougios
   *         28/05/18 - 00:47
   */
-trait Side
+trait Side extends Edge
 {
 	def isLive(pos: Int): Boolean
 }
@@ -26,6 +26,8 @@ trait RightSide extends Side
 
 object Side
 {
+	val EmptyTop = top(BitSet.empty)
+
 	def top(s: BitSet): TopSide = BitSetTopSide(s)
 
 	def bottom(s: BitSet): BottomSide = BitSetBottomSide(s)

@@ -9,7 +9,7 @@ package com.aktit.gameoflife.model
   * @author kostas.kougios
   *         28/05/18 - 01:05
   */
-trait Corner
+trait Corner extends Edge
 {
 	def alive: Boolean
 }

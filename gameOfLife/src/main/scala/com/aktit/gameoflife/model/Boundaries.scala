@@ -37,6 +37,20 @@ trait Boundaries
 
 object Boundaries
 {
+	// Compose a Boundaries from the 8 surrounding edges
+	def fromEdges(edges: Seq[Edge]): Boundaries = {
+		val bottomRightBoundaryCorner = edges.collectFirst {
+			case e: TopLeftCorner => e.alive
+		}.getOrElse(false)
+		val bottomLeftBoundaryCorner = edges.collectFirst {
+			case e: TopRightCorner => e.alive
+		}.getOrElse(false)
+		val bottomBoundary = edges.collectFirst {
+			case e: TopSide => e
+		}.getOrElse(Side.EmptyTop)
+		???
+	}
+
 	def empty(
 		width: Int,
 		height: Int

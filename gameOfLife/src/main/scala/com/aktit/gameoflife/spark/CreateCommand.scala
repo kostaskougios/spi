@@ -1,6 +1,7 @@
 package com.aktit.gameoflife.spark
 
-import com.aktit.gameoflife.model.{Boundaries, Matrix, Sector}
+import com.aktit.gameoflife.model.{Boundaries, Matrix, Sector, Universe}
+import com.aktit.gameoflife.spark.Directories._
 import org.apache.spark.SparkContext
 import org.apache.spark.internal.Logging
 
@@ -13,14 +14,16 @@ import org.apache.spark.internal.Logging
 class CreateCommand(gameName: String, sectorWidth: Int, sectorHeight: Int, numSectorsHorizontal: Int, numSectorsVertical: Int, howManyLiveCells: Int)
 	extends GameCommand with Logging
 {
+	private val universe = Universe(gameName, numSectorsHorizontal, numSectorsVertical, sectorWidth, sectorHeight)
 	def run(sc: SparkContext, out: String) = {
 		val rdd = sc.parallelize(sectorCoordinates).map {
 			case (x, y) =>
 				createSector(x, y)
 		}
 		val (edges, sectors) = includeEdges(rdd)
+		sc.parallelize(Seq(universe)).saveAsObjectFile(turnUniverseDir(out, gameName, 1))
 		edges.saveAsObjectFile(turnEdgesDir(out, gameName, 1))
-		sectors.saveAsObjectFile(turnDir(out, gameName, 1))
+		sectors.saveAsObjectFile(turnSectorDir(out, gameName, 1))
 	}
 
 	private def sectorCoordinates = for {
