@@ -24,8 +24,8 @@ class CreateCommand(gameName: String, sectorWidth: Int, sectorHeight: Int, numSe
 	}
 
 	private def sectorCoordinates = for {
-		x <- 0 until numSectorsHorizontal.toInt
-		y <- 0 until numSectorsVertical.toInt
+		x <- 0 until numSectorsHorizontal
+		y <- 0 until numSectorsVertical
 	} yield (x, y)
 
 	private def createSector(x: Int, y: Int) = {
