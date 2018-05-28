@@ -49,13 +49,31 @@ object Boundaries
 			case e: TopSide => e.allLive
 		}.getOrElse(Seq.empty)
 
+		val topRightBoundaryCorner = edges.collectFirst {
+			case e: BottomLeftCorner if e.alive => universe.sectorWidth
+		}.toArray
+		val topLeftBoundaryCorner = edges.collectFirst {
+			case e: BottomRightCorner if e.alive => -1
+		}.toArray
+		val topBoundary = edges.collectFirst {
+			case e: BottomSide => e.allLive
+		}.getOrElse(Seq.empty)
+
+		val left = edges.collectFirst {
+			case e: RightSide => e.allLive
+		}.getOrElse(Seq.empty)
+
+		val right = edges.collectFirst {
+			case e: LeftSide => e.allLive
+		}.getOrElse(Seq.empty)
+
 		apply(
 			universe.sectorWidth,
 			universe.sectorHeight,
-			???,
+			topRightBoundaryCorner ++ topBoundary ++ topLeftBoundaryCorner,
 			bottomRightBoundaryCorner ++ bottomBoundary ++ bottomLeftBoundaryCorner,
-			???,
-			???
+			left.toArray,
+			right.toArray
 		)
 	}
 
