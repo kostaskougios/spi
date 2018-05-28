@@ -89,14 +89,16 @@ trait Sector extends Serializable
 	  * Convert to ascii art.
 	  */
 	def toAscii: String = {
-		("▁" * (width + 2)) + "\n" +
+		val top = for (x <- -1 to width) yield if (isLive(x, -1)) "▒" else "░"
+		val bottom = for (x <- -1 to width) yield if (isLive(x, height)) "▒" else "░"
+		top.mkString + "\n" +
 			(0 until height).map {
 				y =>
-					"▒" + (0 until width).map {
+					(if (isLive(-1, height)) "▒" else "░") + (0 until width).map {
 						x =>
 							if (isLive(x, y)) '█' else ' '
-					}.mkString + "▒"
-			}.mkString("\n") + "\n" + ("▔" * (width + 2))
+					}.mkString + (if (isLive(width, height)) "▒" else "░")
+			}.mkString("\n") + "\n" + bottom.mkString
 	}
 
 	def edges: Edges = Edges(
