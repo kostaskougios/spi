@@ -30,9 +30,9 @@ trait Boundaries
 
 	def isRightLive(y: Int): Boolean
 
-	def isTop(x: Int): Boolean
+	def isTopLive(x: Int): Boolean
 
-	def isBottom(x: Int): Boolean
+	def isBottomLive(x: Int): Boolean
 }
 
 object Boundaries
@@ -114,9 +114,9 @@ object Boundaries
 
 		def isRightLive(y: Int): Boolean = right.contains(y)
 
-		def isTop(x: Int): Boolean = top.contains(x + 1)
+		def isTopLive(x: Int): Boolean = top.contains(x + 1)
 
-		def isBottom(x: Int): Boolean = bottom.contains(x + 1)
+		def isBottomLive(x: Int): Boolean = bottom.contains(x + 1)
 	}
 
 }

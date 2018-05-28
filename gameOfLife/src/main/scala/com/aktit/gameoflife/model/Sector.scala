@@ -134,8 +134,8 @@ object Sector
 			if (x < -1 || x > matrix.width) throw new IllegalArgumentException(s"x is invalid : $x")
 			if (y < -1 || y > matrix.height) throw new IllegalArgumentException(s"y is invalid : $y")
 
-			if (y == -1) boundaries.isTop(x)
-			else if (y == matrix.height) boundaries.isBottom(x)
+			if (y == -1) boundaries.isTopLive(x)
+			else if (y == matrix.height) boundaries.isBottomLive(x)
 			else if (x == -1) boundaries.isLeftLive(y)
 			else if (x == matrix.width) boundaries.isRightLive(y)
 			else matrix.isLive(x, y)
