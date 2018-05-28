@@ -18,6 +18,8 @@ trait Side
 
 	// Sector's posY that this side belongs to
 	def posY: Int
+
+	def isLive(pos: Int): Boolean
 }
 
 trait TopSide extends Side
@@ -39,11 +41,23 @@ object Side
 	def right(posX: Int, posY: Int, s: BitSet): RightSide = BitSetRightSide(posX, posY, s)
 
 	private case class BitSetTopSide(posX: Int, posY: Int, top: BitSet) extends TopSide
+	{
+		override def isLive(pos: Int) = top.contains(pos)
+	}
 
-	private case class BitSetBottomSide(posX: Int, posY: Int, top: BitSet) extends BottomSide
+	private case class BitSetBottomSide(posX: Int, posY: Int, bottom: BitSet) extends BottomSide
+	{
+		override def isLive(pos: Int) = bottom.contains(pos)
+	}
 
-	private case class BitSetLeftSide(posX: Int, posY: Int, top: BitSet) extends LeftSide
+	private case class BitSetLeftSide(posX: Int, posY: Int, left: BitSet) extends LeftSide
+	{
+		override def isLive(pos: Int) = left.contains(pos)
+	}
 
-	private case class BitSetRightSide(posX: Int, posY: Int, top: BitSet) extends RightSide
+	private case class BitSetRightSide(posX: Int, posY: Int, right: BitSet) extends RightSide
+	{
+		override def isLive(pos: Int) = right.contains(pos)
+	}
 
 }

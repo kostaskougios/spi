@@ -133,6 +133,38 @@ class SectorTest extends FunSuite
 		sector().edges.bottomRightCorner.alive should be(false)
 	}
 
+	test("edges, top side") {
+		val side = sector(liveCoordinates = Seq((0, 0), (2, 0))).edges.topSide
+		side.isLive(0) should be(true)
+		side.isLive(1) should be(false)
+		side.isLive(2) should be(true)
+		side.isLive(3) should be(false)
+	}
+
+	test("edges, bottom side") {
+		val side = sector(liveCoordinates = Seq((0, 4), (2, 4))).edges.bottomSide
+		side.isLive(0) should be(true)
+		side.isLive(1) should be(false)
+		side.isLive(2) should be(true)
+		side.isLive(3) should be(false)
+	}
+
+	test("edges, left side") {
+		val side = sector(liveCoordinates = Seq((0, 0), (0, 2))).edges.leftSide
+		side.isLive(0) should be(true)
+		side.isLive(1) should be(false)
+		side.isLive(2) should be(true)
+		side.isLive(3) should be(false)
+	}
+
+	test("edges, right side") {
+		val side = sector(liveCoordinates = Seq((9, 0), (9, 2))).edges.rightSide
+		side.isLive(0) should be(true)
+		side.isLive(1) should be(false)
+		side.isLive(2) should be(true)
+		side.isLive(3) should be(false)
+	}
+
 	test("evolve: no thread sync issues") {
 		for (_ <- 1 to 1000) {
 			val s1 = Sector(0, 0, Matrix.newBuilder(10, 10).addRandomLiveCells(50).result(), Boundaries.empty(10, 10))
