@@ -14,6 +14,8 @@ import scala.collection.immutable.BitSet
 trait Side extends Edge
 {
 	def isLive(pos: Int): Boolean
+
+	def allLive: Seq[Int]
 }
 
 trait TopSide extends Side
@@ -39,21 +41,30 @@ object Side
 	private case class BitSetTopSide(top: BitSet) extends TopSide
 	{
 		override def isLive(pos: Int) = top.contains(pos)
+
+		override def allLive: Seq[Int] = top.toSeq
 	}
 
 	private case class BitSetBottomSide(bottom: BitSet) extends BottomSide
 	{
 		override def isLive(pos: Int) = bottom.contains(pos)
+
+		override def allLive: Seq[Int] = bottom.toSeq
 	}
 
 	private case class BitSetLeftSide(left: BitSet) extends LeftSide
 	{
 		override def isLive(pos: Int) = left.contains(pos)
+
+		override def allLive: Seq[Int] = left.toSeq
+
 	}
 
 	private case class BitSetRightSide(right: BitSet) extends RightSide
 	{
 		override def isLive(pos: Int) = right.contains(pos)
+
+		override def allLive: Seq[Int] = right.toSeq
 	}
 
 }

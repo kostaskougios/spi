@@ -38,17 +38,25 @@ trait Boundaries
 object Boundaries
 {
 	// Compose a Boundaries from the 8 surrounding edges
-	def fromEdges(edges: Seq[Edge]): Boundaries = {
+	def fromEdges(universe: Universe, edges: Seq[Edge]): Boundaries = {
 		val bottomRightBoundaryCorner = edges.collectFirst {
-			case e: TopLeftCorner => e.alive
-		}.getOrElse(false)
+			case e: TopLeftCorner if e.alive => universe.sectorWidth
+		}.toArray
 		val bottomLeftBoundaryCorner = edges.collectFirst {
-			case e: TopRightCorner => e.alive
-		}.getOrElse(false)
+			case e: TopRightCorner if e.alive => -1
+		}.toArray
 		val bottomBoundary = edges.collectFirst {
-			case e: TopSide => e
-		}.getOrElse(Side.EmptyTop)
-		???
+			case e: TopSide => e.allLive
+		}.getOrElse(Seq.empty)
+
+		apply(
+			universe.sectorWidth,
+			universe.sectorHeight,
+			???,
+			bottomRightBoundaryCorner ++ bottomBoundary ++ bottomLeftBoundaryCorner,
+			???,
+			???
+		)
 	}
 
 	def empty(

@@ -18,6 +18,8 @@ import scala.collection.immutable.BitSet
   */
 trait Sector extends Serializable
 {
+	def withBoundaries(boundaries: Boundaries): Sector
+
 	// position within the universe of sectors
 	def posX: Int
 
@@ -142,6 +144,8 @@ object Sector
 		override def width = matrix.width
 
 		override def height = matrix.height
+
+		override def withBoundaries(newBoundaries: Boundaries) = StdSector(posX, posY, matrix, newBoundaries)
 	}
 
 }
