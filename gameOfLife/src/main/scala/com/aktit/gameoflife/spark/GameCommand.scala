@@ -21,19 +21,4 @@ trait GameCommand extends Command
 	  * Partitions the sectors so that sectors and edges are on the same partition (to reduce shuffle)
 	  */
 	def partitionSector(sector: Sector): ((Int, Int), Sector) = (sectorPartitionKey(sector.posX, sector.posY), sector)
-
-	def partitionEdges(edges: Edges) = {
-		// this is bit confusing but we need to send the correct edge to the correct (x,y) coordinates of the sector
-		// that requires it for it's Boundaries.
-		Seq(
-			((edges.posX + 1, edges.posY - 1), edges.topRightCorner),
-			((edges.posX + 1, edges.posY + 1), edges.bottomRightCorner),
-			((edges.posX - 1, edges.posY - 1), edges.topLeftCorner),
-			((edges.posX - 1, edges.posY + 1), edges.bottomLeftCorner),
-			((edges.posX + 1, edges.posY), edges.rightSide),
-			((edges.posX - 1, edges.posY), edges.leftSide),
-			((edges.posX, edges.posY - 1), edges.topSide),
-			((edges.posX, edges.posY + 1), edges.bottomSide)
-		)
-	}
 }
