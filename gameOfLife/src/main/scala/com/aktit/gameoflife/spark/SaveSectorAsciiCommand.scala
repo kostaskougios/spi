@@ -1,7 +1,5 @@
 package com.aktit.gameoflife.spark
 
-import com.aktit.gameoflife.model.Sector
-import com.aktit.gameoflife.spark.Directories.turnSectorDir
 import org.apache.spark.SparkContext
 
 /**
@@ -13,8 +11,10 @@ import org.apache.spark.SparkContext
 class SaveSectorAsciiCommand(gameName: String, turn: Int) extends Command
 {
 	override def run(sc: SparkContext, out: String): Unit = {
-		val art = sc.objectFile[Sector](turnSectorDir(out, gameName, turn))
-			.collect()
+		val rdd = new SectorBoundariesMerger(gameName, turn)
+			.merge(sc, out)
+
+		val art = rdd.collect()
 			.groupBy(_.posY)
 			.toSeq
 			.sortBy(_._1)

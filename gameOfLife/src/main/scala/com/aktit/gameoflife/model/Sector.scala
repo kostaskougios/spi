@@ -82,7 +82,7 @@ trait Sector extends Serializable
 				if ((live && (n == 2 || n == 3)) || (!live && n == 3)) b += (x, y)
 			}
 		}
-		Sector(posX, posY, b.result(), boundaries)
+		Sector(posX, posY, b.result(), Boundaries.empty(width, height))
 	}
 
 	/**
