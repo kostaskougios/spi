@@ -5,22 +5,23 @@ import org.apache.spark.SparkContext
 import org.apache.spark.internal.Logging
 
 /**
+  * Creates a game.
+  *
   * @author kostas.kougios
   *         27/05/18 - 20:39
   */
 class CreateCommand(gameName: String, sectorWidth: Int, sectorHeight: Int, numSectorsHorizontal: Int, numSectorsVertical: Int, howManyLiveCells: Int) extends Command with Logging
 {
-	def run(sc: SparkContext, out: String) = {
-		val outDir = out + "/" + gameName + "/turn-1"
-		val sectorCoords = for {
-			x <- 0 until numSectorsHorizontal.toInt
-			y <- 0 until numSectorsVertical.toInt
-		} yield (x, y)
-		sc.parallelize(sectorCoords).map {
+	def run(sc: SparkContext, out: String) =
+		sc.parallelize(sectorCoordinates).map {
 			case (x, y) =>
 				createSector(x, y)
-		}.saveAsObjectFile(outDir)
-	}
+		}.saveAsObjectFile(turnDir(out, gameName, 1))
+
+	private def sectorCoordinates = for {
+		x <- 0 until numSectorsHorizontal.toInt
+		y <- 0 until numSectorsVertical.toInt
+	} yield (x, y)
 
 	private def createSector(x: Int, y: Int) = {
 		logInfo(s"Creating sector at ($x,$y) for game $gameName")
