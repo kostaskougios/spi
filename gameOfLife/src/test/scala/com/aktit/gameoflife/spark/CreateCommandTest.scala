@@ -12,18 +12,17 @@ import com.aktit.spark.testing.BaseSparkSuite
 class CreateCommandTest extends BaseSparkSuite
 {
 	test("creates sectors") {
-		val out = createTestGame
-		val sectors = sc.objectFile[Sector](out).collect()
+		val sectors = createTestGame
 		sectors.map(_.posX).toSet should be(Set(0, 1))
 		sectors.map(_.posY).toSet should be(Set(0, 1, 2))
 	}
 
 	def randomDir = s"/tmp/${UUID.randomUUID}"
 
-	def createTestGame: String = {
+	def createTestGame = {
 		val out = randomDir
 		val cmd = new CreateCommand("TestGame", sectorWidth = 10, sectorHeight = 5, numSectorsHorizontal = 2, numSectorsVertical = 3, howManyLiveCells = 20)
 		cmd.run(sc, out)
-		out + "/TestGame/turn-1"
+		sc.objectFile[Sector](out + "/TestGame/turn-1").collect()
 	}
 }
