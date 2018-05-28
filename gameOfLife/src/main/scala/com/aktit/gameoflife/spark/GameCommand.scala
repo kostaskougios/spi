@@ -17,4 +17,12 @@ trait GameCommand extends Command
 		val cached = rdd.cache()
 		(cached.map(_.edges), cached)
 	}
+
+	// Sectors and edges are partitioned by their coordinates to limit shuffle
+	def sectorPartitionKey(posX: Int, posY: Int): (Int, Int) = (posX, posY)
+
+	/**
+	  * Partitions the sectors so that sectors and edges are on the same partition (to reduce shuffle)
+	  */
+	def partitionSector(sector: Sector): ((Int, Int), Sector) = (sectorPartitionKey(sector.posX, sector.posY), sector)
 }

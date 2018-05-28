@@ -51,7 +51,7 @@ object Deps
 
 	object Kafka
 	{
-		val SparkStreaming = "org.apache.spark" %% "spark-streaming-kafka-0-10" % Spark.Version
+		val SparkStreaming = "org.apache.spark" %% "spark-streaming-kafka-0-10" % Spark.Version exclude("net.jpountz.lz4", "lz4")
 		val Clients = "org.apache.kafka" % "kafka-clients" % "1.1.0"
 	}
 
