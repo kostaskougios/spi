@@ -8,7 +8,7 @@ import org.apache.spark.internal.Logging
   * @author kostas.kougios
   *         27/05/18 - 20:39
   */
-case class CreateCommand(gameName: String, sectorWidth: Int, sectorHeight: Int, numSectorsHorizontal: Int, numSectorsVertical: Int, howManyLiveCells: Int) extends Command with Logging
+class CreateCommand(gameName: String, sectorWidth: Int, sectorHeight: Int, numSectorsHorizontal: Int, numSectorsVertical: Int, howManyLiveCells: Int) extends Command with Logging
 {
 	def run(sc: SparkContext, out: String) = {
 		val outDir = out + "/" + gameName + "/turn-1"
@@ -18,11 +18,15 @@ case class CreateCommand(gameName: String, sectorWidth: Int, sectorHeight: Int, 
 		} yield (x, y)
 		sc.parallelize(sectorCoords).map {
 			case (x, y) =>
-				logInfo(s"Creating sector at ($x,$y) for game $gameName")
-				val matrix = Matrix.newBuilder(sectorWidth, sectorHeight).addRandomLiveCells(howManyLiveCells).result()
-				val s = Sector(x, y, matrix, Boundaries.empty(sectorWidth, sectorHeight))
-				logInfo(s"Now saving sector ($x,$y)")
-				s
+				createSector(x, y)
 		}.saveAsObjectFile(outDir)
+	}
+
+	private def createSector(x: Int, y: Int) = {
+		logInfo(s"Creating sector at ($x,$y) for game $gameName")
+		val matrix = Matrix.newBuilder(sectorWidth, sectorHeight).addRandomLiveCells(howManyLiveCells).result()
+		val s = Sector(x, y, matrix, Boundaries.empty(sectorWidth, sectorHeight))
+		logInfo(s"Now saving sector ($x,$y)")
+		s
 	}
 }

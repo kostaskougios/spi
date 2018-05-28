@@ -59,9 +59,9 @@ object GameOfLife extends Logging
 							logInfo(s"Got $commands")
 							commands match {
 								case List("create", gameName, sectorWidth, sectorHeight, numSectorsHorizontal, numSectorsVertical, howManyLiveCells) =>
-									Some(CreateCommand(gameName, sectorWidth.toInt, sectorHeight.toInt, numSectorsHorizontal.toInt, numSectorsVertical.toInt, howManyLiveCells.toInt))
+									Some(new CreateCommand(gameName, sectorWidth.toInt, sectorHeight.toInt, numSectorsHorizontal.toInt, numSectorsVertical.toInt, howManyLiveCells.toInt))
 								case List("play", gameName, turn) =>
-									Some(PlayCommand(gameName, turn.toInt))
+									Some(new PlayCommand(gameName, turn.toInt))
 								case _ =>
 									logWarning(s"Invalid command : $commands")
 									None
@@ -69,7 +69,7 @@ object GameOfLife extends Logging
 					}.collect
 
 					// Update the offsets before executing the commands. This means if execution fails, the commands
-					// won't be run again. This is done on purpose so that we can give an other command if we need to.
+					// won't run again. This is done on purpose so that we can give an other command if we need to.
 					val offsetRanges = rdd.asInstanceOf[HasOffsetRanges].offsetRanges
 					messages.asInstanceOf[CanCommitOffsets].commitAsync(offsetRanges)
 
