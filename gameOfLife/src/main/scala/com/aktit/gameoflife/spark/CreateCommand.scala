@@ -10,13 +10,18 @@ import org.apache.spark.internal.Logging
   * @author kostas.kougios
   *         27/05/18 - 20:39
   */
-class CreateCommand(gameName: String, sectorWidth: Int, sectorHeight: Int, numSectorsHorizontal: Int, numSectorsVertical: Int, howManyLiveCells: Int) extends Command with Logging
+class CreateCommand(gameName: String, sectorWidth: Int, sectorHeight: Int, numSectorsHorizontal: Int, numSectorsVertical: Int, howManyLiveCells: Int)
+	extends GameCommand with Logging
 {
-	def run(sc: SparkContext, out: String) =
-		sc.parallelize(sectorCoordinates).map {
+	def run(sc: SparkContext, out: String) = {
+		val rdd = sc.parallelize(sectorCoordinates).map {
 			case (x, y) =>
 				createSector(x, y)
-		}.saveAsObjectFile(turnDir(out, gameName, 1))
+		}
+		val (edges, sectors) = includeEdges(rdd)
+		edges.saveAsObjectFile(turnEdgesDir(out, gameName, 1))
+		sectors.saveAsObjectFile(turnDir(out, gameName, 1))
+	}
 
 	private def sectorCoordinates = for {
 		x <- 0 until numSectorsHorizontal.toInt

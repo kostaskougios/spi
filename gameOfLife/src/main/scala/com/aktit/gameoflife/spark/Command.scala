@@ -9,6 +9,4 @@ import org.apache.spark.SparkContext
 trait Command extends Serializable /* Serializable is a spark requirement */
 {
 	def run(sc: SparkContext, out: String): Unit
-
-	protected def turnDir(out: String, gameName: String, turn: Int) = out + "/" + gameName + s"/turn-" + turn
 }
