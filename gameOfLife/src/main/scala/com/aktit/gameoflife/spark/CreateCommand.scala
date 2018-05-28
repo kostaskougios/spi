@@ -20,10 +20,7 @@ class CreateCommand(gameName: String, sectorWidth: Int, sectorHeight: Int, numSe
 		}
 		val (edges, sectors) = includeEdges(rdd)
 		edges.saveAsObjectFile(turnEdgesDir(out, gameName, 1))
-		val x = sectors.map(partitionSector)
-			.groupByKey() // Partitions by (x,y) so that sectors and edges are in the same partition
-			.mapValues(_.head) // there is only one
-			.saveAsObjectFile(turnDir(out, gameName, 1))
+		sectors.saveAsObjectFile(turnDir(out, gameName, 1))
 	}
 
 	private def sectorCoordinates = for {

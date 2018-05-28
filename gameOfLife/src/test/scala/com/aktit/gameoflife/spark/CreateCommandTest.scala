@@ -30,7 +30,7 @@ class CreateCommandTest extends BaseSparkSuite
 		val cmd = new CreateCommand("TestGame", sectorWidth = 10, sectorHeight = 5, numSectorsHorizontal = 2, numSectorsVertical = 3, howManyLiveCells = 20)
 		cmd.run(sc, out)
 		(
-			sc.objectFile[((Int, Int), Sector)](out + "/TestGame/turn-1").collect().map(_._2).toList,
+			sc.objectFile[Sector](out + "/TestGame/turn-1").collect().toList,
 			sc.objectFile[Edges](out + "/TestGame/turn-1-edges").collect().toList
 		)
 	}
