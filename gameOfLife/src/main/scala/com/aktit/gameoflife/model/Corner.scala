@@ -11,12 +11,6 @@ package com.aktit.gameoflife.model
   */
 trait Corner
 {
-	// Sector's posX that this side belongs to
-	def posX: Int
-
-	// Sector's posY that this side belongs to
-	def posY: Int
-
 	def alive: Boolean
 }
 
@@ -30,20 +24,20 @@ trait BottomRightCorner extends Corner
 
 object Corner
 {
-	def topLeft(posX: Int, posY: Int, alive: Boolean): TopLeftCorner = BooleanTopLeftCorner(posX, posY, alive)
+	def topLeft(alive: Boolean): TopLeftCorner = BooleanTopLeftCorner(alive)
 
-	def topRight(posX: Int, posY: Int, alive: Boolean): TopRightCorner = BooleanTopRightCorner(posX, posY, alive)
+	def topRight(alive: Boolean): TopRightCorner = BooleanTopRightCorner(alive)
 
-	def bottomLeft(posX: Int, posY: Int, alive: Boolean): BottomLeftCorner = BooleanBottomLeftCorner(posX, posY, alive)
+	def bottomLeft(alive: Boolean): BottomLeftCorner = BooleanBottomLeftCorner(alive)
 
-	def bottomRight(posX: Int, posY: Int, alive: Boolean): BottomRightCorner = BooleanBottomRightCorner(posX, posY, alive)
+	def bottomRight(alive: Boolean): BottomRightCorner = BooleanBottomRightCorner(alive)
 
-	case class BooleanTopLeftCorner(posX: Int, posY: Int, alive: Boolean) extends TopLeftCorner
+	case class BooleanTopLeftCorner(alive: Boolean) extends TopLeftCorner
 
-	case class BooleanTopRightCorner(posX: Int, posY: Int, alive: Boolean) extends TopRightCorner
+	case class BooleanTopRightCorner(alive: Boolean) extends TopRightCorner
 
-	case class BooleanBottomLeftCorner(posX: Int, posY: Int, alive: Boolean) extends BottomLeftCorner
+	case class BooleanBottomLeftCorner(alive: Boolean) extends BottomLeftCorner
 
-	case class BooleanBottomRightCorner(posX: Int, posY: Int, alive: Boolean) extends BottomRightCorner
+	case class BooleanBottomRightCorner(alive: Boolean) extends BottomRightCorner
 
 }

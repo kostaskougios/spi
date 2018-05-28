@@ -19,8 +19,8 @@ class CreateCommandTest extends BaseSparkSuite
 
 	test("creates edges") {
 		val (_, edges) = createTestGame
-		edges.map(_.topSide.posX).toSet should be(Set(0, 1))
-		edges.map(_.topSide.posY).toSet should be(Set(0, 1, 2))
+		edges.map(_.posX).toSet should be(Set(0, 1))
+		edges.map(_.posY).toSet should be(Set(0, 1, 2))
 	}
 
 	def randomDir = s"/tmp/${UUID.randomUUID}"

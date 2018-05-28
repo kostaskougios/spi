@@ -98,14 +98,16 @@ trait Sector extends Serializable
 	}
 
 	def edges: Edges = Edges(
-		Corner.topLeft(posX, posY, isLive(0, 0)),
-		Corner.topRight(posX, posY, isLive(width - 1, 0)),
-		Corner.bottomLeft(posX, posY, isLive(0, height - 1)),
-		Corner.bottomRight(posX, posY, isLive(width - 1, height - 1)),
-		Side.top(posX, posY, BitSet((for (x <- 0 until width if isLive(x, 0)) yield x): _*)),
-		Side.bottom(posX, posY, BitSet((for (x <- 0 until width if isLive(x, height - 1)) yield x): _*)),
-		Side.left(posX, posY, BitSet((for (y <- 0 until height if isLive(0, y)) yield y): _*)),
-		Side.right(posX, posY, BitSet((for (y <- 0 until height if isLive(width - 1, y)) yield y): _*))
+		posX,
+		posY,
+		Corner.topLeft(isLive(0, 0)),
+		Corner.topRight(isLive(width - 1, 0)),
+		Corner.bottomLeft(isLive(0, height - 1)),
+		Corner.bottomRight(isLive(width - 1, height - 1)),
+		Side.top(BitSet((for (x <- 0 until width if isLive(x, 0)) yield x): _*)),
+		Side.bottom(BitSet((for (x <- 0 until width if isLive(x, height - 1)) yield x): _*)),
+		Side.left(BitSet((for (y <- 0 until height if isLive(0, y)) yield y): _*)),
+		Side.right(BitSet((for (y <- 0 until height if isLive(width - 1, y)) yield y): _*))
 	)
 }
 

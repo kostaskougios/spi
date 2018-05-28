@@ -13,12 +13,6 @@ import scala.collection.immutable.BitSet
   */
 trait Side
 {
-	// Sector's posX that this side belongs to
-	def posX: Int
-
-	// Sector's posY that this side belongs to
-	def posY: Int
-
 	def isLive(pos: Int): Boolean
 }
 
@@ -32,30 +26,30 @@ trait RightSide extends Side
 
 object Side
 {
-	def top(posX: Int, posY: Int, s: BitSet): TopSide = BitSetTopSide(posX, posY, s)
+	def top(s: BitSet): TopSide = BitSetTopSide(s)
 
-	def bottom(posX: Int, posY: Int, s: BitSet): BottomSide = BitSetBottomSide(posX, posY, s)
+	def bottom(s: BitSet): BottomSide = BitSetBottomSide(s)
 
-	def left(posX: Int, posY: Int, s: BitSet): LeftSide = BitSetLeftSide(posX, posY, s)
+	def left(s: BitSet): LeftSide = BitSetLeftSide(s)
 
-	def right(posX: Int, posY: Int, s: BitSet): RightSide = BitSetRightSide(posX, posY, s)
+	def right(s: BitSet): RightSide = BitSetRightSide(s)
 
-	private case class BitSetTopSide(posX: Int, posY: Int, top: BitSet) extends TopSide
+	private case class BitSetTopSide(top: BitSet) extends TopSide
 	{
 		override def isLive(pos: Int) = top.contains(pos)
 	}
 
-	private case class BitSetBottomSide(posX: Int, posY: Int, bottom: BitSet) extends BottomSide
+	private case class BitSetBottomSide(bottom: BitSet) extends BottomSide
 	{
 		override def isLive(pos: Int) = bottom.contains(pos)
 	}
 
-	private case class BitSetLeftSide(posX: Int, posY: Int, left: BitSet) extends LeftSide
+	private case class BitSetLeftSide(left: BitSet) extends LeftSide
 	{
 		override def isLive(pos: Int) = left.contains(pos)
 	}
 
-	private case class BitSetRightSide(posX: Int, posY: Int, right: BitSet) extends RightSide
+	private case class BitSetRightSide(right: BitSet) extends RightSide
 	{
 		override def isLive(pos: Int) = right.contains(pos)
 	}
