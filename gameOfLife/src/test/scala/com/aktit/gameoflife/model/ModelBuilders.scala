@@ -6,6 +6,19 @@ package com.aktit.gameoflife.model
   */
 object ModelBuilders
 {
+	def universe(
+		name: String = "universe-name",
+		width: Int = 4,
+		height: Int = 8,
+		sectorWidth: Int = 10,
+		sectorHeight: Int = 5
+	) = Universe(
+		name,
+		width,
+		height,
+		sectorWidth,
+		sectorHeight
+	)
 	def boundaries(
 		width: Int = 10,
 		height: Int = 5,

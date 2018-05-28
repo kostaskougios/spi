@@ -1,8 +1,10 @@
 package com.aktit.gameoflife.model
 
-import com.aktit.gameoflife.model.ModelBuilders.boundaries
+import com.aktit.gameoflife.model.ModelBuilders.{boundaries, universe}
 import org.scalatest.FunSuite
 import org.scalatest.Matchers._
+
+import scala.collection.immutable.BitSet
 
 /**
   * @author kostas.kougios
@@ -88,5 +90,19 @@ class BoundariesTest extends FunSuite
 		an[IllegalArgumentException] should be thrownBy {
 			boundaries(right = Array(5))
 		}
+	}
+
+	test("fromEdges, top") {
+		val b = Boundaries.fromEdges(universe(), Seq(
+			Corner.bottomRight(true),
+			Corner.bottomLeft(true),
+			Side.bottom(BitSet(0, 2))
+		))
+		b.isTop(-1) should be(true)
+		b.isTop(0) should be(true)
+		b.isTop(1) should be(false)
+		b.isTop(2) should be(true)
+		b.isTop(3) should be(false)
+		b.isTop(10) should be(true)
 	}
 }
