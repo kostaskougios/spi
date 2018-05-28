@@ -63,15 +63,7 @@ object WikipediaPagesConsumerJob extends Logging
 					rdd.flatMap {
 						cr =>
 							val page = cr.value
-							page.revisions.flatMap {
-								revision =>
-									revision.breakToWords
-										.distinct
-										.map {
-											word =>
-												(StringUtils.substring(word, 0, 1024), page.id, revision.id)
-										}
-							}
+							createRows(page)
 					}.saveToCassandra("wikipedia", "words", SomeColumns("word", "page_id", "revision_id"))
 					// The consumer offsets won't automatically be stored. We need to update
 					// them here because we consumed some data.
@@ -86,6 +78,18 @@ object WikipediaPagesConsumerJob extends Logging
 			ssc.awaitTermination()
 		} finally {
 			ssc.stop()
+		}
+	}
+
+	private def createRows(page: Page): Seq[(String, Long, Long)] = {
+		page.revisions.flatMap {
+			revision =>
+				revision.breakToWords
+					.distinct
+					.map {
+						word =>
+							(StringUtils.substring(word, 0, 1024), page.id, revision.id)
+					}
 		}
 	}
 }

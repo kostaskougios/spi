@@ -13,8 +13,8 @@ class CreateCommand(gameName: String, sectorWidth: Int, sectorHeight: Int, numSe
 	def run(sc: SparkContext, out: String) = {
 		val outDir = out + "/" + gameName + "/turn-1"
 		val sectorCoords = for {
-			x <- 0 to numSectorsHorizontal.toInt
-			y <- 0 to numSectorsVertical.toInt
+			x <- 0 until numSectorsHorizontal.toInt
+			y <- 0 until numSectorsVertical.toInt
 		} yield (x, y)
 		sc.parallelize(sectorCoords).map {
 			case (x, y) =>
