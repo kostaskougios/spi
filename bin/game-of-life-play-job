@@ -18,8 +18,8 @@ bin/spark/spark-submit --class com.aktit.gameoflife.CreateAndPlayOnSpark \
 	--conf spark.out=/game-of-life \
 	--conf spark.width=50000 \
 	--conf spark.height=50000 \
-	--conf spark.num-of-sectors-horizontally=100 \
-	--conf spark.num-of-sectors-vertically=100 \
+	--conf spark.num-of-sectors-horizontally=10 \
+	--conf spark.num-of-sectors-vertically=10 \
 	--conf spark.num-live=500000000 \
 	--conf spark.game-name=$GAMENAME \
 	--conf spark.turns=100 \

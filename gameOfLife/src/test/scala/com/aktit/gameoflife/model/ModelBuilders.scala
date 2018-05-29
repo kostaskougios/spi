@@ -1,5 +1,7 @@
 package com.aktit.gameoflife.model
 
+import scala.collection.immutable.BitSet
+
 /**
   * @author kostas.kougios
   *         25/05/18 - 22:46
@@ -43,4 +45,31 @@ object ModelBuilders
 		liveCoordinates: Seq[(Int, Int)] = Nil,
 		boundaries: Boundaries = ModelBuilders.boundaries()
 	) = Sector(posX, posY, width, height, liveCoordinates, boundaries)
+
+	def edges(
+		// Sector's posX that these edges belongs to
+		posX: Int = 1,
+
+		// Sector's posY that these edges belongs to
+		posY: Int = 1,
+		topLeftCorner: TopLeftCorner = Corner.topLeft(true),
+		topRightCorner: TopRightCorner = Corner.topRight(true),
+		bottomLeftCorner: BottomLeftCorner = Corner.bottomLeft(true),
+		bottomRightCorner: BottomRightCorner = Corner.bottomRight(true),
+		topSide: TopSide = Side.top(BitSet(1, 5, 9)),
+		bottomSide: BottomSide = Side.bottom(BitSet(2, 6, 10)),
+		leftSide: LeftSide = Side.left(BitSet(3, 7, 11)),
+		rightSide: RightSide = Side.right(BitSet(4, 8, 12))
+	) = Edges(
+		posX,
+		posY,
+		topLeftCorner,
+		topRightCorner,
+		bottomLeftCorner,
+		bottomRightCorner,
+		topSide,
+		bottomSide,
+		leftSide,
+		rightSide
+	)
 }

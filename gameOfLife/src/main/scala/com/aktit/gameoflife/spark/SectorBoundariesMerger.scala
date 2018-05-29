@@ -6,6 +6,8 @@ import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
 
 /**
+  * Merges the edges of surrounding sectors to create the Boundaries for a sector.
+  *
   * @author kostas.kougios
   *         28/05/18 - 23:30
   */
