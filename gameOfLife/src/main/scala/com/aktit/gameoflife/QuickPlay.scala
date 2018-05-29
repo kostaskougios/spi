@@ -13,8 +13,8 @@ import org.apache.spark.{SparkConf, SparkContext}
 object QuickPlay extends Logging
 {
 	def main(args: Array[String]): Unit = {
-		val Width = 60
-		val Height = 20
+		val Width = 10
+		val Height = 5
 		val StartWithHowManyLive = Width * Height / 5
 		val GameName = "QuickPlay"
 
