@@ -32,6 +32,8 @@ to be applied repeatedly to create further generations.
 
 ## How the game is played in a distributed way
 
+There could be a number of ways to play the game distributed. I've done the following:
+
 The universe is is split into sectors.
 Each sector (here represented by the domain model class Sector) can be calculated independently provided that the
 boundaries (live cells on nearby sectors, class Boundaries) are communicated between neighbour sectors.
