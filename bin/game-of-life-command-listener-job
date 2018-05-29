@@ -3,7 +3,7 @@ echo "Starting game of life spark stream which accepts commands via kafka"
 
 . bin/spark/mock-spark gameOfLife/target/pack
 
-bin/spark/spark-submit --class com.aktit.gameoflife.GameOfLife \
+bin/spark/spark-submit --class com.aktit.gameoflife.GameOfLifeCommandListenerOnSpark \
 	--driver-memory 512m \
 	--executor-memory 28g \
 	--conf spark.executor.memoryOverhead=512 \

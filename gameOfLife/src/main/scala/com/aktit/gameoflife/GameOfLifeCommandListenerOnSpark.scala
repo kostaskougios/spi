@@ -26,7 +26,7 @@ import org.apache.spark.streaming.{Seconds, StreamingContext}
   * @author kostas.kougios
   *         27/05/18 - 20:06
   */
-object GameOfLife extends Logging
+object GameOfLifeCommandListenerOnSpark extends Logging
 {
 	def main(args: Array[String]): Unit = {
 		val conf = new SparkConf().setAppName(getClass.getName)
