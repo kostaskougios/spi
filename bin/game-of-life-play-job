@@ -1,5 +1,5 @@
 
-echo "Starting game of life spark stream which accepts commands via kafka"
+echo "Starting game of life"
 
 GAMENAME=AutoPlay
 
