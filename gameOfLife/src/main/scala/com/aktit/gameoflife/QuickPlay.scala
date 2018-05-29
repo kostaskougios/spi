@@ -15,14 +15,16 @@ object QuickPlay extends Logging
 	def main(args: Array[String]): Unit = {
 		val Width = 10
 		val Height = 5
-		val StartWithHowManyLive = Width * Height / 5
+		val UniverseWidth = 4
+		val UniverseHeight = 4
+		val StartWithHowManyLivePerSector = Width * Height / 5
 		val GameName = "QuickPlay"
 
 		val conf = new SparkConf().setAppName(getClass.getName).set("spark.hadoop.validateOutputSpecs", "false")
 		val out = "/tmp"
 
 		val commands = Seq(
-			new CreateCommand(GameName, Width, Height, 4, 4, StartWithHowManyLive)
+			new CreateCommand(GameName, Width, Height, UniverseWidth, UniverseWidth, StartWithHowManyLivePerSector)
 		) ++ (1 to 10).flatMap {
 			turn =>
 				Seq(

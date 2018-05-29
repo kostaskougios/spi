@@ -11,7 +11,7 @@ import org.apache.spark.internal.Logging
   * @author kostas.kougios
   *         27/05/18 - 20:39
   */
-class CreateCommand(gameName: String, sectorWidth: Int, sectorHeight: Int, numSectorsHorizontal: Int, numSectorsVertical: Int, howManyLiveCells: Int)
+class CreateCommand(gameName: String, sectorWidth: Int, sectorHeight: Int, numSectorsHorizontal: Int, numSectorsVertical: Int, howManyLiveCellsPerSector: Int)
 	extends GameCommand with Logging
 {
 	private val universe = Universe(gameName, numSectorsHorizontal, numSectorsVertical, sectorWidth, sectorHeight)
@@ -33,7 +33,7 @@ class CreateCommand(gameName: String, sectorWidth: Int, sectorHeight: Int, numSe
 
 	private def createSector(x: Int, y: Int) = {
 		logInfo(s"Creating sector at ($x,$y) for game $gameName")
-		val matrix = Matrix.newBuilder(sectorWidth, sectorHeight).addRandomLiveCells(howManyLiveCells).result()
+		val matrix = Matrix.newBuilder(sectorWidth, sectorHeight).addRandomLiveCells(howManyLiveCellsPerSector).result()
 		val s = Sector(x, y, matrix, Boundaries.empty(sectorWidth, sectorHeight))
 		logInfo(s"Now saving sector ($x,$y)")
 		s

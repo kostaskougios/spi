@@ -25,12 +25,12 @@ import org.apache.spark.streaming.{Seconds, StreamingContext}
   *
   * Commands can be:
   *
-  * create gameName sectorWidth sectorHeight numSectorsHorizontal numSectorsVertical howManyLiveCells
+  * create gameName sectorWidth sectorHeight numSectorsHorizontal numSectorsVertical howManyLiveCellsPerSector
   * play gameName turn
   *
   * i.e.
   *
-  * create MyGame 10000 5000 100 100 10000000
+  * create MyGame 10000 5000 100 100 200000
   * play MyGame 1
   * play MyGame 2
   *

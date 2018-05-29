@@ -21,12 +21,12 @@ object CreateAndPlayOnSpark extends Logging
 		val height = conf.get("spark.height").toInt
 		val numOfSectorsHorizontally = conf.get("spark.num-of-sectors-horizontally").toInt
 		val numOfSectorsVertically = conf.get("spark.num-of-sectors-vertically").toInt
-		val numLive = conf.get("spark.num-live").toInt
+		val livePerSector = conf.get("spark.num-live-per-sector").toInt
 		val name = conf.get("spark.game-name")
 		val turns = conf.get("spark.turns").toInt
 
 		val commands = Seq(
-			new CreateCommand(name, width, height, numOfSectorsHorizontally, numOfSectorsVertically, numLive)
+			new CreateCommand(name, width, height, numOfSectorsHorizontally, numOfSectorsVertically, livePerSector)
 		) ++ (1 to turns).map {
 			turn =>
 				new PlayCommand(name, turn)

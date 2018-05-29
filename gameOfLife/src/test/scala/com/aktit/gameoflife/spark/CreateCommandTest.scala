@@ -33,7 +33,7 @@ class CreateCommandTest extends BaseSparkSuite
 
 	def createTestGame = {
 		val out = randomDir
-		val cmd = new CreateCommand("TestGame", sectorWidth = 10, sectorHeight = 5, numSectorsHorizontal = 2, numSectorsVertical = 3, howManyLiveCells = 20)
+		val cmd = new CreateCommand("TestGame", sectorWidth = 10, sectorHeight = 5, numSectorsHorizontal = 2, numSectorsVertical = 3, howManyLiveCellsPerSector = 20)
 		cmd.run(sc, out)
 		(
 			sc.objectFile[Universe](turnUniverseDir(out, "TestGame", 1)).collect().head,

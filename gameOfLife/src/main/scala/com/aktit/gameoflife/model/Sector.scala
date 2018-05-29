@@ -75,7 +75,7 @@ trait Sector extends Serializable
 	def evolve: Sector = {
 		// this method needs to be optimized for performance and memory usage
 		val b = Matrix.newBuilder(width, height)
-		for {y <- (0 until height).par} { // note the Matrix builder doesn't need sync if we parallelise on y. Also we won't use more memory.
+		for {y <- 0 until height} {
 			for {x <- 0 until width} {
 				val n = liveNeighbours(x, y)
 				val live = isLive(x, y)
