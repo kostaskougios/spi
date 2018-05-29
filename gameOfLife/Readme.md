@@ -140,3 +140,21 @@ topic for commands like
 
 see GameOfLifeCommandListenerOnSpark for more details on how to create the kafka topic and run it.
 
+## Testing
+
+The game logic complexity is increased due to playing it distributed. Boundaries add to the complexity because
+they need to be shared across neighbor sectors and are shared even diagonally, i.e. the bottom-right corner of sector
+(1,1) has to be available on the top-left boundary of sector (2,2). This means the code has to be well tested. Most
+of the logic is on the domain model and each domain model class X has it's XTest class, i.e. SectorTest.
+
+On top of that some spark code, i.e. SectorBoundariesMerger which is responsible for communicating edges of neighbor
+sectors, has logic that has to be tested with a SparkContext available (i.e. see SectorBoundariesMergerTest).
+
+## Performance
+
+Various classes measure performance, in-memory sizes etc of the model. See package com.aktit.gameoflife.benchmark
+in src/test/scala. For example a sector with 100000x100000 dimensions has 1410 million cells and ~141006540 live 
+cells and is 1194 mb serialized (SectorMemoryRequirements class).
+
+
+
