@@ -24,11 +24,12 @@ instructions below in this file.
 
 Steps to run the wikipedia code to process wikipedia xml files and copy them to hbase/phoenix tables:
 
-- Build spark (see "BUILDING SPARK") for your hadoop version. If your hadoop version matches the one used by spark, please change project/Deps.scala Spark.Version.
+- Build spark (see "BUILDING SPARK") for your hadoop version. If you don't want to build spark but instead use a pre-build version, please change project/Deps.scala Spark.Version.
 - Download the wikipedia exports from https://dumps.wikimedia.org/backup-index.html . The EN language is the largest export, the EL language is small and can help for quicker tests.
 - The loaders project contains BreakupBigXmlFilesAndStoreToHdfs class which can be used to efficiently upload the xml files to hdfs for efficient spark processing. Run it
 with the JVM args as per the class comments.
-- Now you should have a /wikipedia folder in hdfs. (Note all code can be run locally too)
+- Now you should have a /wikipedia folder in hdfs.
+- Note all code can be run on a dev box too without a hadoop installation.
 - Run
 
 bin/build-project wikipedia
