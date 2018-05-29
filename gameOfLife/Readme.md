@@ -32,7 +32,7 @@ to be applied repeatedly to create further generations.
 
 ## How the game is played in a distributed way
 
-There could be a number of ways to play the game distributed. I've done the following:
+There could be a number of ways to play the game distributed. This implementation does the following:
 
 The universe is is split into sectors.
 Each sector (here represented by the domain model class Sector) can be calculated independently provided that the
