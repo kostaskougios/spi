@@ -119,3 +119,24 @@ The domain model has all the logic for sectors (Sector class), boundaries (Bound
 the messages send from each sector so that boundaries can be created on neighbors, Edges class). The domain model
 uses interfaces so that we can impl different (more efficient?) classes, i.e. we can do an empty sector implementation
 that uses no memory.
+
+Spark runs commands (Command trait) that do things like create a universe (CreateCommand) or play a turn (PlayCommand).
+Each turn is stored in HDFS under an output directory.
+
+## Execution on Spark/hadoop
+
+A game can be played by running 
+
+* CreateAndPlayOnSpark class or bin/game-of-life-play-job (configurable) which will create and play
+a configurable game and n turns.
+
+* GameOfLifeCommandListenerOnSpark class or bin/game-of-life-command-listener-job which will listen on a kafka
+topic for commands like 
+
+
+    create MyGame 10000 5000 100 100 10000000
+    play MyGame 1
+    play MyGame 2
+
+see GameOfLifeCommandListenerOnSpark for more details on how to create the kafka topic and run it.
+

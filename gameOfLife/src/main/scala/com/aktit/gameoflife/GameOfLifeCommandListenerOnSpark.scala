@@ -23,6 +23,17 @@ import org.apache.spark.streaming.{Seconds, StreamingContext}
   *
   * kafka-console-producer.sh --broker-list server.lan:9092 --topic GameOfLifeCommands
   *
+  * Commands can be:
+  *
+  * create gameName sectorWidth sectorHeight numSectorsHorizontal numSectorsVertical howManyLiveCells
+  * play gameName turn
+  *
+  * i.e.
+  *
+  * create MyGame 10000 5000 100 100 10000000
+  * play MyGame 1
+  * play MyGame 2
+  *
   * @author kostas.kougios
   *         27/05/18 - 20:06
   */
