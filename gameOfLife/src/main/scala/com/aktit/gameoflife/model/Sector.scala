@@ -118,8 +118,8 @@ trait Sector extends Serializable
 object Sector
 {
 	def apply(posX: Int, posY: Int, width: Int, height: Int, liveCoordinates: Seq[(Int, Int)], boundaries: Boundaries): Sector = {
-		if (boundaries.width != width) throw new IllegalArgumentException("boundaries.width!=width")
-		if (boundaries.height != height) throw new IllegalArgumentException("boundaries.height!=height")
+		if (boundaries.width != width) throw new IllegalArgumentException(s"boundaries.width ${boundaries.width} != width $width")
+		if (boundaries.height != height) throw new IllegalArgumentException(s"boundaries.height ${boundaries.height} != height $height")
 
 		val matrix = Matrix(width, height, liveCoordinates)
 		StdSector(posX, posY, matrix, boundaries)

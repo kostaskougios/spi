@@ -57,9 +57,9 @@ object ModelBuilders
 		bottomLeftCorner: BottomLeftCorner = Corner.bottomLeft(true),
 		bottomRightCorner: BottomRightCorner = Corner.bottomRight(true),
 		topSide: TopSide = Side.top(BitSet(1, 5, 9)),
-		bottomSide: BottomSide = Side.bottom(BitSet(2, 6, 10)),
-		leftSide: LeftSide = Side.left(BitSet(3, 7, 11)),
-		rightSide: RightSide = Side.right(BitSet(4, 8, 12))
+		bottomSide: BottomSide = Side.bottom(BitSet(2, 6, 8)),
+		leftSide: LeftSide = Side.left(BitSet(1, 2, 3)),
+		rightSide: RightSide = Side.right(BitSet(2, 4))
 	) = Edges(
 		posX,
 		posY,
