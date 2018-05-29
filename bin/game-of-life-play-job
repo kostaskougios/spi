@@ -9,18 +9,18 @@ hdfs dfs -rm -r -f /game-of-life/$GAMENAME
 
 bin/spark/spark-submit --class com.aktit.gameoflife.CreateAndPlayOnSpark \
 	--driver-memory 512m \
-	--executor-memory 28g \
-	--conf spark.executor.memoryOverhead=512 \
+	--executor-memory 24g \
+	--conf spark.executor.memoryOverhead=4096 \
 	--executor-cores 8 \
 	--num-executors 1 \
 	--master yarn \
 	--deploy-mode cluster \
 	--conf spark.out=/game-of-life \
-	--conf spark.width=50000 \
-	--conf spark.height=50000 \
-	--conf spark.num-of-sectors-horizontally=10 \
-	--conf spark.num-of-sectors-vertically=10 \
-	--conf spark.num-live=500000000 \
+	--conf spark.width=40000 \
+	--conf spark.height=40000 \
+	--conf spark.num-of-sectors-horizontally=4 \
+	--conf spark.num-of-sectors-vertically=4 \
+	--conf spark.num-live=400000000 \
 	--conf spark.game-name=$GAMENAME \
 	--conf spark.turns=100 \
 	bin/spark/empty.jar

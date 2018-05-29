@@ -16,7 +16,7 @@ class CreateCommand(gameName: String, sectorWidth: Int, sectorHeight: Int, numSe
 {
 	private val universe = Universe(gameName, numSectorsHorizontal, numSectorsVertical, sectorWidth, sectorHeight)
 	def run(sc: SparkContext, out: String) = {
-		val rdd = sc.parallelize(sectorCoordinates).map {
+		val rdd = sc.parallelize(sectorCoordinates, numSectorsHorizontal * numSectorsVertical /* save more files to avoid Hadoop array size exceeding 2GB */).map {
 			case (x, y) =>
 				createSector(x, y)
 		}
