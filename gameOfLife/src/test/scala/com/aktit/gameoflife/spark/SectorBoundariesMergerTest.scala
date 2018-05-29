@@ -4,6 +4,8 @@ import com.aktit.gameoflife.model.ModelBuilders.edges
 import com.aktit.gameoflife.model._
 import com.aktit.spark.testing.BaseSparkSuite
 
+import scala.collection.immutable.BitSet
+
 /**
   * @author kostas.kougios
   *         29/05/18 - 11:12
@@ -36,4 +38,31 @@ class SectorBoundariesMergerTest extends BaseSparkSuite
 		} should be(Seq(Corner.bottomRight(true)))
 	}
 
+	test("partitions edges, top side") {
+		val side = Side.top(BitSet(5, 6))
+		merger.partitionEdges(edges(topSide = side)).collect {
+			case ((1, 0), c: TopSide) => c
+		} should be(Seq(side))
+	}
+
+	test("partitions edges, bottom side") {
+		val side = Side.bottom(BitSet(5, 6))
+		merger.partitionEdges(edges(bottomSide = side)).collect {
+			case ((1, 2), c: BottomSide) => c
+		} should be(Seq(side))
+	}
+
+	test("partitions edges, left side") {
+		val side = Side.left(BitSet(5, 6))
+		merger.partitionEdges(edges(leftSide = side)).collect {
+			case ((0, 1), c: LeftSide) => c
+		} should be(Seq(side))
+	}
+
+	test("partitions edges, right side") {
+		val side = Side.right(BitSet(5, 6))
+		merger.partitionEdges(edges(rightSide = side)).collect {
+			case ((2, 1), c: RightSide) => c
+		} should be(Seq(side))
+	}
 }
