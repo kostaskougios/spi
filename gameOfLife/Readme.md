@@ -1,7 +1,8 @@
 # Game Of Life on Spark
 
 This is an implementation of the game of life (https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) on spark.
-This is a distributed version of the game that can run on an arbitrary large universe. 
+This is a distributed version of the game that can run on an arbitrary large universe and store each turn of
+the game in HDFS. 
 
 ![Sample from wikipedia](https://upload.wikimedia.org/wikipedia/commons/e/e5/Gospers_glider_gun.gif)
 
