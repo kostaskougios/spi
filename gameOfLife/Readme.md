@@ -80,6 +80,14 @@ The boundaries we see here are just neighbor sectors communicating their live ce
 checks all 9 neigbours of a cell to decide if the cell stays alive or dies. For example lets see sector (0,0), it has
 2 boundary live cells on the right because sector (1,0) has 2 live cells just next to sector (0,0).
 
+    ░░░░ | ░░░
+       ░ | ░  
+      █░ | ▒  
+      █▒<---█ 
+    █ █▒<---█ 
+       ░ | ░  
+    ░░▒░ | ▒░░
+
 Now next turn and the universe becomes:
 
     ░░░░░░░░░░░░ | ░░░░░░░░░░░░ | ░░░░░░░░░░░░ | ░░░░░░░░░░░░
