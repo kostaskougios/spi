@@ -120,8 +120,8 @@ Ascii art like this can be created by running class QuickPlay locally (hadoop no
 
 The domain model has all the logic for sectors (Sector class), boundaries (Boundaries class), edges (these are
 the messages send from each sector so that boundaries can be created on neighbors, Edges class). The domain model
-uses interfaces so that we can impl different (more efficient?) classes, i.e. we can do an empty sector implementation
-that uses no memory.
+uses interfaces so that we can impl different (more efficient?) classes amongst other reasons, i.e. we 
+can do an empty sector implementation that uses no memory and skip calculations during evolution.
 
 Spark runs commands (Command trait) that do things like create a universe (CreateCommand) or play a turn (PlayCommand).
 Each turn is stored in HDFS under an output directory.
