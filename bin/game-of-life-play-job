@@ -13,10 +13,10 @@ hdfs dfs -rm -r -f /game-of-life/$GAMENAME
 
 bin/spark/spark-submit --class com.aktit.gameoflife.CreateAndPlayOnSpark \
 	--driver-memory 512m \
-	--executor-memory 16g \
+	--executor-memory 4g \
 	--conf spark.memory.fraction=0.3 \
 	--conf spark.memory.storageFraction=0.2 \
-	--conf spark.executor.memoryOverhead=4096 \
+	--conf spark.executor.memoryOverhead=2048 \
 	--executor-cores 16 \
 	--num-executors 1 \
 	--master yarn \
