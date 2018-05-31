@@ -1,10 +1,11 @@
 package com.aktit.gameoflife.model
 
+import java.util.concurrent.ThreadLocalRandom
+
 import com.aktit.optimized.Tuples
 
 import scala.collection.immutable.BitSet
 import scala.collection.mutable
-import scala.util.Random
 
 /**
   * @author kostas.kougios
@@ -68,7 +69,8 @@ object Matrix
 		}
 
 		def addRandomLiveCells(n: Int): Builder = {
-			for (_ <- 1 to n) +=(Random.nextInt(width), Random.nextInt(height))
+			val r = ThreadLocalRandom.current()
+			for (_ <- 1 to n) +=(r.nextInt(width), r.nextInt(height))
 			this
 		}
 
