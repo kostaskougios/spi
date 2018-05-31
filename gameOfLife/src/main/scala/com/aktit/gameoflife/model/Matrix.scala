@@ -76,4 +76,5 @@ object Matrix
 
 		def result(): Matrix = new BitSetMatrix(width, height, data.map(b => BitSet.fromBitMask(b.toBitMask)))
 	}
+
 }
