@@ -1,15 +1,21 @@
 
-echo "Starting game of life"
+GAMENAME=$1
 
-GAMENAME=AutoPlay
+echo "Starting game of life $GAMENAME"
 
+# delete data if present
 hdfs dfs -rm -r -f /game-of-life/$GAMENAME
 
 . bin/spark/mock-spark gameOfLife/target/pack
 
+# we don't need RDD's in memory for this game.
+# see SectorMemoryRequirements for memory requirements per sector
+
 bin/spark/spark-submit --class com.aktit.gameoflife.CreateAndPlayOnSpark \
 	--driver-memory 512m \
 	--executor-memory 16g \
+	--conf spark.memory.fraction=0.3 \
+	--conf spark.memory.storageFraction=0.2 \
 	--conf spark.executor.memoryOverhead=4096 \
 	--executor-cores 16 \
 	--num-executors 1 \
@@ -18,8 +24,8 @@ bin/spark/spark-submit --class com.aktit.gameoflife.CreateAndPlayOnSpark \
 	--conf spark.out=/game-of-life \
 	--conf spark.width=10000 \
 	--conf spark.height=10000 \
-	--conf spark.num-of-sectors-horizontally=16 \
-	--conf spark.num-of-sectors-vertically=16 \
+	--conf spark.num-of-sectors-horizontally=64 \
+	--conf spark.num-of-sectors-vertically=64 \
 	--conf spark.num-live-per-sector=20000000 \
 	--conf spark.game-name=$GAMENAME \
 	--conf spark.turns=100 \

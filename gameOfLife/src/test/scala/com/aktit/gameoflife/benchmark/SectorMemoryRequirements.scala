@@ -3,6 +3,7 @@ package com.aktit.gameoflife.benchmark
 import com.aktit.gameoflife.model.{Boundaries, Matrix, Sector}
 import jdk.nashorn.internal.ir.debug.ObjectSizeCalculator
 import org.apache.commons.lang3.SerializationUtils
+import org.apache.spark.util.SizeEstimator
 
 /**
   * Memory requirements of a fully live sector and also for creating one.
@@ -23,5 +24,8 @@ object SectorMemoryRequirements extends App
 
 	val sz = ObjectSizeCalculator.getObjectSize(sector)
 	val serializedSz = SerializationUtils.serialize(sector).length
-	println(s"Sector ready, byte size is ${sz / (1024 * 1024)} mb, serialized size is ${serializedSz / (1024 * 1024)} mb")
+	val sparkSz = SizeEstimator.estimate(sector)
+	println(s"Sector ready, byte size is ${toMB(sz)} mb, serialized size is ${toMB(serializedSz)} mb, spark will size it at ${toMB(sparkSz)} mb")
+
+	def toMB(sz: Long) = sz / (1024 * 1024)
 }
