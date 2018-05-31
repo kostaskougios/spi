@@ -12,6 +12,7 @@ object ExaminePartitionersJob
 		val sc = new SparkContext(conf)
 
 		try {
+			val status = sc.statusTracker
 			val rdd = sc.parallelize(1 to 32).groupBy(_ % 2 == 0)
 			println(rdd.partitioner)
 			println(rdd.toDebugString)
@@ -19,6 +20,7 @@ object ExaminePartitionersJob
 			rdd.saveAsObjectFile("/tmp/f1")
 			val loaded = sc.objectFile[(Boolean, Iterable[Int])]("/tmp/f1")
 			println(loaded.partitioner)
+
 		} finally {
 			sc.stop()
 		}

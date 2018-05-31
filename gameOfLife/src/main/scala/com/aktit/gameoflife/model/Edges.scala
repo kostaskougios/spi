@@ -19,3 +19,19 @@ case class Edges(
 	leftSide: LeftSide,
 	rightSide: RightSide
 )
+{
+	def sendToNeighbors = {
+		// this is bit confusing but we need to send the correct edge to the correct (x,y) coordinates of the sector
+		// that requires it for it's Boundaries.
+		Seq(
+			((posX + 1, posY - 1), topRightCorner),
+			((posX + 1, posY + 1), bottomRightCorner),
+			((posX - 1, posY - 1), topLeftCorner),
+			((posX - 1, posY + 1), bottomLeftCorner),
+			((posX + 1, posY), rightSide),
+			((posX - 1, posY), leftSide),
+			((posX, posY - 1), topSide),
+			((posX, posY + 1), bottomSide)
+		)
+	}
+}

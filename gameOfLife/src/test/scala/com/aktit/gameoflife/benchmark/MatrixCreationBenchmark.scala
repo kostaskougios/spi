@@ -14,18 +14,12 @@ import com.aktit.utils.TimeMeasure.dt
   */
 object MatrixCreationBenchmark extends App
 {
-	val Width = 4000
-	val Height = 4000
-
-	println(s"Creating ${Width * Height} live nodes")
-	val live = for {
-		x <- 0 until Width
-		y <- 0 until Height
-	} yield (x, y)
+	val Width = 10000
+	val Height = 10000
 
 	for (i <- 1 to 10000) {
 		val (time, _) = dt {
-			Matrix(Width, Height, live)
+			Matrix.newBuilder(Width, Height).addRandomLiveCells(20000000).result()
 		}
 		println(s"$i : $time")
 	}
