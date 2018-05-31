@@ -69,8 +69,13 @@ object Matrix
 		}
 
 		def addRandomLiveCells(n: Int): Builder = {
+			// this has to be as fast as possible.
 			val r = ThreadLocalRandom.current()
-			for (_ <- 1 to n) +=(r.nextInt(width), r.nextInt(height))
+			var i = 1
+			while (i <= n) {
+				+=(r.nextInt(width), r.nextInt(height))
+				i += 1
+			}
 			this
 		}
 
