@@ -12,8 +12,6 @@ scalacOptions in ThisBuild ++= Seq("-target:jvm-1.7", "-unchecked", "-feature", 
 
 resolvers in ThisBuild += Resolver.mavenLocal
 
-resolvers in ThisBuild += "neo4j" at "http://m2.neo4j.org/content/repositories/releases/"
-
 resolvers in ThisBuild += "cloudera" at "https://repository.cloudera.com/artifactory/repo/"
 
 val commonSettings = Seq(
