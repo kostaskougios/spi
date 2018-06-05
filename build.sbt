@@ -131,7 +131,7 @@ lazy val wikipedia = project.settings(commonSettings: _*).settings(
 			Libraries.Apache.CommonsIO
 		) ++ Spark.Phoenix ++ Spark.Core
 	}
-).dependsOn(common % "test->test;compile->compile", xml, loaders, model)
+).dependsOn(common % "test->test;compile->compile", xml, loaders, model % "test->test;compile->compile")
 	.enablePlugins(PackPlugin)
 
 lazy val kafka = project.settings(commonSettings: _*).settings(
@@ -150,7 +150,7 @@ lazy val kafka = project.settings(commonSettings: _*).settings(
 			Spark.Sql
 		) ++ Spark.Core
 	}
-).dependsOn(common % "test->test;compile->compile", xml, model, avro)
+).dependsOn(common % "test->test;compile->compile", xml, model % "test->test;compile->compile", avro)
 	.enablePlugins(PackPlugin)
 
 lazy val experiments = project.settings(commonSettings: _*).settings(
