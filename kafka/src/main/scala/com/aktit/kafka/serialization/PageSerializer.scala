@@ -12,7 +12,8 @@ import org.apache.kafka.common.serialization.Serializer
   */
 class PageSerializer extends Serializer[Page]
 {
-	override def configure(map: util.Map[String, _], b: Boolean) = {}
+	override def configure(map: util.Map[String, _], b: Boolean) = {
+	}
 
 	override def serialize(topic: String, page: Page) = DTOSerializers.pageSerializer.serializeSingleBinary(page)
 
