@@ -1,9 +1,9 @@
 cd /tmp
-git clone git://github.com/apache/spark.git -b branch-2.3
+git clone git://github.com/apache/spark.git -b v2.3.1
 cd spark
 export MAVEN_OPTS="-Xmx2g -XX:ReservedCodeCacheSize=512m"
 
 # Set the local artifact version
-mvn versions:set -DnewVersion=2.3.0-hadoop-2.7.6-akt
+mvn versions:set -DnewVersion=2.3.1-hadoop-2.7.6-akt
 
 ./build/mvn -DskipTests -Pyarn -Phadoop-2.7 -Dhadoop.version=2.7.6 clean install
