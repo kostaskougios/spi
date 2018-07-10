@@ -7,7 +7,7 @@ import java.sql.Timestamp
   *         10/07/18 - 09:33
   */
 case class PageImpression(
-	userId: String,
+	userId: Long,
 	date: Timestamp,
 	refererUrl: String
 )
