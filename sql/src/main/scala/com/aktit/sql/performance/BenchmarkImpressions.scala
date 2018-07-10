@@ -21,6 +21,7 @@ object BenchmarkImpressions extends Logging
 		withCorrectSchema(spark).avro("/tmp/impressions/avro").createOrReplaceTempView("impressions_avro")
 		withCorrectSchema(spark).parquet("/tmp/impressions/parquet").createOrReplaceTempView("impressions_parquet")
 
+		// avro converts timestamps to Long and we have to query it based on long values
 		val fromInstance = Instant.parse("2010-01-01T00:00:00.00Z").toEpochMilli
 		val toInstance = Instant.parse("2010-02-01T00:00:00.00Z").toEpochMilli
 
