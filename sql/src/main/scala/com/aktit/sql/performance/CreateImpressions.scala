@@ -10,6 +10,14 @@ import org.apache.spark.sql.{SaveMode, SparkSession}
 import scala.util.Random
 
 /**
+  * Create random impression data to be used by the benchmarks.
+  *
+  * Takes 1h 15m on i7 4770k with SSD drive.
+  *
+  * 11G	/tmp/impressions/avro
+  * 16G	/tmp/impressions/parquet
+  * 27G	/tmp/impressions
+  *
   * @author kostas.kougios
   *         10/07/18 - 09:43
   */
@@ -29,7 +37,7 @@ object CreateImpressions extends Logging
 
 		logInfo(s"Will append ${Impressions / Group} times")
 
-		// We need to create a lot of test data without running out of memory. So we group the data together (using iterators)
+		// We need to create a lot of test data without running out of memory. So we group the data together (using iterators to avoid filling up the memory)
 		// and append them to our target directories
 		for ((data, grp) <- testData.grouped(Group).zipWithIndex) {
 
