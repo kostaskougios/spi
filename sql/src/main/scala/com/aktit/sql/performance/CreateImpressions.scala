@@ -17,7 +17,7 @@ object CreateImpressions extends Logging
 {
 	val MaxUsers = 1000000
 	val Impressions = 1000000000
-	val Group = 5000000
+	val Group = 5000000 // reduce this if you have less memory
 
 	def main(args: Array[String]): Unit = {
 
@@ -29,6 +29,8 @@ object CreateImpressions extends Logging
 
 		logInfo(s"Will append ${Impressions / Group} times")
 
+		// We need to create a lot of test data without running out of memory. So we group the data together (using iterators)
+		// and append them to our target directories
 		for ((data, grp) <- testData.grouped(Group).zipWithIndex) {
 
 			logInfo(s"parallelizing test data group $grp")
