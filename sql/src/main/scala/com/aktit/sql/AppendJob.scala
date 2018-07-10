@@ -1,4 +1,4 @@
-package com.aktit.landregistry
+package com.aktit.sql
 
 import org.apache.spark.internal.Logging
 import org.apache.spark.sql.{SaveMode, SparkSession}

@@ -74,11 +74,12 @@ lazy val sql = project.settings(commonSettings: _*).settings(
 			Libraries.ScalaTest,
 			Libraries.Mockito,
 			Spark.Sql,
+			Spark.AvroDataSource,
 			Libraries.Apache.Lang3,
 			Libraries.Apache.CommonsIO
 		) ++ Spark.Core
 	}
-).dependsOn(common % "test->test;compile->compile", xml)
+).dependsOn(common % "test->test;compile->compile", model % "test->test;compile->compile", avro, xml)
 	.enablePlugins(PackPlugin)
 
 lazy val phoenix = project.settings(commonSettings: _*).settings(

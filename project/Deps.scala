@@ -39,6 +39,8 @@ object Deps
 
 		// Note: there is no cassandra connector for spark 2.3.0, so I've build this PR: https://github.com/datastax/spark-cassandra-connector/pull/1175
 		val CassandraConnector = "com.datastax.spark" %% "spark-cassandra-connector" % "2.3.0"
+
+		val AvroDataSource = "com.databricks" %% "spark-avro" % "4.0.0"
 	}
 
 	object HBase
