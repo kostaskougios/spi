@@ -20,6 +20,9 @@ object BenchmarkImpressions extends Logging
 		withCorrectSchema(spark).avro("/tmp/impressions/avro").createOrReplaceTempView("impressions_avro")
 		withCorrectSchema(spark).parquet("/tmp/impressions/parquet").createOrReplaceTempView("impressions_parquet")
 
+		val (avroImpressions, _) = TimeMeasure.dt(spark.sql("select count(*) from impressions_avro").show())
+		val (parquetImpressions, _) = TimeMeasure.dt(spark.sql("select count(*) from impressions_parquet").show())
+
 		val (avroDistinctUsers, _) = TimeMeasure.dt(spark.sql("select count(distinct userId) from impressions_avro").show())
 		val (parquetDistinctUsers, _) = TimeMeasure.dt(spark.sql("select count(distinct userId) from impressions_parquet").show())
 
@@ -27,9 +30,10 @@ object BenchmarkImpressions extends Logging
 			s"""
 			   |Benchmark results.
 			   |
-			  |Benchmark / Avro / Parquet times (ms)
+			   |Benchmark / Avro / Parquet times (ms)
 			   |
-			  |select count(distinct userId) : $avroDistinctUsers / $parquetDistinctUsers
+			   |select count(*) : $avroImpressions / $parquetImpressions
+			   |select count(distinct userId) : $avroDistinctUsers / $parquetDistinctUsers
 			""".stripMargin)
 	}
 
