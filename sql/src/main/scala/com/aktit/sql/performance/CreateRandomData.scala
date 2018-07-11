@@ -25,16 +25,16 @@ object CreateRandomData extends Logging
 
 		val spark = SparkSession.builder.config("spark.sql.orc.impl", "native").getOrCreate
 		val conf = spark.conf
-		val impressions = conf.get("spark.creator.impressions.num").toLong
-		val impressionsTargetDir = conf.get("spark.creator.impressions.target-dir")
+		val numOfRows = conf.get("spark.creator.num-of-rows").toLong
+		val impressionsTargetDir = conf.get("spark.creator.target-dir")
 
-		logInfo(s"Impressions: Will append ${impressions / Group} times")
+		logInfo(s"Impressions: Will append ${numOfRows / Group} times")
 
 		val startClock = Instant.parse("2010-01-01T00:00:00.00Z")
 
 		new Creator(
 			spark,
-			for (i <- (1l to impressions).toIterator) yield {
+			for (i <- (1l to numOfRows).toIterator) yield {
 				val productId = Random.nextInt(MaxProducts)
 				val price = productId % 250
 				val discount = Random.nextInt(30)
@@ -56,13 +56,13 @@ object CreateRandomData extends Logging
 
 		new Creator(
 			spark,
-			for (i <- (1l to impressions).toIterator) yield
+			for (i <- (1l to numOfRows).toIterator) yield
 				PageImpression(
 					Random.nextInt(MaxUsers),
 					Timestamp.from(startClock.plusSeconds(i)),
 					s"http://www.some-server.com/part1/part2/$i"
 				),
-			impressionsTargetDir + "/impressions",
+			impressionsTargetDir + "/numOfRows",
 			Group
 		).create()
 	}
