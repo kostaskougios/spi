@@ -15,11 +15,10 @@ import org.apache.spark.sql.SparkSession
   */
 object BenchmarkImpressions extends Logging
 {
-	val SrcDir = "/tmp/impressions"
-
 	def main(args: Array[String]): Unit = {
 
 		val spark = SparkSession.builder.config("spark.sql.orc.impl", "native").getOrCreate
+		val srcDir = spark.conf.get("spark.src")
 		import spark.sql
 
 		def measureQuery(q: String => String) = {
@@ -41,17 +40,18 @@ object BenchmarkImpressions extends Logging
 
 		}
 
-		spark.read.avro(s"$SrcDir/avro").createOrReplaceTempView("impressions_avro")
-		spark.read.parquet(s"$SrcDir/parquet").createOrReplaceTempView("impressions_parquet")
-		spark.read.orc(s"$SrcDir/orc").createOrReplaceTempView("impressions_orc")
+		spark.read.avro(s"$srcDir/avro").createOrReplaceTempView("impressions_avro")
+		spark.read.parquet(s"$srcDir/parquet").createOrReplaceTempView("impressions_parquet")
+		spark.read.orc(s"$srcDir/orc").createOrReplaceTempView("impressions_orc")
 
 		logInfo(
 			"\n" +
 				Tabulator.format(
 					Seq(
 						Seq("Query", "Avro", "Parquet", "ORC"),
-						measureQuery(t => s"select count(distinct userId) as c,max(date),min(date),userId from impressions_$t group by userId order by c desc limit 5"),
-						measureQuery(t => s"select count(distinct userId) as c,userId from impressions_$t group by userId order by c desc limit 5"),
+						measureQuery(t => s"select * from impressions_$t where userId=500000"),
+						measureQuery(t => s"select count(userId) as c,max(date),min(date),userId from impressions_$t group by userId order by c desc limit 5"),
+						measureQuery(t => s"select count(userId) as c,userId from impressions_$t group by userId order by c desc limit 5"),
 						measureQuery(t => s"select count(*) from impressions_$t"),
 						measureQuery(t => s"select count(distinct userId) from impressions_$t"),
 						measureQuery(t => s"select min(date) from impressions_$t"),
