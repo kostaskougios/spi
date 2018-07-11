@@ -13,16 +13,12 @@ import scala.reflect.runtime.universe.TypeTag
   * @author kostas.kougios
   *         11/07/18 - 13:46
   */
-class Creator[A <: Product : TypeTag : ClassTag](spark: SparkSession, testData: Iterator[A], targetDir: String, group: Int) extends Logging
+class Creator[A <: Product : TypeTag : ClassTag](spark: SparkSession, targetDir: String, howMany: Int) extends Logging
 {
-	def create() = {
+	def create(testData: Int => A) = {
 		// We need to create a lot of test data without running out of memory. So we group the data together (using iterators to avoid filling up the memory)
 		// and append them to our target directories
-		for ((data, grp) <- testData.grouped(group).zipWithIndex) {
-
-			logInfo(s"parallelizing test data group $grp")
-
-			val rdd = spark.sparkContext.parallelize(data)
+		val rdd = spark.sparkContext.parallelize(1 to howMany).map(i => testData(i))
 
 			logInfo("Creating dataframe")
 			val df = spark.createDataFrame(rdd).toDF
@@ -30,15 +26,13 @@ class Creator[A <: Product : TypeTag : ClassTag](spark: SparkSession, testData: 
 			logInfo(s"Schema : ${df.schema}")
 
 			logInfo("Storing ORC")
-			df.toDF.write.mode(if (grp == 0) SaveMode.Overwrite else SaveMode.Append).orc(s"$targetDir/orc")
+		df.toDF.write.mode(SaveMode.Overwrite).orc(s"$targetDir/orc")
 
 			logInfo("Storing Avro")
-			df.toDF.write.mode(if (grp == 0) SaveMode.Overwrite else SaveMode.Append).avro(s"$targetDir/avro")
+		df.toDF.write.mode(SaveMode.Overwrite).avro(s"$targetDir/avro")
 
 			logInfo("Storing Parquet")
-			df.toDF.write.mode(if (grp == 0) SaveMode.Overwrite else SaveMode.Append).parquet(s"$targetDir/parquet")
-
-		}
+		df.toDF.write.mode(SaveMode.Overwrite).parquet(s"$targetDir/parquet")
 
 	}
 }

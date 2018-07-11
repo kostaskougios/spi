@@ -45,19 +45,22 @@ object CreateRandomData extends Logging
 
 		new Creator(
 			spark,
-			for (i <- (1l to numOfRows).toIterator) yield
-				PageImpression(
-					Random.nextInt(MaxUsers),
-					Timestamp.from(startClock.plusSeconds(i)),
-					s"http://www.some-server.com/part1/part2/$i"
-				),
 			impressionsTargetDir + "/impressions",
 			Group
-		).create()
+		).create { i =>
+			PageImpression(
+				Random.nextInt(MaxUsers),
+				Timestamp.from(startClock.plusSeconds(i)),
+				s"http://www.some-server.com/part1/part2/$i"
+			)
+		}
 
 		new Creator(
 			spark,
-			for (i <- (1l to numOfRows).toIterator) yield {
+			impressionsTargetDir + "/orders",
+			Group
+		).create {
+			i =>
 				val productId = Random.nextInt(MaxProducts)
 				val price = productId % 250
 				val discount = Random.nextInt(30)
@@ -72,9 +75,6 @@ object CreateRandomData extends Logging
 					price * (1.00f - discount.toFloat / 100),
 					discount.toByte
 				)
-			},
-			impressionsTargetDir + "/orders",
-			Group
-		).create()
+		}
 	}
 }
