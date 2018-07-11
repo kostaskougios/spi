@@ -2,7 +2,7 @@ package com.aktit.sql.performance
 
 import java.time.Instant
 
-import com.aktit.utils.TimeMeasure
+import com.aktit.utils.{Tabulator, TimeMeasure}
 import com.databricks.spark.avro._
 import org.apache.spark.internal.Logging
 import org.apache.spark.sql.SparkSession
@@ -49,15 +49,16 @@ object BenchmarkImpressions extends Logging
 
 
 		logInfo(
-			s"""
-			   |Benchmark results.
-			   |
-			   |Benchmark / Avro / Parquet / ORC time in ms
-			   |
-			   |select count(*) : $avroImpressions / $parquetImpressions / $orcImpressions
-			   |select count(distinct userId) : $avroDistinctUsers / $parquetDistinctUsers / $orcDistinctUsers
-			   |select count(distinct userId) from impressions_avro where date between : $avroDistinctForDateUsers/$parquetDistinctForDateUsers/$orcDistinctForDateUsers
-			""".stripMargin)
+			"\n" +
+				Tabulator.format(
+					Seq(
+						Seq("Query", "Avro", "Parquet", "ORC"),
+						Seq("select count(*)", avroImpressions, parquetImpressions, orcImpressions),
+						Seq("select count(distinct userId)", avroDistinctUsers, parquetDistinctUsers, orcDistinctUsers),
+						Seq("select count(distinct userId) from impressions_avro where date between", avroDistinctForDateUsers, parquetDistinctForDateUsers, orcDistinctForDateUsers)
+					)
+				)
+		)
 
 	}
 
