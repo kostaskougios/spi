@@ -50,6 +50,8 @@ object BenchmarkImpressions extends Logging
 				Tabulator.format(
 					Seq(
 						Seq("Query", "Avro", "Parquet", "ORC"),
+						measureQuery(t => s"select count(distinct userId) as c,max(date),min(date),userId from impressions_$t group by userId order by c desc limit 5"),
+						measureQuery(t => s"select count(distinct userId) as c,userId from impressions_$t group by userId order by c desc limit 5"),
 						measureQuery(t => s"select count(*) from impressions_$t"),
 						measureQuery(t => s"select count(distinct userId) from impressions_$t"),
 						measureQuery(t => s"select min(date) from impressions_$t"),
