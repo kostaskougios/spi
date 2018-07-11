@@ -8,8 +8,8 @@ echo "submitting spark job"
 . bin/spark/mock-spark sql/target/pack
 
 bin/spark/spark-submit --class com.aktit.sql.performance.CreateRandomData \
-	--driver-memory 6g \
-	--executor-memory 6g \
+	--driver-memory 1g \
+	--executor-memory 2g \
 	--conf spark.executor.memoryOverhead=2048 \
 	--conf spark.memory.fraction=0.3 \
     --conf spark.memory.storageFraction=0.2 \
