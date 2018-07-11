@@ -24,16 +24,16 @@ import scala.util.Random
 object CreateImpressions extends Logging
 {
 	val MaxUsers = 1000000
-	val Impressions = 1000000000
+	val Impressions = 10000000
 	val Group = 5000000 // reduce this if you have less memory
 
 	def main(args: Array[String]): Unit = {
 
 		val startClock = Instant.parse("2010-01-01T00:00:00.00Z")
 
-		def testData = for (i <- (1 to Impressions).toIterator) yield PageImpression(Random.nextInt(MaxUsers), Timestamp.from(startClock.plusSeconds(i)), s"http://ref/$i")
+		def testData = for (i <- (1 to Impressions).toIterator) yield PageImpression(Random.nextInt(MaxUsers), Timestamp.from(startClock.plusSeconds(i)), s"http://www.some-server.com/part1/part2/$i")
 
-		val spark = SparkSession.builder.getOrCreate
+		val spark = SparkSession.builder.config("spark.sql.orc.impl", "native").getOrCreate
 
 		logInfo(s"Will append ${Impressions / Group} times")
 
@@ -50,11 +50,15 @@ object CreateImpressions extends Logging
 
 			logInfo(s"Schema : ${df.schema}")
 
+			logInfo("Storing ORC")
+			df.toDF.write.mode(if (grp == 0) SaveMode.Overwrite else SaveMode.Append).orc("/tmp/impressions/orc")
+
 			logInfo("Storing Avro")
 			df.toDF.write.mode(if (grp == 0) SaveMode.Overwrite else SaveMode.Append).avro("/tmp/impressions/avro")
 
 			logInfo("Storing Parquet")
 			df.toDF.write.mode(if (grp == 0) SaveMode.Overwrite else SaveMode.Append).parquet("/tmp/impressions/parquet")
+
 		}
 	}
 }
