@@ -23,8 +23,9 @@ import scala.util.Random
   */
 object CreateImpressions extends Logging
 {
+	val TargetDir = "/tmp/impressions_large"
 	val MaxUsers = 1000000
-	val Impressions = 10000000
+	val Impressions = 1000000000
 	val Group = 5000000 // reduce this if you have less memory
 
 	def main(args: Array[String]): Unit = {
@@ -41,7 +42,7 @@ object CreateImpressions extends Logging
 		// and append them to our target directories
 		for ((data, grp) <- testData.grouped(Group).zipWithIndex) {
 
-			logInfo(s"parallelizing test data group $grp")
+			logInfo(s"parallelizing test data group $grp out of ${Impressions / Group}")
 
 			val rdd = spark.sparkContext.parallelize(data)
 
@@ -51,13 +52,13 @@ object CreateImpressions extends Logging
 			logInfo(s"Schema : ${df.schema}")
 
 			logInfo("Storing ORC")
-			df.toDF.write.mode(if (grp == 0) SaveMode.Overwrite else SaveMode.Append).orc("/tmp/impressions/orc")
+			df.toDF.write.mode(if (grp == 0) SaveMode.Overwrite else SaveMode.Append).orc(s"$TargetDir/orc")
 
 			logInfo("Storing Avro")
-			df.toDF.write.mode(if (grp == 0) SaveMode.Overwrite else SaveMode.Append).avro("/tmp/impressions/avro")
+			df.toDF.write.mode(if (grp == 0) SaveMode.Overwrite else SaveMode.Append).avro(s"$TargetDir/avro")
 
 			logInfo("Storing Parquet")
-			df.toDF.write.mode(if (grp == 0) SaveMode.Overwrite else SaveMode.Append).parquet("/tmp/impressions/parquet")
+			df.toDF.write.mode(if (grp == 0) SaveMode.Overwrite else SaveMode.Append).parquet(s"$TargetDir/parquet")
 
 		}
 	}

@@ -15,15 +15,17 @@ import org.apache.spark.sql.SparkSession
   */
 object BenchmarkImpressions extends Logging
 {
+	val SrcDir = "/tmp/impressions"
 
 	def main(args: Array[String]): Unit = {
 
 		val spark = SparkSession.builder.config("spark.sql.orc.impl", "native").getOrCreate
+		import spark.sql
 
 		def measureQuery(q: String => String) = {
-			val (avro, _) = TimeMeasure.dt(spark.sql(q("avro")).show())
-			val (parquet, _) = TimeMeasure.dt(spark.sql(q("parquet")).show())
-			val (orc, _) = TimeMeasure.dt(spark.sql(q("orc")).show())
+			val (avro, _) = TimeMeasure.dt(sql(q("avro")).show())
+			val (parquet, _) = TimeMeasure.dt(sql(q("parquet")).show())
+			val (orc, _) = TimeMeasure.dt(sql(q("orc")).show())
 			Seq(q("*"), avro, parquet, orc)
 		}
 
@@ -32,16 +34,16 @@ object BenchmarkImpressions extends Logging
 			val fromInstance = Instant.parse(startDate).toEpochMilli
 			val toInstance = Instant.parse(endDate).toEpochMilli
 
-			val (avro, _) = TimeMeasure.dt(spark.sql(q("avro", fromInstance.toString, toInstance.toString)).show())
-			val (parquet, _) = TimeMeasure.dt(spark.sql(q("parquet", startDate, endDate)).show())
-			val (orc, _) = TimeMeasure.dt(spark.sql(q("orc", startDate, endDate)).show())
+			val (avro, _) = TimeMeasure.dt(sql(q("avro", fromInstance.toString, toInstance.toString)).show())
+			val (parquet, _) = TimeMeasure.dt(sql(q("parquet", startDate, endDate)).show())
+			val (orc, _) = TimeMeasure.dt(sql(q("orc", startDate, endDate)).show())
 			Seq(q("*", startDate, endDate), avro, parquet, orc)
 
 		}
 
-		spark.read.avro("/tmp/impressions/avro").createOrReplaceTempView("impressions_avro")
-		spark.read.parquet("/tmp/impressions/parquet").createOrReplaceTempView("impressions_parquet")
-		spark.read.orc("/tmp/impressions/orc").createOrReplaceTempView("impressions_orc")
+		spark.read.avro(s"$SrcDir/avro").createOrReplaceTempView("impressions_avro")
+		spark.read.parquet(s"$SrcDir/parquet").createOrReplaceTempView("impressions_parquet")
+		spark.read.orc(s"$SrcDir/orc").createOrReplaceTempView("impressions_orc")
 
 		logInfo(
 			"\n" +
