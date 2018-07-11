@@ -50,7 +50,10 @@ object BenchmarkImpressions extends Logging
 						Seq("Query", "Avro", "Parquet", "ORC"),
 						measureQuery(t => s"select count(*) from impressions_$t"),
 						measureQuery(t => s"select count(distinct userId) from impressions_$t"),
-						measureDateQuery("2010-02-01T00:00:00.00Z", "2010-03-01T00:00:00.00Z", (t, start, end) => s"select count(distinct userId) from impressions_$t where date between '$start' and '$end'")
+						measureQuery(t => s"select min(date) from impressions_$t"),
+						measureQuery(t => s"select max(date) from impressions_$t"),
+						measureDateQuery("2010-02-01T00:00:00.00Z", "2010-03-01T00:00:00.00Z", (t, start, end) => s"select count(distinct userId) from impressions_$t where date between '$start' and '$end'"),
+						measureDateQuery("2010-08-01T00:00:00.00Z", "2010-09-01T00:00:00.00Z", (t, start, end) => s"select count(distinct userId) from impressions_$t where date between '$start' and '$end'")
 					)
 				)
 		)
