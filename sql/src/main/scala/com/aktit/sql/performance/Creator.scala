@@ -13,12 +13,12 @@ import scala.reflect.runtime.universe.TypeTag
   * @author kostas.kougios
   *         11/07/18 - 13:46
   */
-class Creator[A <: Product : TypeTag : ClassTag](spark: SparkSession, targetDir: String, howMany: Int) extends Logging
+class Creator[A <: Product : TypeTag : ClassTag](spark: SparkSession, targetDir: String, howMany: Long) extends Logging
 {
-	def create(testData: Int => A) = {
+	def create(testData: Long => A) = {
 		// We need to create a lot of test data without running out of memory. So we group the data together (using iterators to avoid filling up the memory)
 		// and append them to our target directories
-		val rdd = spark.sparkContext.parallelize(1 to howMany).map(i => testData(i))
+		val rdd = spark.sparkContext.parallelize(1l to howMany).map(i => testData(i))
 
 			logInfo("Creating dataframe")
 			val df = spark.createDataFrame(rdd).toDF

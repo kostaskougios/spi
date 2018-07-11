@@ -30,7 +30,6 @@ object CreateRandomData extends Logging
 {
 	val MaxUsers = 1000000
 	val MaxProducts = 5000
-	val Group = 5000000 // reduce this if you have less memory
 
 	def main(args: Array[String]): Unit = {
 
@@ -39,14 +38,14 @@ object CreateRandomData extends Logging
 		val numOfRows = conf.get("spark.creator.num-of-rows").toLong
 		val impressionsTargetDir = conf.get("spark.creator.target-dir")
 
-		logInfo(s"Impressions: Will append ${numOfRows / Group} times")
+		logInfo(s"Impressions: Will create $numOfRows")
 
 		val startClock = Instant.parse("2010-01-01T00:00:00.00Z")
 
 		new Creator(
 			spark,
 			impressionsTargetDir + "/impressions",
-			Group
+			numOfRows
 		).create { i =>
 			PageImpression(
 				Random.nextInt(MaxUsers),
@@ -58,7 +57,7 @@ object CreateRandomData extends Logging
 		new Creator(
 			spark,
 			impressionsTargetDir + "/orders",
-			Group
+			numOfRows
 		).create {
 			i =>
 				val productId = Random.nextInt(MaxProducts)
