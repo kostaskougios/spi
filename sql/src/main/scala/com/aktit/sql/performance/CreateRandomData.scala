@@ -12,6 +12,17 @@ import scala.util.Random
 /**
   * Create random impression data to be used by the benchmarks.
   *
+  * See bin/create-random-data
+  *
+  * Run locally with these params:
+  *
+  * -Dspark.master=local[4]
+  * -Dspark.memory.fraction=0.3
+  * -Dspark.memory.storageFraction=0.2
+  * -Dspark.executor.heartbeatInterval=60s
+  * -Dspark.creator.num-of-rows=2000000000
+  * -Dspark.creator.target-dir=/tmp/test-data
+  *
   * @author kostas.kougios
   *         10/07/18 - 09:43
   */
@@ -34,6 +45,18 @@ object CreateRandomData extends Logging
 
 		new Creator(
 			spark,
+			for (i <- (1l to numOfRows).toIterator) yield
+				PageImpression(
+					Random.nextInt(MaxUsers),
+					Timestamp.from(startClock.plusSeconds(i)),
+					s"http://www.some-server.com/part1/part2/$i"
+				),
+			impressionsTargetDir + "/impressions",
+			Group
+		).create()
+
+		new Creator(
+			spark,
 			for (i <- (1l to numOfRows).toIterator) yield {
 				val productId = Random.nextInt(MaxProducts)
 				val price = productId % 250
@@ -41,7 +64,7 @@ object CreateRandomData extends Logging
 				Order(
 					Random.nextInt(MaxUsers),
 					UUID.randomUUID.toString,
-					Timestamp.from(startClock.plusSeconds(productId)),
+					Timestamp.from(startClock.plusSeconds(i)),
 					productId,
 					s"product-code-for-$productId",
 					s"product-title-for-$productId",
@@ -51,18 +74,6 @@ object CreateRandomData extends Logging
 				)
 			},
 			impressionsTargetDir + "/orders",
-			Group
-		).create()
-
-		new Creator(
-			spark,
-			for (i <- (1l to numOfRows).toIterator) yield
-				PageImpression(
-					Random.nextInt(MaxUsers),
-					Timestamp.from(startClock.plusSeconds(i)),
-					s"http://www.some-server.com/part1/part2/$i"
-				),
-			impressionsTargetDir + "/numOfRows",
 			Group
 		).create()
 	}

@@ -1,0 +1,23 @@
+
+echo "removing target dir"
+
+hdfs dfs -rm -r -f /tmp/test-data
+
+echo "submitting spark job"
+
+. bin/spark/mock-spark sql/target/pack
+
+bin/spark/spark-submit --class com.aktit.sql.performance.CreateRandomData \
+	--driver-memory 6g \
+	--executor-memory 6g \
+	--conf spark.executor.memoryOverhead=2048 \
+	--conf spark.memory.fraction=0.3 \
+    --conf spark.memory.storageFraction=0.2 \
+	--executor-cores 16 \
+	--num-executors 1 \
+	--master yarn \
+	--deploy-mode cluster \
+	--conf spark.executor.heartbeatInterval=60s \
+	--conf spark.creator.num-of-rows=2000000000 \
+	--conf spark.creator.target-dir=/tmp/test-data \
+	bin/spark/empty.jar
