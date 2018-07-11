@@ -9,7 +9,7 @@ echo "submitting spark job"
 
 bin/spark/spark-submit --class com.aktit.sql.performance.CreateRandomData \
 	--driver-memory 1g \
-	--executor-memory 2g \
+	--executor-memory 8g \
 	--conf spark.executor.memoryOverhead=2048 \
 	--conf spark.memory.fraction=0.3 \
     --conf spark.memory.storageFraction=0.2 \
