@@ -62,7 +62,7 @@ and the results are here:
 ## Impressions
 
     +---------------------------------------------------------------------------------------------------------------------------+------+-------+-------+
-    |                                                                                                                      Query|  Avro|Parquet|    ORC|
+    |Query                                                                                                                      |  Avro|Parquet|    ORC|
     +---------------------------------------------------------------------------------------------------------------------------+------+-------+-------+
     |                                                                            select * from impressions_* where userId=500000| 20122|   7233|   2442|
     |            select count(userId) as c,max(date),min(date),userId from impressions_* group by userId order by c desc limit 5|218442| 211114|  93826|
