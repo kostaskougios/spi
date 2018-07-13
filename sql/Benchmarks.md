@@ -61,6 +61,20 @@ and the results are here:
 
 ## Impressions
 
+    +---------------------------------------------------------------------------------------------------------------------------+------+-------+-------+
+    |                                                                                                                      Query|  Avro|Parquet|    ORC|
+    +---------------------------------------------------------------------------------------------------------------------------+------+-------+-------+
+    |                                                                            select * from impressions_* where userId=500000| 20122|   7233|   2442|
+    |            select count(userId) as c,max(date),min(date),userId from impressions_* group by userId order by c desc limit 5|218442| 211114|  93826|
+    |                                select count(userId) as c,userId from impressions_* group by userId order by c desc limit 5|199100| 116684|  81840|
+    |                                                                                         select count(*) from impressions_*|112249|    638|    430|
+    |                                                                           select count(distinct userId) from impressions_*|164674|  93136|  56973|
+    |                                                                                        select min(date) from impressions_*|116480|  71117|   4360|
+    |                                                                                        select max(date) from impressions_*|113089|  69316|   5258|
+    |select count(distinct userId) from impressions_* where date between '2010-02-01T00:00:00.00Z' and '2010-03-01T00:00:00.00Z'|113821|1118782|1068352|
+    |select count(distinct userId) from impressions_* where date between '2010-08-01T00:00:00.00Z' and '2010-09-01T00:00:00.00Z'|115589|1121685|1085033|
+    +---------------------------------------------------------------------------------------------------------------------------+------+-------+-------+
+
 ## Orders
 
 ## Outcome of the benchmark
