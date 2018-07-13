@@ -5,7 +5,7 @@ echo "submitting spark job"
 
 bin/spark/spark-submit --class com.aktit.sql.performance.BenchmarkOrders \
 	--driver-memory 1g \
-	--executor-memory 8g \
+	--executor-memory 4g \
 	--conf spark.executor.memoryOverhead=2048 \
 	--executor-cores 4 \
 	--num-executors 4 \
