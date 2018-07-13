@@ -8,6 +8,10 @@ import org.apache.spark.sql.SparkSession
 /**
   * Benchmark the Impressions table, a table with a small number of columns
   *
+  * Run with
+  * -Dspark.master=local[4]
+  * -Dspark.src=/tmp/big-data/orders
+  *
   * @author kostas.kougios
   *         10/07/18 - 09:43
   */

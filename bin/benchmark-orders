@@ -1,0 +1,15 @@
+
+echo "submitting spark job"
+
+. bin/spark/mock-spark sql/target/pack
+
+bin/spark/spark-submit --class com.aktit.sql.performance.BenchmarkOrders \
+	--driver-memory 1g \
+	--executor-memory 8g \
+	--conf spark.executor.memoryOverhead=2048 \
+	--executor-cores 4 \
+	--num-executors 4 \
+	--master yarn \
+	--deploy-mode cluster \
+	--conf spark.src=/tmp/test-data/orders \
+	bin/spark/empty.jar
