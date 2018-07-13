@@ -77,7 +77,10 @@ data in all columns have to be read for the query. ORC was the fastest while cre
 indexes also play nicely with date's when those are incremental, as it is common on apps that gather information real 
 time.
 
-Surelly this is not a comprehensive benchmark but maybe indicative of what we can expect. Please let me know if you 
+Surprisingly the avro format is not the fastest one or the one with the smallest file sizes during ingestion. It might 
+be due to the overheads introduced by spark or the library spark-avro.
+
+Surely this is not a comprehensive benchmark but maybe indicative of what we can expect. Please let me know if you 
 would like to have a particular query added to the tests.
 
 # How the benchmark is implemented
