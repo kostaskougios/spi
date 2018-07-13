@@ -32,10 +32,12 @@ object BenchmarkOrders extends Logging
 				Tabulator.format(
 					Seq(
 						Seq("Query", "Avro", "Parquet", "ORC"),
+						q.measureQuery(t => s"select sum(boughtPrice) s,userId from orders_$t group by userId order by s desc limit 10"),
 						q.measureDateQuery("2010-01-01T00:00:00.00Z", "2010-03-01T00:00:00.00Z", (t, start, end) => s"select productCode,productTitle,max(discountPercentageApplied) d from orders_$t where date between '$start' and '$end' group by productCode,productTitle order by d desc limit 5"),
 						q.measureDateQuery("2010-03-01T00:00:00.00Z", "2010-06-01T00:00:00.00Z", (t, start, end) => s"select productCode,productTitle,max(discountPercentageApplied) d from orders_$t where date between '$start' and '$end' group by productCode,productTitle order by d desc limit 5"),
 						q.measureQuery(t => s"select productCode,productTitle,max(discountPercentageApplied) d from orders_$t group by productCode,productTitle order by d desc limit 5"),
-						q.measureQuery(t => s"select * from orders_$t where userId=500000")
+						q.measureQuery(t => s"select * from orders_$t where userId=500000"),
+						q.measureQuery(t => s"select * from orders_$t order by productId")
 					)
 				)
 		)
