@@ -31,8 +31,8 @@ one has 3 columns only where as the 2nd one has 9 and simulates a denormalized t
     )
 
 The tests were run using spark 2.3.1 on hadoop 2.7 on a 2 x 8-core Opteron 4386 with HDFS been stored in 4x 7200rpm disks.
-4 spark executors run the queries to simulate shuffle overheads that would occur on a bigger cluster. Each executor had
-4GB of RAM available.
+4 spark executors with 4 cores each to run the queries and simulate shuffle overheads that would occur on a bigger cluster. 
+Each executor had 4GB of RAM available.
     
 Note: because the data are random (with a bit of care taken to simulate actual data), real life data might give different
 results.
