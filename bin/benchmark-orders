@@ -11,5 +11,5 @@ bin/spark/spark-submit --class com.aktit.sql.performance.BenchmarkOrders \
 	--num-executors 4 \
 	--master yarn \
 	--deploy-mode cluster \
-	--conf spark.src=/tmp/test-data/orders \
+	--conf spark.src=/tmp/big-data/orders \
 	bin/spark/empty.jar

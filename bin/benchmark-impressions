@@ -11,5 +11,5 @@ bin/spark/spark-submit --class com.aktit.sql.performance.BenchmarkImpressions \
 	--num-executors 4 \
 	--master yarn \
 	--deploy-mode cluster \
-	--conf spark.src=/tmp/test-data/impressions \
+	--conf spark.src=/tmp/big-data/impressions \
 	bin/spark/empty.jar
