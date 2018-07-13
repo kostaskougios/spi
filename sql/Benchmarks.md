@@ -38,9 +38,9 @@ results.
 
 2 billion rows for page impressions and orders were created. The sizes for impressions are:
 
-    21.2 G  /tmp/big-data/impressions/avro
-    15.1 G  /tmp/big-data/impressions/orc
-    30.2 G  /tmp/big-data/impressions/parquet
+    21.2 G  avro
+    15.1 G  orc
+    30.2 G  parquet
 
 The sizes for orders are:
 
@@ -48,7 +48,7 @@ TODO: Order sizes
 
 We notice that the ORC format is the most compact (at least with the default settings). Ofcourse all formats can be
 configured to i.e. compress the data even more (by default the data are compressed) but for this test we'll use the
-default values.
+default configured values.
 
 ## Results
 Now a number of queries are run against the data on all file formats. Time is measured (in milliseconds) for each query

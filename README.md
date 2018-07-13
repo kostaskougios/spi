@@ -1,22 +1,38 @@
+# Simple examples
+
 My big data related articles that use/explain this repository:
 
-Spark on hadoop
+### Spark on hadoop
+
 https://www.linkedin.com/pulse/spark-230-scala-hadoop-290-konstantine-kougios/
 
-Kafka -> Spark streaming -> Cassandra
+### Kafka -> Spark streaming -> Cassandra
+
 https://www.linkedin.com/pulse/kafka-cassandra-cql-tables-via-spark-streaming-konstantine-kougios/
 
-Game of Life, distributed, on Spark
-https://www.linkedin.com/pulse/game-life-spark-konstantine-kougios/
+### Spark -> HBase (on hadoop)
 
-Spark -> HBase (on hadoop)
 https://www.linkedin.com/pulse/hbase-2-phoenix-sql-support-hadoop-276-spark-230-jobs-kougios/
 
-Spark-Sql, the most expensive property in my area:
+### Spark-Sql, the most expensive property in my area:
+
 https://www.linkedin.com/pulse/spark-sql-finding-most-expensive-property-my-area-konstantine-kougios/
 
-Avro serialization for kafka:
+### Avro serialization for kafka:
+
 https://www.linkedin.com/pulse/kafka-serialization-avro-scala-konstantine-kougios/
+
+# More complex applications
+
+### Game of Life, distributed, on Spark
+
+https://www.linkedin.com/pulse/game-life-spark-konstantine-kougios/
+
+### Wikipedia ingestion to hdfs and hbase
+
+See below.
+
+# Description
 
 This is a sample scala/spark project. It contains simple examples and also a couple of a bit more complex processing jobs.
 
@@ -30,7 +46,7 @@ instructions below in this file.
 
 Steps to run the wikipedia code to process wikipedia xml files and copy them to hbase/phoenix tables:
 
-- Build spark (see "BUILDING SPARK") for your hadoop version. If you don't want to build spark but instead use a pre-build version, please change project/Deps.scala Spark.Version.
+- Build spark (see "BUILDING SPARK", there is a script to do it automatically) for your hadoop version. If you don't want to build spark but instead use a pre-build version, please change project/Deps.scala Spark.Version.
 - Download the wikipedia exports from https://dumps.wikimedia.org/backup-index.html . The EN language is the largest export, the EL language is small and can help for quicker tests.
 - The loaders project contains BreakupBigXmlFilesAndStoreToHdfs class which can be used to efficiently upload the xml files to hdfs for efficient spark processing. Run it
 with the JVM args as per the class comments.
@@ -55,9 +71,7 @@ bin/wikipedia-words-job
 
 Those jobs can run on the same time.
 
--------------------------------
-HOW SPARK JOBS ARE SUBMITTED
--------------------------------
+# HOW SPARK JOBS ARE SUBMITTED
 
 Having a scala project with dependencies on top of spark is a touch task at best. Keeping the dependencies sane
 and not overlapping is hard to impossible the more libraries you use. sbt dependencies can overlap with jars in
@@ -72,19 +86,15 @@ both submit the task and is used to execute the task on yarn.
 
 see bin/build-project and bin/spark folder.
 
--------------------------------
-BUILDING SPARK
--------------------------------
+# BUILDING SPARK
 
 Examine and run bin/spark/build
 
 Also see http://spark.apache.org/docs/latest/building-spark.html
 
--------------------------------
-Compiling this project
--------------------------------
+# Compiling this project
 
-You can run those locally within your ide or build them and execute them at your hadoop cluster. To build them do:
+You can run those locally within your ide or build them and execute them at your hadoop cluster. To build them for hadoop do:
 
 bin/build-project wikipedia
 
