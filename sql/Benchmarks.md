@@ -77,6 +77,17 @@ and the results are here:
 
 ## Orders
 
+    +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------+-------+
+    |Query                                                                                                                                                                                                              |  Avro|Parquet|    ORC|
+    +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------+-------+
+    |                                                                                                                            select sum(boughtPrice) s,userId from orders_* group by userId order by s desc limit 10|864091| 167213| 172766|
+    |select productCode,productTitle,max(discountPercentageApplied) d from orders_* where date between '2010-01-01T00:00:00.00Z' and '2010-03-01T00:00:00.00Z' group by productCode,productTitle order by d desc limit 5|833974|1054963|1030633|
+    |select productCode,productTitle,max(discountPercentageApplied) d from orders_* where date between '2010-03-01T00:00:00.00Z' and '2010-06-01T00:00:00.00Z' group by productCode,productTitle order by d desc limit 5|775505|1056606|1026863|
+    |                                                                           select productCode,productTitle,max(discountPercentageApplied) d from orders_* group by productCode,productTitle order by d desc limit 5|788296| 122440| 120402|
+    |                                                                                                                                                                         select * from orders_* where userId=500000| 28083|  24160|   6788|
+    |                                                                                                                                                                          select * from orders_* order by productId|788798| 670418| 690997|
+    +-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------+-------+
+
 ## Outcome of the benchmark
 
 As we can see, at least with the default settings, the ORC format gives best performance and smallest file sizes. Also
