@@ -24,6 +24,9 @@ object BenchmarkImpressions extends Logging
 		spark.read.parquet(s"$srcDir/parquet").createOrReplaceTempView("impressions_parquet")
 		spark.read.orc(s"$srcDir/orc").createOrReplaceTempView("impressions_orc")
 
+		// warm up
+		q.measureQuery(t => s"select * from impressions_$t limit 1000")
+
 		logInfo(
 			"\n" +
 				Tabulator.format(

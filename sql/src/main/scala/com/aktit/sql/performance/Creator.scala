@@ -20,18 +20,18 @@ class Creator[A <: Product : TypeTag : ClassTag](spark: SparkSession, targetDir:
 		// and append them to our target directories
 		val rdd = spark.sparkContext.parallelize(1l to howMany).map(i => testData(i))
 
-			logInfo("Creating dataframe")
-			val df = spark.createDataFrame(rdd).toDF
+		logInfo("Creating dataframe")
+		val df = spark.createDataFrame(rdd).toDF
 
-			logInfo(s"Schema : ${df.schema}")
+		logInfo(s"Schema : ${df.schema}")
 
-			logInfo("Storing ORC")
+		logInfo("Storing ORC")
 		df.toDF.write.mode(SaveMode.Overwrite).orc(s"$targetDir/orc")
 
-			logInfo("Storing Avro")
+		logInfo("Storing Avro")
 		df.toDF.write.mode(SaveMode.Overwrite).avro(s"$targetDir/avro")
 
-			logInfo("Storing Parquet")
+		logInfo("Storing Parquet")
 		df.toDF.write.mode(SaveMode.Overwrite).parquet(s"$targetDir/parquet")
 
 	}
