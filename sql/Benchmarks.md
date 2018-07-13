@@ -7,8 +7,6 @@ Avro: a compact serialization format, https://avro.apache.org/
 Parquet: a columnar storage format , https://parquet.apache.org/
 ORC: an other columnar storage format, https://orc.apache.org/
 
-The tests were run using spark 2.3.1 on hadoop 2.7 on a 2 x 8-core Opteron 4386 with HDFS been stored in 4x 7200rpm disks.
-
 2 tables are created, one simulating page impressions (PageImpression class) and one for orders (Order class). The first 
 one has 3 columns only where as the 2nd one has 9 and simulates a denormalized table:
 
@@ -29,6 +27,9 @@ one has 3 columns only where as the 2nd one has 9 and simulates a denormalized t
     	boughtPrice: Float,
     	discountPercentageApplied: Byte
     )
+
+The tests were run using spark 2.3.1 on hadoop 2.7 on a 2 x 8-core Opteron 4386 with HDFS been stored in 4x 7200rpm disks.
+4 spark executors run the queries to also simulate shuffle overheads.
     
 Note: because the data are random (with a bit of care taken to simulate actual data), real life data might give different
 results.
