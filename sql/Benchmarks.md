@@ -97,7 +97,7 @@ indexes also play nicely with date's when those are incremental, as it is common
 time.
 
 Surprisingly the avro format is not the fastest one or the one with the smallest file sizes during ingestion. It might 
-be due to the overheads introduced by spark or the library spark-avro or the snappy compression. It should be the 
+be due to the overheads introduced by spark sql or the library spark-avro or the snappy compression. It should be the 
 fastest because it doesn't have to organize the data in any way.
 
 Surely this is not a comprehensive benchmark but maybe indicative of what we can expect. Please let me know if you 
