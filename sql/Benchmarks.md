@@ -1,4 +1,4 @@
-# Performance of Avro, Parquet, ORC on Spark Sql
+# Performance of Avro, Parquet, ORC with Spark Sql
 
 In this example we will compare performance of different spark sql formats when running a number of analytics queries on
 them. We'll compare these formats:
