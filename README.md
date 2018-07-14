@@ -22,6 +22,10 @@ https://www.linkedin.com/pulse/spark-sql-finding-most-expensive-property-my-area
 
 https://www.linkedin.com/pulse/kafka-serialization-avro-scala-konstantine-kougios/
 
+### Performance of Avro, Parquet, ORC with Spark Sql 
+
+https://www.linkedin.com/pulse/performance-avro-parquet-orc-spark-sql-konstantine-kougios/
+
 # More complex applications
 
 ### Game of Life, distributed, on Spark
