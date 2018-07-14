@@ -91,8 +91,8 @@ and the results are here:
 ## Outcome of the benchmark
 
 As we can see, at least with the default settings, the ORC format gives best performance and smallest file sizes. Also
-the columnar formats (ORC, Parquet) overall perform better, in some cases avro has good performance, especially if all
-data in all columns have to be read for the query. ORC was the fastest while creating the data too. ORC's light weight
+the columnar formats (ORC, Parquet) overall perform better, in some cases avro has good performance, especially if 
+data in a lot of columns have to be read for the query. ORC was the fastest while creating the data too. ORC's light weight
 indexes also play nicely with date's when those are incremental, as it is common on apps that gather information real 
 time.
 
