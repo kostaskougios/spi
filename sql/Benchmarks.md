@@ -56,7 +56,7 @@ configured to i.e. compress the data even more (by default the data are compress
 default configured values.
 
 ## Results
-Now a number of queries are run against the data on all file formats. Time is measured (in milliseconds) for each query
+Now we will run a number of queries against the data on all file formats. Time is measured (in milliseconds) for each query
 and the results are here:
 
 ## Impressions
