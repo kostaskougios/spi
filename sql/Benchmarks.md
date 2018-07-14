@@ -9,7 +9,7 @@ Parquet: a columnar storage format , https://parquet.apache.org/
 
 ORC: an other columnar storage format, https://orc.apache.org/
 
-2 tables are created, one simulating page impressions (PageImpression class) and one for orders (Order class). The first 
+We will create 2 tables, one simulating page impressions (PageImpression class) and one for orders (Order class). The first 
 one has 3 columns only where as the 2nd one has 9 and simulates a denormalized table:
 
     case class PageImpression(
