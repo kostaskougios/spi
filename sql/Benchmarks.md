@@ -61,6 +61,8 @@ and the results are here:
 
 ## Impressions
 
+1st run:
+
     +---------------------------------------------------------------------------------------------------------------------------+------+-------+-------+
     |Query                                                                                                                      |  Avro|Parquet|    ORC|
     +---------------------------------------------------------------------------------------------------------------------------+------+-------+-------+
@@ -73,6 +75,22 @@ and the results are here:
     |                                                                                        select max(date) from impressions_*|113089|  69316|   5258|
     |select count(distinct userId) from impressions_* where date between '2010-02-01T00:00:00.00Z' and '2010-03-01T00:00:00.00Z'|113821|1118782|1068352|
     |select count(distinct userId) from impressions_* where date between '2010-08-01T00:00:00.00Z' and '2010-09-01T00:00:00.00Z'|115589|1121685|1085033|
+    +---------------------------------------------------------------------------------------------------------------------------+------+-------+-------+
+
+2nd run:
+
+    +---------------------------------------------------------------------------------------------------------------------------+------+-------+-------+
+    |                                                                                                                      Query|  Avro|Parquet|    ORC|
+    +---------------------------------------------------------------------------------------------------------------------------+------+-------+-------+
+    |                                                                            select * from impressions_* where userId=500000| 18249|   6947|   2692|
+    |            select count(userId) as c,max(date),min(date),userId from impressions_* group by userId order by c desc limit 5|225902| 207911|  91941|
+    |                                select count(userId) as c,userId from impressions_* group by userId order by c desc limit 5|203637| 118735|  80783|
+    |                                                                                         select count(*) from impressions_*|115948|    713|    510|
+    |                                                                           select count(distinct userId) from impressions_*|167774|  97162|  57672|
+    |                                                                                        select min(date) from impressions_*|114329|  72692|   4161|
+    |                                                                                        select max(date) from impressions_*|118778|  74232|   4147|
+    |select count(distinct userId) from impressions_* where date between '2010-02-01T00:00:00.00Z' and '2010-03-01T00:00:00.00Z'|118744|1249154|1227502|
+    |select count(distinct userId) from impressions_* where date between '2010-08-01T00:00:00.00Z' and '2010-09-01T00:00:00.00Z'|118172|1295807|1221778|
     +---------------------------------------------------------------------------------------------------------------------------+------+-------+-------+
 
 ## Orders
