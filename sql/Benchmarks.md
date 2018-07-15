@@ -1,6 +1,6 @@
 # Performance of Avro, Parquet, ORC with Spark Sql
 
-In this example we will compare performance of different spark sql formats when running a number of analytics queries on
+In this example we will compare performance of different spark sql formats when running a number of analytic queries on
 them. We'll compare these formats:
 
 Avro: a compact serialization format, https://avro.apache.org/
@@ -92,7 +92,7 @@ and the results are here:
 
 As we can see, at least with the default settings, the ORC format gives best performance and smallest file sizes. Also
 the columnar formats (ORC, Parquet) overall perform better, in some cases avro has good performance, especially if 
-data in a lot of columns have to be read for the query. ORC was the fastest while creating the data too. ORC's light weight
+data in a lot of columns have to be read for the query. ORC was the fastest while creating the data. ORC's light weight
 indexes also play nicely with date's when those are incremental, as it is common on apps that gather information real 
 time.
 
