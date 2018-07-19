@@ -120,5 +120,4 @@ Other examples include:
 
 - sample hbase/phoenix code in phoenix / SamplePopulateJob
 
-- spark sql (TODO)
 
