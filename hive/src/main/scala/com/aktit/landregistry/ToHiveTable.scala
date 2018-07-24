@@ -24,8 +24,6 @@ object ToHiveTable extends Logging
 
 		import spark.sql
 
-		sql("CREATE TABLE IF NOT EXISTS src (key INT, value STRING) USING hive")
-
-		sql("SELECT COUNT(*) FROM src").show()
+		sql("SELECT * FROM ratings").show()
 	}
 }
