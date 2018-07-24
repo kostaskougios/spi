@@ -45,11 +45,6 @@ object Deps
 		val Hive = "org.apache.spark" %% "spark-hive" % Version
 	}
 
-	//	object Hive {
-	//		val Version = "3.0.0"
-	//		val All = Seq("org.apache.hive" % "hive" % Version)
-	//	}
-
 	object HBase
 	{
 		val Version = "2.0.0"
@@ -89,7 +84,10 @@ object Deps
 			val CommonsIO = "commons-io" % "commons-io" % "2.6"
 			val Pool2 = "org.apache.commons" % "commons-pool2" % "2.5.0"
 		}
-
 	}
 
+	object PostGreSql
+	{
+		val Driver = "org.postgresql" % "postgresql" % "42.1.4.jre7"
+	}
 }

@@ -15,6 +15,10 @@ object ToHiveTable extends Logging
 			.builder
 			.appName("Spark Hive Example")
 			.config("spark.sql.warehouse.dir", "/tmp/warehouse")
+			.config("javax.jdo.option.ConnectionURL", "jdbc:postgresql://server.lan/hive")
+			.config("javax.jdo.option.ConnectionDriverName", "org.postgresql.Driver")
+			.config("javax.jdo.option.ConnectionUserName", "hive")
+			.config("javax.jdo.option.ConnectionPassword", "123123")
 			.enableHiveSupport
 			.getOrCreate
 

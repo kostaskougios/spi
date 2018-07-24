@@ -88,7 +88,8 @@ lazy val hive = project.settings(commonSettings: _*).settings(
 			Spark.Hive,
 			Spark.AvroDataSource,
 			Libraries.Apache.Lang3,
-			Libraries.Apache.CommonsIO
+			Libraries.Apache.CommonsIO,
+			PostGreSql.Driver
 		) ++ Spark.Core
 	}
 ).dependsOn(common % "test->test;compile->compile", model % "test->test;compile->compile", avro, xml)
