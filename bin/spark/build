@@ -6,4 +6,4 @@ export MAVEN_OPTS="-Xmx2g -XX:ReservedCodeCacheSize=512m"
 # Set the local artifact version
 mvn versions:set -DnewVersion=2.3.1-hadoop-2.7.6-akt
 
-./build/mvn -DskipTests -Pyarn -Phadoop-2.7 -Dhadoop.version=2.7.6 clean install
+./build/mvn -DskipTests -Pyarn -Phadoop-2.7 -Phive -Phive-thriftserver -Dhadoop.version=2.7.6 clean install

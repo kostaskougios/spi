@@ -41,7 +41,14 @@ object Deps
 		val CassandraConnector = "com.datastax.spark" %% "spark-cassandra-connector" % "2.3.0"
 
 		val AvroDataSource = "com.databricks" %% "spark-avro" % "4.0.0" // Note: not compatible with spark 2.3 but will do
+
+		val Hive = "org.apache.spark" %% "spark-hive" % Version
 	}
+
+	//	object Hive {
+	//		val Version = "3.0.0"
+	//		val All = Seq("org.apache.hive" % "hive" % Version)
+	//	}
 
 	object HBase
 	{
