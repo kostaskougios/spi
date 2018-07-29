@@ -1,5 +1,6 @@
 package com.aktit.landregistry
 
+import org.apache.hadoop.hive.conf.HiveConf
 import org.apache.spark.internal.Logging
 import org.apache.spark.sql._
 
@@ -18,11 +19,12 @@ object ToHiveTable extends Logging
 			.config("javax.jdo.option.ConnectionDriverName", "org.postgresql.Driver")
 			.config("javax.jdo.option.ConnectionUserName", "hive")
 			.config("javax.jdo.option.ConnectionPassword", "123123")
+			.config(HiveConf.ConfVars.METASTORE_SCHEMA_VERIFICATION_RECORD_VERSION.varname, false)
 			.enableHiveSupport
 			.getOrCreate
 
 		import spark.sql
 
-		sql("SELECT * FROM ratings").show()
+		sql("select * from orders_orc limit 10").show()
 	}
 }
