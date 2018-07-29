@@ -25,6 +25,7 @@ object ToHiveTable extends Logging
 
 		import spark.sql
 
+		// create table if not exists sparktest(id int,name string) stored as orc;
 		spark.createDataFrame {
 			for (i <- 1 to 100) yield (i, s"row $i")
 		}.write.insertInto("sparktest")
