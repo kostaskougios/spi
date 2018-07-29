@@ -25,6 +25,10 @@ object ToHiveTable extends Logging
 
 		import spark.sql
 
-		sql("select * from orders_orc limit 10").show()
+		spark.createDataFrame {
+			for (i <- 1 to 100) yield (i, s"row $i")
+		}.write.insertInto("sparktest")
+
+		sql("select * from sparktest").show()
 	}
 }
