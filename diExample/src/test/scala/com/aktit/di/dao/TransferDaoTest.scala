@@ -15,7 +15,7 @@ class TransferDaoTest extends AbstractDiSuite
 	test("append/read") {
 		new App
 		{
-			private val t1 = transfer()
+			val t1 = transfer()
 			dao.append(Seq(t1).toDS)
 			dao.read.toSeq should be(Seq(t1))
 		}

@@ -28,6 +28,8 @@ abstract class AbstractSparkSuite extends FunSuite with Matchers with BeforeAndA
 	implicit class DatasetImplicits[A](ds: Dataset[A])
 	{
 		def toSeq = ds.collect.toSeq
+
+		def toSet = ds.collect.toSet
 	}
 
 }
