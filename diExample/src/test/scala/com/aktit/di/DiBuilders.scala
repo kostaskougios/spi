@@ -14,10 +14,9 @@ object DiBuilders
 	def timestamp(year: Int, month: Int, day: Int, hour: Int, minute: Int) = Timestamp.valueOf(LocalDateTime.of(year, month, day, hour, minute))
 
 	def transfer(
-		fromAccountName: String = "fromAccountName",
-		toAccountName: String = "toAccountName",
-		amount: BigDecimal = 5.5
-	) = Transfer(fromAccountName, toAccountName, amount)
+		accountName: String = "accountName",
+		changeAmount: BigDecimal = 5.5
+	) = Transfer(accountName, changeAmount)
 
 	def account(
 		name: String = "name",

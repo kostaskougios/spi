@@ -9,3 +9,7 @@ import java.sql.Timestamp
   *         13/05/19 - 11:12
   */
 case class Account(name: String, amount: BigDecimal, lastUpdated: Timestamp)
+{
+	def transfer(transfers: Array[Transfer], time: Timestamp) = Account(name, amount + transfers.map(_.changeAmount).sum, time)
+
+}
