@@ -1,3 +1,5 @@
+import java.io.File
+
 import Deps._
 
 name := "spi"
@@ -22,7 +24,7 @@ val commonSettings = Seq(
 	),
 	Test / parallelExecution := false,
 	Test / fork := true,
-	Test / javaOptions ++= Seq("-Xmx2G", "-Dlogback.configurationFile=etc/ci-logback.xml")
+	Test / javaOptions ++= Seq("-Xmx2G", s"-Dlogback.configurationFile=${new File("etc/ci-logback.xml").getAbsolutePath}")
 )
 
 lazy val common = project.settings(commonSettings: _*).settings(

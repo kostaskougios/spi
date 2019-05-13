@@ -20,5 +20,8 @@ abstract class BaseSparkSuite extends FunSuite with Matchers with BeforeAndAfter
 
 object BaseSparkSuite
 {
-	private val session = SparkSession.builder.master("local[*]").getOrCreate
+	private val session = SparkSession.builder
+		.master("local[*]")
+		.config("spark.ui.enabled", false)
+		.getOrCreate
 }
