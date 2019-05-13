@@ -2,7 +2,7 @@ package com.aktit.wikipedia
 
 import java.sql.Timestamp
 
-import com.aktit.spark.testing.BaseSparkSuite
+import com.aktit.spark.testing.AbstractSparkSuite
 import com.aktit.testconfig.Config
 import org.apache.spark.sql.SparkSession
 import org.joda.time.DateTime
@@ -16,7 +16,7 @@ import scala.util.Try
   *         Date: 23/09/15
   */
 @Ignore
-class PagesToDatabaseJobTest extends BaseSparkSuite
+class PagesToDatabaseJobTest extends AbstractSparkSuite
 {
 
 	import Data._

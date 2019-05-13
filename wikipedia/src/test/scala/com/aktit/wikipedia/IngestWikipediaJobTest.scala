@@ -2,7 +2,7 @@ package com.aktit.wikipedia
 
 import com.aktit.dto.EpochDateTime
 import com.aktit.loaders.dto.XmlRow
-import com.aktit.spark.testing.BaseSparkSuite
+import com.aktit.spark.testing.AbstractSparkSuite
 import com.aktit.wikipedia.IngestWikipediaJob._
 import com.aktit.wikipedia.dto.{ContributorIP, ContributorUser}
 import org.joda.time.DateTime
@@ -11,7 +11,7 @@ import org.joda.time.DateTime
   * @author kostas.kougios
   *         Date: 23/09/15
   */
-class IngestWikipediaJobTest extends BaseSparkSuite
+class IngestWikipediaJobTest extends AbstractSparkSuite
 {
 	val pages = extractDataFromXml(
 		sc.parallelize(

@@ -1,13 +1,13 @@
 package com.aktit.gameoflife.spark
 
 import com.aktit.gameoflife.model.ModelBuilders.{edges, sector, universe}
-import com.aktit.spark.testing.BaseSparkSuite
+import com.aktit.spark.testing.AbstractSparkSuite
 
 /**
   * @author kostas.kougios
   *         29/05/18 - 11:12
   */
-class SectorBoundariesMergerTest extends BaseSparkSuite
+class SectorBoundariesMergerTest extends AbstractSparkSuite
 {
 	val merger = new SectorBoundariesMerger("test", 1)
 

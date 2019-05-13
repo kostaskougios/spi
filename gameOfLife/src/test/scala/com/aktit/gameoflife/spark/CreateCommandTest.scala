@@ -4,13 +4,13 @@ import java.util.UUID
 
 import com.aktit.gameoflife.model.{Edges, Sector, Universe}
 import com.aktit.gameoflife.spark.Directories._
-import com.aktit.spark.testing.BaseSparkSuite
+import com.aktit.spark.testing.AbstractSparkSuite
 
 /**
   * @author kostas.kougios
   *         28/05/18 - 18:40
   */
-class CreateCommandTest extends BaseSparkSuite
+class CreateCommandTest extends AbstractSparkSuite
 {
 	test("universe") {
 		val (universe, _, _) = createTestGame

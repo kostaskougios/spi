@@ -33,7 +33,8 @@ lazy val common = project.settings(commonSettings: _*).settings(
 			Libraries.ScalaTest,
 			Libraries.Mockito,
 			Libraries.Apache.Lang3,
-			Libraries.Apache.CommonsIO
+			Libraries.Apache.CommonsIO,
+			Libraries.ScalaGuice
 		) ++ Spark.Core
 	}
 )
@@ -203,6 +204,18 @@ lazy val gameOfLife = project.settings(commonSettings: _*).settings(
 			Libraries.Apache.CommonsIO,
 			Spark.Streaming,
 			Kafka.SparkStreaming
+		) ++ Spark.Core
+	}
+).dependsOn(common % "test->test;compile->compile")
+	.enablePlugins(PackPlugin)
+
+lazy val diExample = project.settings(commonSettings: _*).settings(
+	//	xerial.sbt.Pack.packAutoSettings,
+	libraryDependencies ++= {
+		Seq(
+			Libraries.ScalaTest,
+			Libraries.Apache.Lang3,
+			Libraries.Apache.CommonsIO
 		) ++ Spark.Core
 	}
 ).dependsOn(common % "test->test;compile->compile")

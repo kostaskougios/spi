@@ -1,12 +1,12 @@
 package com.aktit.wikipedia
 
-import com.aktit.spark.testing.BaseSparkSuite
+import com.aktit.spark.testing.AbstractSparkSuite
 
 /**
   * @author kostas.kougios
   *         Date: 25/09/15
   */
-class WordsPerRevisionJobTest extends BaseSparkSuite
+class WordsPerRevisionJobTest extends AbstractSparkSuite
 {
 
 	import Data._
