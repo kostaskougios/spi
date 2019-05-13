@@ -1,6 +1,7 @@
 package com.aktit.spark.testing
 
-import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.SparkConf
+import org.apache.spark.sql.SparkSession
 import org.scalatest.{BeforeAndAfterAll, FunSuite, Matchers}
 
 /**
@@ -11,7 +12,8 @@ import org.scalatest.{BeforeAndAfterAll, FunSuite, Matchers}
 abstract class BaseSparkSuite extends FunSuite with Matchers with BeforeAndAfterAll
 {
 
-	protected val sc = new SparkContext(conf)
+	protected val session = BaseSparkSuite.session
+	protected val sc = session.sparkContext
 
 	protected def conf = new SparkConf().setAppName(getClass.getName).setMaster("local")
 
@@ -20,4 +22,9 @@ abstract class BaseSparkSuite extends FunSuite with Matchers with BeforeAndAfter
 		sc.stop()
 	}
 
+}
+
+object BaseSparkSuite
+{
+	private val session = SparkSession.builder.master("local[*]").getOrCreate
 }

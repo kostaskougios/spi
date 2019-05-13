@@ -21,7 +21,7 @@ class PagesToDatabaseJobTest extends BaseSparkSuite
 	import PagesToDatabaseJob._
 
 	ConnectionPool.singleton(Config.PhoenixJdbcUrl, "", "")
-	implicit val session = AutoSession
+	implicit val jdbcSession = AutoSession
 	val sqlContext = SparkSession
 		.builder
 		.getOrCreate

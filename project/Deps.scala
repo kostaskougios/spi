@@ -22,19 +22,17 @@ object Deps
 		val Core = Seq(
 			SparkCore,
 			"org.apache.spark" %% "spark-yarn" % Version, // we need this to deploy to yarn
-			"ch.qos.logback" % "logback-classic" % "1.2.3"
+			"ch.qos.logback" % "logback-classic" % "1.2.3",
+			"org.apache.spark" %% "spark-sql" % Version
 		)
 		val Streaming = "org.apache.spark" %% "spark-streaming" % Version
 		val GraphX = "org.apache.spark" %% "spark-graphx" % Version
-		val Sql = "org.apache.spark" %% "spark-sql" % Version
 
 		private val PhoenixExclusions = Seq(ExclusionRule(organization = "org.apache.hadoop"), ExclusionRule("sqlline", "sqlline"))
 		val Phoenix = Seq(
 			"org.apache.phoenix" % "phoenix-spark" % PhoenixVersion excludeAll (PhoenixExclusions: _*),
 			"org.apache.phoenix" % "phoenix-core" % PhoenixVersion excludeAll (PhoenixExclusions: _*)
 		)
-
-		val AllContainedInSparkSubmit = Seq(SparkCore, Streaming, GraphX, Sql)
 
 		val HBaseSpark = "org.apache.hbase.connectors.spark" % "hbase-spark" % "1.0.0"
 

@@ -71,7 +71,6 @@ lazy val sql = project.settings(commonSettings: _*).settings(
 	libraryDependencies ++= {
 		Seq(
 			Libraries.ScalaTest,
-			Spark.Sql,
 			Spark.AvroDataSource,
 			Libraries.Apache.Lang3,
 			Libraries.Apache.CommonsIO
@@ -84,7 +83,6 @@ lazy val hive = project.settings(commonSettings: _*).settings(
 	libraryDependencies ++= {
 		Seq(
 			Libraries.ScalaTest,
-			Spark.Sql,
 			Spark.Hive,
 			Spark.AvroDataSource,
 			Libraries.Apache.Lang3,
@@ -101,7 +99,6 @@ lazy val phoenix = project.settings(commonSettings: _*).settings(
 		Seq(
 			Libraries.ScalaTest,
 			Libraries.Mockito,
-			Spark.Sql,
 			HBase.Client,
 			HBase.Common,
 			HBase.Server,
@@ -118,7 +115,6 @@ lazy val hbase = project.settings(commonSettings: _*).settings(
 		Seq(
 			Libraries.ScalaTest,
 			Libraries.Mockito,
-			Spark.Sql,
 			HBase.Client,
 			HBase.Common,
 			HBase.Server,
@@ -136,7 +132,6 @@ lazy val wikipedia = project.settings(commonSettings: _*).settings(
 			Libraries.ScalaTest,
 			Libraries.Mockito,
 			Libraries.JodaConvert,
-			Spark.Sql,
 			HBase.Client,
 			HBase.Common,
 			HBase.Server,
@@ -160,8 +155,7 @@ lazy val kafka = project.settings(commonSettings: _*).settings(
 			Kafka.Clients,
 			Libraries.Apache.Lang3,
 			Libraries.Apache.CommonsIO,
-			Spark.CassandraConnector,
-			Spark.Sql
+			Spark.CassandraConnector
 		) ++ Spark.Core
 	}
 ).dependsOn(common % "test->test;compile->compile", xml, model % "test->test;compile->compile", avro)
@@ -174,7 +168,6 @@ lazy val experiments = project.settings(commonSettings: _*).settings(
 			Libraries.ScalaTest,
 			Libraries.Mockito,
 			Libraries.JodaConvert,
-			Spark.Sql,
 			Libraries.Apache.Lang3,
 			Libraries.Apache.CommonsIO
 		) ++ Spark.Core
