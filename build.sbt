@@ -19,7 +19,10 @@ val commonSettings = Seq(
 	excludeDependencies ++= Seq(
 		// commons-logging is replaced by jcl-over-slf4j
 		ExclusionRule("org.slf4j", "slf4j-log4j12")
-	)
+	),
+	Test / parallelExecution := false,
+	Test / fork := true,
+	Test / javaOptions ++= Seq("-Xmx2G", "-Dlogback.configurationFile=etc/ci-logback.xml")
 )
 
 lazy val common = project.settings(commonSettings: _*).settings(

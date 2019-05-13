@@ -6,6 +6,7 @@ import com.aktit.spark.testing.BaseSparkSuite
 import com.aktit.testconfig.Config
 import org.apache.spark.sql.SparkSession
 import org.joda.time.DateTime
+import org.scalatest.Ignore
 import scalikejdbc._
 
 import scala.util.Try
@@ -14,6 +15,7 @@ import scala.util.Try
   * @author kostas.kougios
   *         Date: 23/09/15
   */
+@Ignore
 class PagesToDatabaseJobTest extends BaseSparkSuite
 {
 

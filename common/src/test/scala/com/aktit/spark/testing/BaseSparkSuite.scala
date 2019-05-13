@@ -16,12 +16,6 @@ abstract class BaseSparkSuite extends FunSuite with Matchers with BeforeAndAfter
 	protected val sc = session.sparkContext
 
 	protected def conf = new SparkConf().setAppName(getClass.getName).setMaster("local")
-
-	override protected def afterAll(): Unit = {
-		super.afterAll()
-		sc.stop()
-	}
-
 }
 
 object BaseSparkSuite
