@@ -3,7 +3,8 @@ import sbt._
 object Deps
 {
 	val ScalaVersion = "2.11.12" // see mock-spark if you change scala's major version
-	val PhoenixVersion = "5.0.0-alpha-HBase-2.0"
+
+	val PhoenixVersion = "5.0.0-HBase-2.0"
 
 	object Scala
 	{
@@ -16,8 +17,8 @@ object Deps
 
 	object Spark
 	{
-		val Version = "2.3.1-hadoop-2.7.6-akt" // NOTE: modify packExcludeJars in build.sbt if you change this
-	private val SparkCore = "org.apache.spark" %% "spark-core" % Version
+		val Version = "2.4.3"
+		private val SparkCore = "org.apache.spark" %% "spark-core" % Version
 		val Core = Seq(
 			SparkCore,
 			"org.apache.spark" %% "spark-yarn" % Version, // we need this to deploy to yarn
@@ -35,12 +36,12 @@ object Deps
 
 		val AllContainedInSparkSubmit = Seq(SparkCore, Streaming, GraphX, Sql)
 
-		val HBaseSpark = "com.cloudera" % "spark-hbase" % "0.0.2-clabs"
+		val HBaseSpark = "org.apache.hbase.connectors.spark" % "hbase-spark" % "1.0.0"
 
 		// Note: there is no cassandra connector for spark 2.3.0, so I've build this PR: https://github.com/datastax/spark-cassandra-connector/pull/1175
-		val CassandraConnector = "com.datastax.spark" %% "spark-cassandra-connector" % "2.3.0"
+		val CassandraConnector = "com.datastax.spark" %% "spark-cassandra-connector" % "2.4.1"
 
-		val AvroDataSource = "com.databricks" %% "spark-avro" % "4.0.0" // Note: not compatible with spark 2.3 but will do
+		val AvroDataSource = "org.apache.spark" %% "spark-avro" % Version
 
 		val Hive = "org.apache.spark" %% "spark-hive" % Version
 	}
@@ -66,7 +67,7 @@ object Deps
 		val JodaConvert = "org.joda" % "joda-convert" % "1.8.1"
 		val ScalaTest = "org.scalatest" %% "scalatest" % "3.0.5" % "test"
 		val Mockito = "org.mockito" % "mockito-all" % "1.10.19" % "test"
-		val Avro4S = "com.sksamuel.avro4s" %% "avro4s-core" % "1.8.3"
+		val Avro4S = "com.sksamuel.avro4s" %% "avro4s-core" % "2.0.2"
 
 		val PhoenixClient = Seq(
 			"org.apache.phoenix" % "phoenix-core" % PhoenixVersion exclude("sqlline", "sqlline"),
@@ -84,10 +85,12 @@ object Deps
 			val CommonsIO = "commons-io" % "commons-io" % "2.6"
 			val Pool2 = "org.apache.commons" % "commons-pool2" % "2.5.0"
 		}
+
 	}
 
 	object PostGreSql
 	{
 		val Driver = "org.postgresql" % "postgresql" % "42.1.4.jre7"
 	}
+
 }

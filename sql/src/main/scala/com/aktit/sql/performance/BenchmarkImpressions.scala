@@ -1,7 +1,6 @@
 package com.aktit.sql.performance
 
 import com.aktit.utils.Tabulator
-import com.databricks.spark.avro._
 import org.apache.spark.internal.Logging
 import org.apache.spark.sql.SparkSession
 
@@ -20,7 +19,7 @@ object BenchmarkImpressions extends Logging
 
 		val q = new MeasureQuery(spark)
 
-		spark.read.avro(s"$srcDir/avro").createOrReplaceTempView("impressions_avro")
+		spark.read.format("avro").load(s"$srcDir/avro").createOrReplaceTempView("impressions_avro")
 		spark.read.parquet(s"$srcDir/parquet").createOrReplaceTempView("impressions_parquet")
 		spark.read.orc(s"$srcDir/orc").createOrReplaceTempView("impressions_orc")
 
