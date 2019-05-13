@@ -1,6 +1,9 @@
 package com.aktit.di
 
-import com.aktit.di.model.Transfer
+import java.sql.Timestamp
+import java.time.LocalDateTime
+
+import com.aktit.di.model.{Account, Transfer}
 
 /**
   * @author kostas.kougios
@@ -8,9 +11,17 @@ import com.aktit.di.model.Transfer
   */
 object DiBuilders
 {
+	def timestamp(year: Int, month: Int, day: Int, hour: Int, minute: Int) = Timestamp.valueOf(LocalDateTime.of(year, month, day, hour, minute))
+
 	def transfer(
 		fromAccountName: String = "fromAccountName",
 		toAccountName: String = "toAccountName",
 		amount: BigDecimal = 5.5
 	) = Transfer(fromAccountName, toAccountName, amount)
+
+	def account(
+		name: String = "name",
+		amount: BigDecimal = 6.6,
+		lastUpdated: Timestamp = timestamp(2010, 12, 21, 20, 18)
+	) = Account(name, amount, lastUpdated)
 }
