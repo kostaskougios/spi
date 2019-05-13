@@ -5,14 +5,10 @@ import java.io.{ByteArrayInputStream, ByteArrayOutputStream}
 import com.sksamuel.avro4s._
 
 /**
-  * Note: The class requires implicitly the schema,toRecord and fromRecord and passes those to the avro4s
-  * methods explicitly. This is for performance reasons, otherwise avro4s macros will create and pass the implicits
-  * for each call making the serialization very slow.
-  *
   * @author kostas.kougios
   *         21/05/18 - 11:46
   */
-class AvroSerializer[T: SchemaFor : Encoder : Decoder /*SchemaFor : ToRecord : FromRecord*/ ]
+class AvroSerializer[T: SchemaFor : Encoder : Decoder]
 {
 	private val schema = AvroSchema[T]
 
