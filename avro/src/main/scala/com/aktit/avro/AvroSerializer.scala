@@ -26,7 +26,7 @@ class AvroSerializer[T: SchemaFor : Encoder : Decoder /*SchemaFor : ToRecord : F
 
 	def deserializeSingleBinary(a: Array[Byte]): T = {
 		val in = new ByteArrayInputStream(a)
-		val ais = AvroInputStream.binary.from(in).build
+		val ais = AvroInputStream.binary.from(in).build(schema)
 		try ais.iterator.next finally ais.close()
 	}
 }
