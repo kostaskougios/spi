@@ -1,5 +1,6 @@
 package com.aktit.wikipedia
 
+import com.aktit.dto.EpochDateTime
 import com.aktit.loaders.dto.XmlRow
 import com.aktit.spark.testing.BaseSparkSuite
 import com.aktit.wikipedia.IngestWikipediaJob._
@@ -93,7 +94,7 @@ class IngestWikipediaJobTest extends BaseSparkSuite
 	}
 
 	test("revision.time") {
-		pages.map(_.revisions.head.time).toSet should be(Set(DateTime.parse("2014-10-26T04:50:23Z"), DateTime.parse("2015-08-05T00:44:14Z")))
+		pages.map(_.revisions.head.time).toSet should be(Set(EpochDateTime(DateTime.parse("2014-10-26T04:50:23Z")), EpochDateTime(DateTime.parse("2015-08-05T00:44:14Z"))))
 	}
 
 	test("revision.contributor") {
