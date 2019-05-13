@@ -18,7 +18,7 @@ class AccountService @Inject()(session: SparkSession, accountDao: AccountDao, tr
 	import session.implicits._
 
 	def executeTransfers(time: Timestamp, transfers: Dataset[Transfer], accounts: Dataset[Account]): Dataset[Account] =
-		accounts.as("l").joinWith(transfers.as("r"), $"l.name" === $"r.fromAccountName")
+		accounts.as("l").joinWith(transfers.as("r"), $"l.name" === $"r.accountName")
 			.groupByKey {
 				case (account, transfer) => account.name
 			}.mapGroups {
