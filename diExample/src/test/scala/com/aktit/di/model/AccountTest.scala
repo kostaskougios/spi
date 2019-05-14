@@ -30,7 +30,6 @@ class AccountTest extends FunSuite
 	}
 
 	test("transfer out") {
-		val transferTime = timestamp(2011, 10, 1, 1, 5)
 		val a = account(name = "acc1", amount = 1, lastUpdated = timestamp(2010, 5, 10, 8, 0))
 			.transfer(Seq(transfer(accountName = "acc1", changeAmount = -5)), transferTime)
 
@@ -38,7 +37,6 @@ class AccountTest extends FunSuite
 	}
 
 	test("transfer multiple") {
-		val transferTime = timestamp(2011, 10, 1, 1, 5)
 		val a = account(name = "acc1", amount = 1, lastUpdated = timestamp(2010, 5, 10, 8, 0))
 			.transfer(
 				Seq(transfer(accountName = "acc1", changeAmount = -5), transfer(accountName = "acc1", changeAmount = 8)),
