@@ -132,7 +132,7 @@ case class Account(name: String, amount: BigDecimal, lastUpdated: Timestamp)
 }
 ``` 
 
-It doesn't depend on spark and can be easily tested.
+It doesn't depend on spark and can be easily tested:
 
 ```scala
 import com.aktit.di.DiBuilders.{account, timestamp, transfer}
@@ -152,7 +152,7 @@ class AccountTest extends FunSuite
 
 ```
 
-Now the `AccountService` test has to use a SparkSession to be tested but the tests have to
+The `AccountService` test has to use a SparkSession to be tested but the tests have to
 only test if the data are fetched and joined correctly. The actual money transfer logic is
 delegated to the domain class and doesn't have to be retested because it is already tested
 as part of `AccountTest`:
