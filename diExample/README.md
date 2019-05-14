@@ -20,7 +20,7 @@ the Account and Transfer class.
 
 ```scala
 case class Account(name: String, amount: BigDecimal, lastUpdated: Timestamp) {
-	// ... business logic ...
+	// TODO: business logic 
 }
 
 case class Transfer(accountName: String, changeAmount: BigDecimal)
