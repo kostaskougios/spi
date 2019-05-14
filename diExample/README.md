@@ -3,13 +3,13 @@
 This is an example of how dependency injection can be applied on spark applications to
 allow a layered approach to pipelines, simplify component creation, wiring and testing.
 
-A lot of spark applications start of as a number of objects. This is due to the way spark
+A lot of spark applications start of as a code in objects. This is due to the way spark
 runs code in the driver and executor and to avoid spark serializing components. But having
 all components as objects is hard to manage and to test.
 
 Here we are going to have a look at using dependency injection (DI) to create components for
 code that executes in the spark driver. And we will see how we can actually use the domain
-model to do the business logic and how to use and test that independently of spark.
+model to do the business logic and how to test it independently of spark.
 
 The idea is to create components like dao's and services and wire them using DI. Those
 components are - like a non-spark app - responsible for loading data and delegating
@@ -26,7 +26,9 @@ case class Account(name: String, amount: BigDecimal, lastUpdated: Timestamp) {
 case class Transfer(accountName: String, changeAmount: BigDecimal)
 ```
 
-We can then have the dao's which will be writing/reading the data into orc files. To
+So a transfer happens for an account (by name), and just adds or subtracts the `changeAmount` from the account.
+
+Now we can have the dao's which will be writing/reading the data into orc files. To
 simplify the dao's, we have an `AbstractDao` class which contains most of the implementation.
 
 ```scala
@@ -181,6 +183,31 @@ class AccountServiceTest extends AbstractDiSuite
 		}
 	}
 // ... more tests
+	class App
+	{
+		val app = createDiApp // this is a utility that creates a guice instance so that we can autowire beans
+		val service = app.instance[AccountService] // guice will autowire AccountService for us 
+	}
 }
 
+```
+
+Now that we have everything in place, we just need a DI framework. Let's use `guice` for this example. I am also using
+a scala wrapper for it, `"net.codingwell" %% "scala-guice" % "4.2.3"` , https://github.com/codingwell/scala-guice 
+
+We need a module to bind the SparkSession:
+
+```scala
+class SparkModule(session: SparkSession) extends AbstractModule with ScalaModule
+{
+	override def configure() = {
+		bind[SparkSession].toInstance(session)
+	}
+}
+```
+
+and we are ready to create our guice injector:
+
+```scala
+		val injector = Guice.createInjector((Seq(new SparkModule(session)) ++ modules).asJava)
 ```
