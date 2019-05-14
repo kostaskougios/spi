@@ -13,27 +13,38 @@ import org.scalatest.Matchers._
   */
 class AccountTest extends FunSuite
 {
-	test("transfer in") {
-		val transferTime = timestamp(2011, 10, 1, 1, 5)
+	val transferTime = timestamp(2011, 10, 1, 1, 5)
+
+	test("transfer time is set") {
 		val a = account(name = "acc1", amount = 1, lastUpdated = timestamp(2010, 5, 10, 8, 0))
-			.transfer(
-				Seq(transfer(accountName = "acc1", changeAmount = 5)),
-				transferTime
-			)
+			.transfer(Seq(transfer(accountName = "acc1", changeAmount = 5)), transferTime)
+
+		a.lastUpdated should be(transferTime)
+	}
+
+	test("transfer in") {
+		val a = account(name = "acc1", amount = 1, lastUpdated = timestamp(2010, 5, 10, 8, 0))
+			.transfer(Seq(transfer(accountName = "acc1", changeAmount = 5)), transferTime)
 
 		a.amount should be(1 + 5)
-		a.lastUpdated should be(transferTime)
 	}
 
 	test("transfer out") {
 		val transferTime = timestamp(2011, 10, 1, 1, 5)
 		val a = account(name = "acc1", amount = 1, lastUpdated = timestamp(2010, 5, 10, 8, 0))
-			.transfer(
-				Seq(transfer(accountName = "acc1", changeAmount = -5)),
-				transferTime
-			)
+			.transfer(Seq(transfer(accountName = "acc1", changeAmount = -5)), transferTime)
 
 		a.amount should be(1 - 5)
 	}
 
+	test("transfer multiple") {
+		val transferTime = timestamp(2011, 10, 1, 1, 5)
+		val a = account(name = "acc1", amount = 1, lastUpdated = timestamp(2010, 5, 10, 8, 0))
+			.transfer(
+				Seq(transfer(accountName = "acc1", changeAmount = -5), transfer(accountName = "acc1", changeAmount = 8)),
+				transferTime
+			)
+
+		a.amount should be(1 - 5 + 8)
+	}
 }
