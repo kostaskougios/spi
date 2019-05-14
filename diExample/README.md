@@ -3,7 +3,7 @@
 This is an example of how dependency injection can be applied on spark applications to
 allow a layered approach to pipelines, simplify component creation, wiring and testing.
 
-A lot of spark applications start of as a code in objects. This is due to the way spark
+A lot of spark applications start as code in objects. This is due to the way spark
 runs code in the driver and executor and to avoid spark serializing components. But having
 all components as objects is hard to manage and to test.
 
@@ -15,7 +15,7 @@ The idea is to create components like dao's and services and wire them using DI.
 components are - like a non-spark app - responsible for loading data and delegating
 business logic to our domain model.
 
-The example is about transfering money from an account.The entities in this example are
+The example is about transferring money from an account. The entities in this example are
 the Account and Transfer class.
 
 ```scala
@@ -26,9 +26,10 @@ case class Account(name: String, amount: BigDecimal, lastUpdated: Timestamp) {
 case class Transfer(accountName: String, changeAmount: BigDecimal)
 ```
 
-So a transfer happens for an account (by name), and just adds or subtracts the `changeAmount` from the account.
+For simplicity, a transfer for an account is just a change of the amount. It just adds or subtracts the 
+`changeAmount` from the account.
 
-Now we can have the dao's which will be writing/reading the data into orc files. To
+Now we can write the dao's which will be reading/writing the data into orc files. To
 simplify the dao's, we have an `AbstractDao` class which contains most of the implementation.
 
 ```scala
@@ -59,7 +60,7 @@ The final component is the service:
 ```scala
 @Singleton
 class AccountService @Inject()(session: SparkSession, accountDao: AccountDao, transferDao: TransferDao) {
-	// ... get data from both dao's, join them and run the business logic using the domain model...
+	// TODO: get data from both dao's, join them and run the business logic using the domain model.
 }
 ```
 
@@ -109,9 +110,8 @@ class AccountService @Inject()(session: SparkSession, accountDao: AccountDao, tr
 
 `executeTransfers(time: Timestamp)` uses the dao's to read and write the data. Internally it
 joins the accounts by their name and applies all the transfers per account. When all the data
-have been joined, the actual business logic of transfering money is delegated to the domain
-model. Using the domain model is a good practise and also we don't need an extra method in
-the service layer.
+have been joined, the actual business logic of transferring money is delegated to the domain
+model.
 
 Here is the full `Account` implementation:
 
@@ -154,7 +154,8 @@ class AccountTest extends FunSuite
 
 Now the `AccountService` test has to use a SparkSession to be tested but the tests have to
 only test if the data are fetched and joined correctly. The actual money transfer logic is
-delegated to the domain class and doesn't have to be retested:
+delegated to the domain class and doesn't have to be retested because it is already tested
+as part of `AccountTest`:
 
 ```scala
 class AccountServiceTest extends AbstractDiSuite
@@ -209,5 +210,5 @@ class SparkModule(session: SparkSession) extends AbstractModule with ScalaModule
 and we are ready to create our guice injector:
 
 ```scala
-		val injector = Guice.createInjector((Seq(new SparkModule(session)) ++ modules).asJava)
+val injector = Guice.createInjector((Seq(new SparkModule(session)) ++ modules).asJava)
 ```
