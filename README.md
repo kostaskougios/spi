@@ -10,6 +10,10 @@ https://www.linkedin.com/pulse/spark-230-scala-hadoop-290-konstantine-kougios/
 
 https://www.linkedin.com/pulse/kafka-cassandra-cql-tables-via-spark-streaming-konstantine-kougios/
 
+### Spark & dependency injection
+
+See diExample module.
+
 ### Spark -> HBase (on hadoop)
 
 https://www.linkedin.com/pulse/hbase-2-phoenix-sql-support-hadoop-276-spark-230-jobs-kougios/
