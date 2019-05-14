@@ -10,6 +10,13 @@ import java.sql.Timestamp
   */
 case class Account(name: String, amount: BigDecimal, lastUpdated: Timestamp)
 {
-	def transfer(transfers: Array[Transfer], time: Timestamp) = Account(name, amount + transfers.map(_.changeAmount).sum, time)
+	def transfer(transfers: Seq[Transfer], time: Timestamp) = {
+		for (t <- transfers if t.accountName != name) throw new IllegalArgumentException(s"transfer() for account $name called for a transfer $t")
+		Account(
+			name,
+			amount + transfers.map(_.changeAmount).sum,
+			time
+		)
+	}
 
 }
