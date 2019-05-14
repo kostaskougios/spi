@@ -5,6 +5,9 @@ import com.aktit.di.DiBuilders.{account, timestamp, transfer}
 import com.aktit.di.dao.{AccountDao, TransferDao}
 
 /**
+  * Here we need to test if everything is wired correctly. We don't have to test the transfer
+  * business logic since that is taken care by AccountTest.
+  *
   * @author kostas.kougios
   *         14/05/19 - 08:17
   */
