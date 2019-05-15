@@ -12,7 +12,7 @@ https://www.linkedin.com/pulse/kafka-cassandra-cql-tables-via-spark-streaming-ko
 
 ### Spark & dependency injection
 
-See diExample module.
+https://www.linkedin.com/pulse/spark-dependency-injection-konstantine-kougios
 
 ### Spark -> HBase (on hadoop)
 
