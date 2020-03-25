@@ -1,8 +1,8 @@
 package com.aktit.landregistry
 
+import com.aktit.landregistry.schema.LandRegistry
 import org.apache.spark.internal.Logging
-import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.types._
+import org.apache.spark.sql.{Encoders, SparkSession}
 
 import scala.language.postfixOps
 
@@ -35,36 +35,21 @@ object LandRegistryJob extends Logging
 		// For implicit conversions like converting RDDs to DataFrames
 		import spark.implicits._
 
-		val df = spark.read
+		val ds = spark.read
 			// Normally we would get columns like _c0, _c1 ...etc but we can have something more
-			// meaningful. Also, we can specify the type, i.e. price is Integer and purchasedDate is Date.
-			.schema(StructType(
-				Seq(
-					StructField("id", StringType),
-					StructField("price", IntegerType),
-					StructField("purchasedDate", DateType),
-					StructField("postCode", StringType),
-					StructField("propertyType", StringType),
-					StructField("unknown1", StringType),
-					StructField("unknown2", StringType),
-					StructField("houseNumber", StringType),
-					StructField("houseName", StringType),
-					StructField("address1", StringType),
-					StructField("address2", StringType),
-					StructField("address3", StringType),
-					StructField("address4", StringType),
-					StructField("address5", StringType)
-				)
-			))
+			// meaningful if we use a case class. We also can define types of columns
+			.schema(Encoders.product[LandRegistry].schema)
 			.csv(src)
+			.as[LandRegistry] // Dataset[LandRegistry]
 		// show the schema and sample rows
-		df.show()
+		ds.show()
 
 		// find the most expensive properties for my postcode.
-		df.select($"postCode", $"price", $"purchasedDate")
+		ds.select($"postCode", $"price", $"purchasedDate")
 			.filter($"postCode".startsWith("BR2"))
 			.sort($"price" desc)
 			.show()
 
+		for (row <- ds.take(10)) println(row)
 	}
 }
