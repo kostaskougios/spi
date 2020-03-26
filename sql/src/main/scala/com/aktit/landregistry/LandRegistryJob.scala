@@ -7,8 +7,7 @@ import org.apache.spark.sql.{Encoders, SparkSession}
 import scala.language.postfixOps
 
 /**
-  * This job will find the most expensive property since 1995 in Bromley's BR2 postcode. A simple spark-sql
-  * example, all the code is contained in this file.
+  * This job will find the most expensive property since 1995 in Bromley's BR2 postcode.
   *
   * Get the source data file from
   *
@@ -17,7 +16,7 @@ import scala.language.postfixOps
   *
   * Run it with something like:
   *
-  * -Dspark.master=local[4] -Dspark.src=/home/ariskk/big-data/land-registry/pp-complete.csv
+  * -Dspark.master=local[*] -Dspark.src=/home/ariskk/big-data/land-registry/pp-complete.csv
   *
   * @author kostas.kougios
   */
