@@ -4,3 +4,4 @@ test-files/test
 tsa/test-files
 *~
 temp
+.bsp

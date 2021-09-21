@@ -1,14 +1,12 @@
 package com.aktit.xml
 
-import java.io.{InputStream, StringWriter}
-
 import com.aktit.utils.FailFast
-import com.sun.xml.internal.stream.events.DummyEvent
+import org.apache.commons.lang3.StringEscapeUtils
+
+import java.io.{InputStream, StringWriter}
 import javax.xml.parsers.SAXParserFactory
 import javax.xml.stream.XMLInputFactory
 import javax.xml.stream.events._
-import org.apache.commons.lang3.StringEscapeUtils
-
 import scala.collection.JavaConverters._
 import scala.xml.{Node, SAXParser, Source, XML}
 
@@ -91,7 +89,7 @@ class XmlPartialStreaming
 			s"""</${s.getName.getLocalPart}>"""
 		case c: Characters => StringEscapeUtils.escapeXml11(c.getData)
 		case c: Comment => "<!-- " + c.getText + " -->"
-		case d: DummyEvent => ""
+		case _ => ""
 	}
 
 	private def toString(a: Attribute) = s"""${a.getName.getLocalPart}="${StringEscapeUtils.escapeXml11(a.getValue)}" """

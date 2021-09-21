@@ -1,20 +1,20 @@
-import java.io.File
-
 import Deps._
+
+import java.io.File
 
 name := "spi"
 
-version in ThisBuild := "1.0"
+ThisBuild / version := "1.0"
 
-scalaVersion in ThisBuild := Deps.ScalaVersion
+ThisBuild / scalaVersion := Deps.ScalaVersion
 
-javacOptions in ThisBuild ++= Seq("-source", "1.8", "-target", "1.8")
+ThisBuild / javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 
-scalacOptions in ThisBuild ++= Seq("-target:jvm-1.7", "-unchecked", "-feature", "-deprecation")
+ThisBuild / scalacOptions ++= Seq("-target:jvm-1.7", "-unchecked", "-feature", "-deprecation")
 
-resolvers in ThisBuild += Resolver.mavenLocal
+ThisBuild / resolvers += Resolver.mavenLocal
 
-resolvers in ThisBuild += "cloudera" at "https://repository.cloudera.com/artifactory/repo/"
+ThisBuild / resolvers += "cloudera" at "https://repository.cloudera.com/artifactory/repo/"
 
 val commonSettings = Seq(
 	version := "1.0",
