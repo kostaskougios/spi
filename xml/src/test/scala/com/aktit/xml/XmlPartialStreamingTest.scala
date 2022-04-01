@@ -1,15 +1,14 @@
 package com.aktit.xml
 
 import org.apache.commons.io.IOUtils
-import org.scalatest.FunSuite
-import org.scalatest.Matchers._
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers._
 
-/**
-  * @author kostas.kougios
+/** @author
+  *   kostas.kougios
   */
-class XmlPartialStreamingTest extends FunSuite
-{
-	val ps = new XmlPartialStreaming
+class XmlPartialStreamingTest extends AnyFunSuite {
+  val ps = new XmlPartialStreaming
 
 	// @formatter:off
   test("parses") {
