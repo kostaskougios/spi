@@ -73,7 +73,7 @@ object Deps {
 
     object Apache {
       val CommonsDBCP2 = "org.apache.commons" % "commons-dbcp2" % "2.1"
-      val Lang3 = "org.apache.commons" % "commons-lang3" % "3.7"
+      val Lang3 = "org.apache.commons" % "commons-lang3" % "3.12.0"
       val CommonsIO = "commons-io" % "commons-io" % "2.6"
       val Pool2 = "org.apache.commons" % "commons-pool2" % "2.5.0"
     }
