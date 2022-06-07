@@ -22,14 +22,13 @@ class Creator[A <: Product: TypeTag: ClassTag](spark: SparkSession, targetDir: S
 
     logInfo(s"Schema : ${df.schema}")
 
+    logInfo("Storing Parquet")
+    df.toDF().write.mode(SaveMode.Overwrite).parquet(s"$targetDir/parquet")
+
     logInfo("Storing ORC")
     df.toDF().write.mode(SaveMode.Overwrite).orc(s"$targetDir/orc")
 
     logInfo("Storing Avro")
     df.toDF().write.format("avro").mode(SaveMode.Overwrite).save(s"$targetDir/avro")
-
-    logInfo("Storing Parquet")
-    df.toDF().write.mode(SaveMode.Overwrite).parquet(s"$targetDir/parquet")
-
   }
 }

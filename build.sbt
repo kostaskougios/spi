@@ -95,7 +95,7 @@ lazy val sql = project
       ) ++ Spark.Core
     }
   )
-  .dependsOn(common % "test->test;compile->compile", model % "test->test;compile->compile", avro, xml)
+  .dependsOn(common % "test->test;compile->compile", model % "test->test;compile->compile", xml)
   .enablePlugins(PackPlugin)
 
 lazy val hive = project

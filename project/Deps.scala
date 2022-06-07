@@ -59,7 +59,7 @@ object Deps {
     val JodaConvert = "org.joda" % "joda-convert" % "1.8.1"
     val ScalaTest = "org.scalatest" %% "scalatest" % "3.2.11" % "test"
     val Mockito = "org.mockito" % "mockito-all" % "1.10.19" % "test"
-    val Avro4S = "com.sksamuel.avro4s" %% "avro4s-core" % "4.0.12"
+    val Avro4S = "com.sksamuel.avro4s" %% "avro4s-core" % "4.0.13"
     val ScalaGuice = "net.codingwell" %% "scala-guice" % "5.0.2" // exclude ("com.google.inject", "guice") exclude ("com.google.guava", "guava")
 
     val PhoenixClient = Seq(

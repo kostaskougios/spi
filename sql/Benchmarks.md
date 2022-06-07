@@ -9,8 +9,9 @@ Parquet: a columnar storage format , https://parquet.apache.org/
 
 ORC: an other columnar storage format, https://orc.apache.org/
 
-We will create 2 tables, one simulating page impressions (PageImpression class) and one for orders (Order class). The first 
-one has 3 columns only where as the 2nd one has 9 and simulates a denormalized table:
+We will create 2 tables, one simulating page impressions (PageImpression class) and one for orders (Order class). The
+first
+one has 3 columns only whereas the 2nd one has 9 and simulates a denormalized table:
 
     case class PageImpression(
     	userId: Long,
@@ -51,7 +52,7 @@ The sizes for orders are:
     93.4 G   orc
     103.3 G  parquet
 
-We notice that the ORC format is the most compact (at least with the default settings). Ofcourse all formats can be
+We notice that the ORC format is the most compact (at least with the default settings). Of-course all formats can be
 configured to i.e. compress the data even more (by default the data are compressed) but for this test we'll use the
 default configured values.
 
@@ -123,14 +124,15 @@ and the results are here:
 
 ## Outcome of the benchmark
 
-As we can see, at least with the default settings, the ORC format gives best performance and smallest file sizes. Also
-the columnar formats (ORC, Parquet) overall perform better, in some cases avro has good performance, especially if 
-data in a lot of columns have to be read for the query. ORC was the fastest while creating the data. ORC's light weight
-indexes also play nicely with date's when those are incremental, as it is common on apps that gather information real 
+As we can see, at least with the default settings, the ORC format gives the best performance and smallest file sizes.
+Also,
+the columnar formats (ORC, Parquet) overall perform better, in some cases avro has good performance, especially if
+data in a lot of columns have to be read for the query. ORC was the fastest while creating the data. ORC's lightweight
+indexes also play nicely with date's when those are incremental, as it is common on apps that gather information real
 time.
 
-Surprisingly the avro format is not the fastest one or the one with the smallest file sizes during ingestion. It might 
-be due to the overheads introduced by spark sql or the library spark-avro or the snappy compression. It should be the 
+Surprisingly the avro format is not the fastest one or the one with the smallest file sizes during ingestion. It might
+be due to the overheads introduced by spark sql or the library spark-avro or the snappy compression. It should be the
 fastest because it doesn't have to organize the data in any way.
 
 Surely this is not a comprehensive benchmark but maybe indicative of what we can expect. Please let me know if you 
